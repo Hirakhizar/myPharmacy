@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('usertype')->default('user')->after('name');
-            $table->string('phone')->after('usertype');
-            $table->string('address')->after('phone');
-
+       
         });
     }
 
