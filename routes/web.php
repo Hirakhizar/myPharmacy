@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PharmacyController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,6 @@ Route::middleware([
     })->name('dashboard');
 });
 Route::get('/redirect',[PharmacyController::class,'redirect']);
+Route::get('customer/add',[CustomerController::class,'addformCustomer']);
+Route::post('add/customer',[CustomerController::class,'addCustomer']);
+
