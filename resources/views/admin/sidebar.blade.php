@@ -46,7 +46,7 @@
                 <div class="collapse" id="customer">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="{{asset('pharmacy/components/avatars.html')}}">
+                      <a href="{{url('customer/add')}}">
                         <span class="sub-item">Add Customer</span>
                       </a>
                     </li>
@@ -68,7 +68,7 @@
                 <div class="collapse" id="medicine">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="{{asset('pharmacy/components/avatars.html')}}">
+                      <a href="{{url('/medicine')}}">
                         <span class="sub-item">Add Medicine</span>
                       </a>
                     </li>
@@ -95,12 +95,12 @@
                 <div class="collapse" id="manufacturer">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="{{asset('pharmacy/components/avatars.html')}}">
+                      <a href="{{url('/manufacture')}}">
                         <span class="sub-item">Add Manufacturer</span>
                       </a>
                     </li>
                     <li>
-                      <a href="{{asset('pharmacy/components/buttons.html')}}">
+                      <a href="{{route('manufacturers.index')}}">
                         <span class="sub-item">Manufacturer List</span>
                       </a>
                     </li>
@@ -130,7 +130,7 @@
                         <span class="sub-item">Salary</span>
                       </a>
                     </li>
-                    
+
 
                   </ul>
                 </div>
@@ -191,12 +191,12 @@
                         <span class="sub-item">Stock Report</span>
                       </a>
                     </li>
-                    
+
 
                   </ul>
                 </div>
               </li>
-             
+
             </ul>
           </div>
         </div>

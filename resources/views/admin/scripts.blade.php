@@ -29,7 +29,7 @@
 
 <!-- Kaiadmin JS -->
 <script src="{{ asset('pharmacy/assets/js/kaiadmin.min.js') }}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Kaiadmin DEMO methods, don't include it in your project! -->
 <script src="{{ asset('pharmacy/assets/js/setting-demo.js') }}"></script>
 <script src="{{ asset('pharmacy/assets/js/demo.js') }}"></script>
