@@ -11,6 +11,7 @@
       type="image/x-icon"
     />
 
+	
     <!-- Fonts and icons -->
     <script src="{{ asset('pharmacy/assets/js/plugin/webfont/webfont.min.js') }}"></script>
     <script>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PharmacyController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,12 @@ Route::middleware([
 Route::get('/redirect',[PharmacyController::class,'redirect']);
 Route::get('customer/add',[CustomerController::class,'addformCustomer']);
 Route::post('add/customer',[CustomerController::class,'addCustomer']);
+Route::get('customer/show',[CustomerController::class,'showCustomer']);
+Route::get('customer/edit/{id}',[CustomerController::class,'editCustomer']);
+Route::post('customer/update/{id}',[CustomerController::class,'updateCustomer']);
+Route::get('/customer/delete/{id}',[CustomerController::class,'deleteCustomer']);
+
+Route::get('members/show',[MemberController::class,'showMember']);
+Route::get('members/add',[MemberController::class,'addMember']);
+
 
