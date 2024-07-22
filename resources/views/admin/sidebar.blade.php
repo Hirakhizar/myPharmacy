@@ -51,7 +51,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="{{asset('pharmacy/components/buttons.html')}}">
+                      <a href="{{url('customer/show')}}">
                         <span class="sub-item">Customer List</span>
                       </a>
                     </li>
@@ -116,7 +116,7 @@
                 <div class="collapse" id="human">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="{{asset('pharmacy/components/avatars.html')}}">
+                      <a href="{{url('members/show')}}">
                         <span class="sub-item">Members</span>
                       </a>
                     </li>
