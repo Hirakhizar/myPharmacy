@@ -35,9 +35,43 @@ class ManufacturerController extends Controller
         $user = Auth::user();
         if ($user->usertype == 'admin') {
             $manufacturers = Manufacturer::all();
-           return view('admin.manufacture_list', compact('manufacturers','user'));
+            $total = Manufacturer::count();
+           return view('admin.manufacture_list', compact('manufacturers','user','total'));
         }
         return redirect()->route('home');
+
+    }
+    public function edit($id){
+        $user = Auth::user();
+        if ($user->usertype == 'admin') {
+            $manufacturer = Manufacturer::find($id);
+           return view('admin.editmanufacture', compact('manufacturer','user'));
+        }
+    }
+    public function update(Request $request, $id){
+
+        $user = Auth::user();
+        if ($user->usertype == 'admin') {
+            $manufacturer= Manufacturer::find($id);
+            $manufacturer->company_name = $request->company_name;
+            $manufacturer->email = $request->email;
+            $manufacturer->phone = $request->phone;
+            $manufacturer->city = $request->city;
+            $manufacturer->state = $request->state;
+            $manufacturer->balance = $request->balance;
+            $manufacturer->country = $request->country;
+            $manufacturer->save();
+            return response()->json(['success' => true, 'message' => 'Customer Updated successfully']);
+        }
+
+    }
+    public function delete($id){
+        $user = Auth::user();
+        if ($user->usertype == 'admin') {
+            $manufacturer= Manufacturer::find($id);
+            $manufacturer->delete();
+            return redirect('/manufacturers/list');
+        }
 
     }
 }

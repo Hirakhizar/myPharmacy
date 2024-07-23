@@ -73,7 +73,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="{{asset('pharmacy/components/buttons.html')}}">
+                      <a href="{{route('index')}}">
                         <span class="sub-item">Medicine List</span>
                       </a>
                     </li>
