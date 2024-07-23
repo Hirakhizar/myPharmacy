@@ -121,7 +121,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="{{asset('pharmacy/components/buttons.html')}}">
+                      <a href="{{url('member/attendence')}}">
                         <span class="sub-item">Attendance </span>
                       </a>
                     </li>

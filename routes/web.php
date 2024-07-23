@@ -1,12 +1,10 @@
 <?php
-
-<<<<<<< HEAD
 use App\Models\Medicine;
-=======
-use App\Http\Controllers\CustomerController;
+
+
 use App\Http\Controllers\MemberController;
-use App\Http\Controllers\PharmacyController;
->>>>>>> f7fdede1cca08eb240a81d8c5d1a93add22e30fa
+
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicineController;
@@ -35,7 +33,18 @@ Route::post('customer/update/{id}',[CustomerController::class,'updateCustomer'])
 Route::get('/customer/delete/{id}',[CustomerController::class,'deleteCustomer']);
 
 Route::get('members/show',[MemberController::class,'showMember']);
-Route::get('members/add',[MemberController::class,'addMember']);
+Route::get('members/add',[MemberController::class,'addFormMember']);
+Route::post('add/member',[MemberController::class,'addMember']);
+Route::get('member/edit/{id}',[MemberController::class,'editmember']);
+Route::post('member/update/{id}',[MemberController::class,'updatemember']);
+Route::get('/member/delete/{id}',[MemberController::class,'deletemember']);
+Route::get('member/attendence',[MemberController::class,'attendenceMember']);
+Route::post('member/attendece/add',[MemberController::class,'addAttendence']);
+Route::get('/member/attendece/delete/{id}',[MemberController::class,'deleteAttendence']);
+Route::get('member/attendece/edit/{id}',[MemberController::class,'editAttendece']);
+
+Route::post('member/attendece/update/{id}',[MemberController::class,'updateAttendence']);
+
 
 
 // <.............. Medicine Route................>
