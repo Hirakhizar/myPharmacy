@@ -43,11 +43,11 @@
         <div class="row">
           <div class="col-11 container mt-3">
             <div class="p-4">
-              <h2 class="mt-3"> Manufacturers Lists</h2>
-              <p>You have total {{  $total}} Manufacturers in Pharmacy.
+              <h2 class="mt-3"> Medicines Lists</h2>
+              <p>You have total {{ $total}} Medicines in Pharmacy.
                 <span class="d-flex justify-content-end">
-                  <a href="{{ route('manufacture-form') }}" class='btn btn-success'>
-                    <i class="fas fa-plus mx-3"></i> Add Manufacturer
+                  <a href="{{ route('medicine-form') }}" class='btn btn-success'>
+                    <i class="fas fa-plus mx-3"></i> Add Medicine
                   </a>
                 </span>
               </p>
@@ -62,32 +62,34 @@
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Balance</th>
+                    <th>Generic Name</th>
+                    <th>Weight</th>
+                    <th>Category</th>
+                    <th>price</th>
+                    <th>Stock</th>
                     <th>Status</th>
                     <th><i class='fas fa-ellipsis-h'></i></th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($manufacturers as $manufacturer)
+                  @foreach($medicines as $med)
                   <tr>
-                    <td>{{ $manufacturer->id }}</td>
-                    <td><h6>{{ $manufacturer->company_name }}<br></h6>{{ $manufacturer->email }}</td>
-                    <td>{{ $manufacturer->phone }}</td>
-                    <td>City: {{ $manufacturer->city }}<br>
-                      State : {{ $manufacturer->state }}<br>
-                    Country : {{$manufacturer->country}}</td>
-                    <td>{{ $manufacturer->balance }}</td>
-                    <td>{{ $manufacturer->status }}</td>
+                    <td>{{ $med->id }}</td>
+                    <td><h6>{{ $med->name }}</h6></td>
+                    <td>{{ $med->generic_name }}</td>
+                    <td> {{ $med->weight }}</td>
+                     <td> {{ $med->category->name }}</td>
+                    <td>{{$med->price}}</td>
+                    <td>{{ $med->stock }}</td>
+                    <td>{{ $med->status }}</td>
                     <td>
                       <div class="dropdown">
-                        <i  class=" dropdown-toggle" id="dropdownMenuButton{{ $manufacturer->id }}" onclick="toggleDropdown({{ $manufacturer->id }})"><b>...</b></i>
-                        <div class="dropdown-menu" id="dropdownMenu{{ $manufacturer->id }}" style="display: none;">
-                          <a class="dropdown-item text-success" href="{{ url('/manufacturer/edit',['id'=>$manufacturer->id]) }}">
+                        <i  class=" dropdown-toggle" id="dropdownMenuButton{{ $med->id }}" onclick="toggleDropdown({{ $med->id }})"><b>...</b></i>
+                        <div class="dropdown-menu" id="dropdownMenu{{ $med->id }}" style="display: none;">
+                          <a class="dropdown-item text-success" href="{{ url('/medicine/edit',['id'=>$med->id]) }}">
                             <i class="fas fa-edit"></i> Edit
                           </a>
-                          <a class="dropdown-item text-danger" href="{{ url('/manufacturer/delete',['id'=>$manufacturer->id]) }}" onclick="confirmDeletion({{ $manufacturer->id }})">
+                          <a class="dropdown-item text-danger" href="{{ url('/medicine/delete',['id'=>$med->id]) }}" onclick="confirmDeletion({{ $med->id }})">
                             <i class="fas fa-trash"></i> Delete
                           </a>
                         </div>
