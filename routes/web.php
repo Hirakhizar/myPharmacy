@@ -1,17 +1,14 @@
 <?php
 
-<<<<<<< HEAD
-use App\Models\Medicine;
-=======
-use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MemberController;
-use App\Http\Controllers\PharmacyController;
->>>>>>> f7fdede1cca08eb240a81d8c5d1a93add22e30fa
+use App\Models\Medicine;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SalesOrderController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +23,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('order/show',[SalesOrderController::class,'showMedicine']);
+Route::post('cart/add/{id}',[SalesOrderController::class,'addToCart']);
+Route::get('/cart/view',[SalesOrderController::class,'viewCart']);
+Route::post('order/confirm', [SalesOrderController::class, 'ConfirmOrder']);
+
+Route::get('order/itemsDetails/{id}',[SalesOrderController::class,'itemsDetails']);
+Route::get('order/showOrders',[SalesOrderController::class,'showOrders']);
+
 Route::get('/redirect',[PharmacyController::class,'redirect']);
 Route::get('customer/add',[CustomerController::class,'addformCustomer']);
 Route::post('add/customer',[CustomerController::class,'addCustomer']);
@@ -45,6 +51,8 @@ Route::get('/member/attendece/delete/{id}',[MemberController::class,'deleteAtten
 Route::get('member/attendece/edit/{id}',[MemberController::class,'editAttendece']);
 
 Route::post('member/attendece/update/{id}',[MemberController::class,'updateAttendence']);
+/////
+Route::get('member/salary',[MemberController::class,'salaryMember']);
 
 
 

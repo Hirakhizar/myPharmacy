@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendence;
+use App\Models\Salary;
 use Carbon\Carbon;
 use PhpParser\Node\Stmt\If_;
 
@@ -215,6 +216,17 @@ public function updateAttendence(Request $request, $id){
     }
 
     return response()->json(['success' => false, 'message' => 'Unauthorized'], 401);
+
+}
+/////salaryMember
+public function salaryMember(){
+    $user=Auth::user();
+
+    if($user->usertype=='admin'){
+        $salaries=Salary::get();
+     
+        return view('admin.salary',compact('user','salaries'));
+    }
 
 }
 }
