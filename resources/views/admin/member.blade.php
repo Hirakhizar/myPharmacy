@@ -43,11 +43,11 @@
         <div class="row">
           <div class="col-11 container mt-3">
             <div class="p-4">
-              <h2 class="mt-3">Customers Lists</h2>
-              <p>You have total {{$totalmember}} Customers in Pharmacy.
+              <h2 class="mt-3">Members Lists</h2>
+              <p>You have total {{$totalmember}} members in Pharmacy.
                 <span class="d-flex justify-content-end">
                   <a href="{{ url('members/add') }}" class='btn btn-success'>
-                    <i class="fas fa-plus mx-3"></i> Add Customer
+                    <i class="fas fa-plus mx-3"></i> Add members
                   </a>
                 </span>
               </p>
@@ -74,17 +74,17 @@
                     <td>{{ $member->id }}</td>
                     <td><h6>{{ $member->first_name }}</td>
                     <td>{{ $member->phone }}</td>
-                    {{-- <td>{{ $member->usertype }}</td> --}}
-                    {{-- <td>{{ $member->status }}</td> --}}
+                    <td>{{ $member->designation }}</td>
+                    <td>{{ $member->status }}</td>
 
                     <td>
                       <div class="dropdown">
                         <i class="fas fa-ellipsis-h dropdown-toggle" id="dropdownMenuButton{{ $member->id }}" onclick="toggleDropdown({{ $member->id }})"></i>
                         <div class="dropdown-menu" id="dropdownMenu{{ $member->id }}" style="display: none;">
-                          <a class="dropdown-item text-success" href="{{ url('/customer/edit',['id'=>$member->id]) }}">
+                          <a class="dropdown-item text-success" href="{{ url('/member/edit',['id'=>$member->id]) }}">
                             <i class="fas fa-edit"></i> Edit
                           </a>
-                          <a class="dropdown-item text-danger" href="{{ url('/customer/delete',['id'=>$member->id]) }}" onclick="confirmDeletion({{ $member->id }})">
+                          <a class="dropdown-item text-danger" href="{{ url('/member/delete',['id'=>$member->id]) }}" onclick="confirmDeletion({{ $member->id }})">
                             <i class="fas fa-trash"></i> Delete
                           </a>
                         </div>

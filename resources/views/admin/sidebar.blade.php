@@ -37,7 +37,29 @@
                 </a>
 
               </li>
-               <li class="nav-item">
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#order">
+                  <i class="fas fa-users"></i>
+                  <p>Order</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="order">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="{{url('order/show')}}">
+                        <span class="sub-item">Sale Medicine</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{url('order/showOrders')}}">
+                        <span class="sub-item">Orders details</span>
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+              </li> 
+              <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#customer">
                   <i class="fas fa-users"></i>
                   <p>Customer</p>
@@ -126,12 +148,12 @@
                       </a>
                     </li>
                     <li>
-                      <a href="{{asset('pharmacy/components/buttons.html')}}">
+                      <a href="{{url('member/attendence')}}">
                         <span class="sub-item">Attendance </span>
                       </a>
                     </li>
                      <li>
-                      <a href="{{asset('pharmacy/components/avatars.html')}}">
+                      <a href="{{asset('member/salary')}}">
                         <span class="sub-item">Salary</span>
                       </a>
                     </li>

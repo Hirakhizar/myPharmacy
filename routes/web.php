@@ -5,10 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\ManufacturerController;
 
 Route::get('/', function () {
@@ -24,6 +26,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('order/show',[SalesOrderController::class,'showMedicine']);
+Route::post('cart/add/{id}',[SalesOrderController::class,'addToCart']);
+Route::get('/cart/view',[SalesOrderController::class,'viewCart']);
+Route::post('order/confirm', [SalesOrderController::class, 'ConfirmOrder']);
+
+Route::get('order/itemsDetails/{id}',[SalesOrderController::class,'itemsDetails']);
+Route::get('order/showOrders',[SalesOrderController::class,'showOrders']);
+
 Route::get('/redirect',[PharmacyController::class,'redirect']);
 Route::get('customer/add',[CustomerController::class,'addformCustomer']);
 Route::post('add/customer',[CustomerController::class,'addCustomer']);
@@ -33,6 +44,8 @@ Route::post('customer/update/{id}',[CustomerController::class,'updateCustomer'])
 Route::get('/customer/delete/{id}',[CustomerController::class,'deleteCustomer']);
 Route::get('members/show',[MemberController::class,'showMember']);
 Route::get('members/add',[MemberController::class,'addMember']);
+
+
 // <.............. Medicine Route................>
 Route::get('medicine',[MedicineController::class,'addformmedicine'])->name('medicine-form');
 Route::post('add/medicine', [MedicineController::class, 'create'])->name('create');

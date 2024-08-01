@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Attendece;
 
-class Member extends Model
+class SalesOrderItem extends Model
 {
     use HasFactory;
-
-    public function attendence(){
-        return $this->hasMany(Attendence::class,'member_id');
+    public function medicine(){
+        return $this->belongsTo(Medicine::class,'cart_id');
     }
 }

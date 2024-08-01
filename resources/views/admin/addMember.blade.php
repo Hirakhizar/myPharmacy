@@ -184,7 +184,7 @@
     // Send the form data using AJAX
     var formData = new FormData(this);
 
-    fetch('{{ url('add/customer') }}', {
+    fetch('{{ url('add/member') }}', {
         method: 'POST',
         body: formData,
         headers: {
