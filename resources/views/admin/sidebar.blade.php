@@ -176,6 +176,11 @@
                         <span class="sub-item">Manufacturer List</span>
                       </a>
                     </li>
+                    <li>
+                        <a href="{{route('manufacturers.ledger')}}">
+                          <span class="sub-item">Manufacturer Ledger</span>
+                        </a>
+                      </li>
                   </ul>
                 </div>
               </li>
@@ -267,6 +272,25 @@
 
                   </ul>
                 </div>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/purchase')}}" >
+                  <p><i class="fas fa-pills"></i> Purchaser</p>
+                  <span class="caret"></span>
+                </a>
+
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/order')}}" >
+                  <p><i class="fas fa-pills"></i>Order List</p>
+                  <span class="caret"></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('payment_list') }}">
+                    <p><i class="fas fa-pills"></i>Payment Infomation</p>
+                    <span class="caret"></span>
+                </a>
               </li>
 
             </ul>

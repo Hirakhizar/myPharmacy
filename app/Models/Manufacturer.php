@@ -10,9 +10,13 @@ class Manufacturer extends Model
 {
     use HasFactory;
     protected $fillable = ['state','country','city'];
-    public function medicine()
+    public function medicines()
     {
-        return $this->belongsTo(Medicine::class,'manufacturer_id');
+        return $this->hasMany(Medicine::class);
+    }
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
     }
 
 }

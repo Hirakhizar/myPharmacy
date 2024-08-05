@@ -12,4 +12,8 @@ class Customer extends Model
     {
         return $this->belongsTo(Medicine::class,'item_id');
     }
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
 }

@@ -20,22 +20,23 @@ class Medicine extends Model
         'stock',
         'expire_date',
         'status',
-      
+
     ];
     public function customers()
     {
         return $this->hasMany(Customer::class,'item_id');
     }
-    public function manufacture(){
-        return $this->belongsTo(Manufacturer::class, 'manufacturer_id');
-    }
-    public function category(){
-        return $this->belongsTo(Category::class, 'category_id');
-
-    }
-    public function carts()
+    public function purchases()
     {
-        return $this->hasMany(Cart::class, 'item_id');
+        return $this->hasMany(Purchase::class);
+    }
+    public function category() {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function manufacturer()
+    {
+        return $this->belongsTo(Manufacturer::class);
     }
     public function salesOrderItems()
     {

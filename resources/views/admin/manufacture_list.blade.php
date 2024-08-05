@@ -65,6 +65,7 @@
                     <th>Phone</th>
                     <th>Address</th>
                     <th>Balance</th>
+                   
                     <th>Status</th>
                     <th><i class='fas fa-ellipsis-h'></i></th>
                   </tr>
@@ -79,6 +80,7 @@
                       State : {{ $manufacturer->state }}<br>
                     Country : {{$manufacturer->country}}</td>
                     <td>{{ $manufacturer->balance }}</td>
+                    {{-- <td> <a href="{{route('manufacture.payment',$manufacturer->id)}}" class="btn btn-secondary">recieved</a></td> --}}
                     <td>{{ $manufacturer->status }}</td>
                     <td>
                       <div class="dropdown">
