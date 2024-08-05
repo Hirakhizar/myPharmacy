@@ -27,7 +27,6 @@
         background-color: #ffffff;
         border-radius: 8px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-
     }
     .table th, .table td {
         vertical-align: middle;
@@ -72,48 +71,77 @@
                         </div>
                     </div>
                 </div>
-                <div class="card my-5 w-100">
-                    <div class="card-body" style="background-color: #f1f1f1; border-radius: 8px;  border: 1px solid #ccc; ">
-                        <div class="d-flex justify-content-end mb-3">
-                            <select id="entriesPerPage" class="form-select" style="width: auto;">
-                                <option value="5" {{ $perPage == 5 ? 'selected' : '' }}> Show Entries</option>
-                                <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
-                                <option value="15" {{ $perPage == 15 ? 'selected' : '' }}>15</option>
-                                <option value="20" {{ $perPage == 20 ? 'selected' : '' }}>20</option>
-                                <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
-                            </select>
-                        </div>
-                        <div class="table-container">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Order ID</th>
-                                        <th>Manufacturer</th>
-                                        <th>Payment Method</th>
-                                        <th>Received Amount</th>
-                                        <th>Remaining Amount</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="medicineTableBody">
-                                    @foreach ($payments as $order)
-                                    <tr>
-                                        <td>{{$order->order_id}}</td>
-                                        <td>{{$order->order->manufacturer}}</td>
-                                        <td>{{$order->method}}</td>
-                                        <td>${{ number_format($order->amount, 2) }}</td>
-                                        <td>${{$order->order->remaining_amount}}</td>
-                                        <td>{{$order->date}}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="d-flex justify-content-center" style="height: 50px">
-                            {!! $payments->appends(['per_page' => $perPage])->links() !!}
+                <div class="container">
+                    <div class="card my-5 w-100">
+                        <div class="card-body" style="background-color: #f1f1f1; border-radius: 8px;  border: 1px solid #ccc; ">
+                            <div class="d-flex justify-content-end mb-3">
+                                <form method="GET" action="{{ url()->current() }}">
+                                    <select id="entriesPerPage" name="per_page" class="form-select" style="width: auto;" onchange="this.form.submit()">
+                                        <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
+                                        <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                                        <option value="15" {{ $perPage == 15 ? 'selected' : '' }}>15</option>
+                                        <option value="20" {{ $perPage == 20 ? 'selected' : '' }}>20</option>
+                                        <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
+                                    </select>
+                                </form>
+                            </div>
+                            <div class="table-container" id="pdf-content">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Manufacturer</th>
+                                            <th>Date</th>
+                                            <th>Debit ($)</th>
+                                            <th>Credit ($)</th>
+                                            <th>Balance ($)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="medicineTableBody">
+                                        @php
+                                            $balances = [];
+                                        @endphp
+                                        @foreach ($transactions as $transaction)
+                                            @php
+                                                $manufacturerId = $transaction['manufacturer_id'];
+                                                if (!isset($balances[$manufacturerId])) {
+                                                    $balances[$manufacturerId] = 0;
+                                                }
+
+                                                if ($transaction['type'] == 'debit') {
+                                                    $balances[$manufacturerId] += $transaction['amount'];
+                                                    $debitAmount = number_format($transaction['amount'], 2);
+                                                    $creditAmount = '-';
+                                                } else {
+                                                    $balances[$manufacturerId] -= $transaction['amount'];
+                                                    $debitAmount = '-';
+                                                    $creditAmount = number_format($transaction['amount'], 2);
+                                                }
+                                            @endphp
+                                            <tr>
+                                                <td>{{ $transaction['order_id'] }}</td>
+                                                <td>{{ $transaction['manufacturer'] }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($transaction['date'])->format('Y-m-d') }}</td>
+                                                <td>{{ $debitAmount }}</td>
+                                                <td>{{ $creditAmount }}</td>
+                                                <td>{{ number_format($balances[$manufacturerId], 2) }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+
+
+
+                            </div>
+
+                            <button id="download-pdf" class="btn btn-warning">Download PDF</button>
+                            <button id="export-excel" class="btn btn-success">Export to Excel</button>
+                            <div class="d-flex justify-content-center" style="height: 50px">
+                                {!! $transactions->appends(['per_page' => $perPage])->links() !!}
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
             @include('admin.footer')
         </div>
@@ -122,16 +150,19 @@
     @include('admin.scripts')
 </body>
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 <script>
     document.getElementById('searchDateInput').addEventListener('input', function() {
         const filterDate = new Date(this.value);
         const rows = document.querySelectorAll('#medicineTableBody tr');
 
         rows.forEach(row => {
-            const dateText = row.cells[5].textContent; // Adjust the index to match the date column
+            const dateText = row.cells[2].textContent.trim();
             const rowDate = new Date(dateText);
 
-            // Check if the date in the row matches the filter date
             row.style.display = (isNaN(filterDate.getTime()) || rowDate.toDateString() === filterDate.toDateString()) ? '' : 'none';
         });
     });
@@ -152,4 +183,27 @@
         url.searchParams.set('per_page', perPage);
         window.location.href = url.toString();
     });
+
+    function downloadPDF() {
+        const element = document.getElementById('pdf-content');
+        const opt = {
+            margin:       1,
+            filename:     'manufacturer_ledger.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        html2pdf().from(element).set(opt).save();
+    }
+
+    document.getElementById('download-pdf').addEventListener('click', downloadPDF);
+
+    function exportExcel() {
+        const table = document.getElementById('pdf-content');
+        const workbook = XLSX.utils.table_to_book(table, {sheet: "Sheet JS"});
+        XLSX.writeFile(workbook, 'manufacturer_ledger.xlsx');
+    }
+
+    document.getElementById('export-excel').addEventListener('click', exportExcel);
 </script>

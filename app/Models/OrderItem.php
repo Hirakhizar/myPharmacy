@@ -17,8 +17,14 @@ class OrderItem extends Model
     ];
 
 
-    public function medicine() {
-        return $this->belongsTo(Medicine::class, 'medicine_id');
+
+    public function medicine()
+    {
+        return $this->belongsTo(Medicine::class);
+    }
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 
 }

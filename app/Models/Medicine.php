@@ -34,7 +34,8 @@ class Medicine extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function manufacturer() {
-        return $this->belongsTo(Manufacturer::class, 'manufacturer_id');
+    public function manufacturer()
+    {
+        return $this->belongsTo(Manufacturer::class);
     }
 }

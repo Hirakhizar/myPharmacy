@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('quantity');
             $table->string('status');
             $table->timestamps();
-
             $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('medicine_id')->references('id')->on('medicines');
         });

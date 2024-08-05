@@ -24,8 +24,8 @@ class PurchaseController extends Controller
         if ($user->usertype == 'admin') {
 
             $medicines = Medicine::all();
-            $customers = Customer::all();
-            return view('admin.purchase', compact('user', 'medicines', 'customers'));
+            
+            return view('admin.purchase', compact('user', 'medicines'));
         }
     }
     public function addtocart(Request $request, $medicineId)
@@ -155,7 +155,7 @@ public function detail($id)
     if ($user->usertype == 'admin') {
     $order = Order::with('items.medicine.category', 'items.medicine.manufacturer')->find($id);
     $payments = PaymentInfo::where('order_id',$id)->get();
-  
+
     return view('admin.detail', compact('order','user','payments'));
 }
 }

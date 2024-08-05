@@ -77,9 +77,9 @@
                     <td>{{ $med->id }}</td>
                     <td><h6>{{ $med->name }}</h6></td>
                     <td>{{ $med->generic_name }}</td>
-                    <td> {{ $med->weight }}</td>
+                    <td> {{ $med->weight }}mg</td>
                      <td> {{ $med->category->name }}</td>
-                    <td>{{$med->price}}</td>
+                    <td>{{$med->price}}USD</td>
                     <td>{{ $med->stock }}</td>
                     <td>{{ $med->status }}</td>
                     <td>

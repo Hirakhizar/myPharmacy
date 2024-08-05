@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('manufacturer_payments', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->decimal('total_amount', 10, 2);
+            $table->unsignedBigInteger('manufacturer_id');
+            $table->foreign('manufacturer_id')->references('id')->on('manufacturers')->onDelete('cascade');
+            $table->string('method');
+            $table->string('amount');
+            $table->date('date')->nullable();
             $table->string('status');
             $table->timestamps();
-
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('manufacturer_payments');
     }
 };

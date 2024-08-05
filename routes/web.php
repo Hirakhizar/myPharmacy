@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\MemberController;
-use App\Http\Controllers\MemberController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PharmacyController;
@@ -77,3 +76,5 @@ Route::get('/payment/edit/{order_id}',[OrderController::class,'edit'])->name('pa
 Route::post('/payment/edit/{order_id}',[OrderController::class,'update'])->name('payment.update');
 // ..........................Manufacturer ledger...............................
 Route::get('/manufacture/ledger',[LedgerController::class,'index'])->name('manufacturers.ledger');
+Route::get('/manufacture/ledger/{id}',[LedgerController::class,'payment'])->name('manufacture.payment');
+Route::post('/manufacture/ledger/{id}',[LedgerController::class,'store'])->name('manufacturer.store');
