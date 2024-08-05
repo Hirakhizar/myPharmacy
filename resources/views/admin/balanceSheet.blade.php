@@ -53,8 +53,8 @@
             <div class="container table-container">
                 <div class="row mt-3">
                     <div class="col-md-12 mb-3 text-center">
-                        <h2 class="text-secondary">Your Orders</h2>
-                        <p class="text-muted">List of all your orders.</p>
+                        <h2 class="text-secondary">Balance Sheet</h2></h2>
+                        <p class="text-muted"></p>
                     </div>
                 </div>
                 <div class="search-container">
@@ -78,39 +78,27 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Order ID</th>
-                                        <th>Customer</th>
-                                        <th>Total Amount</th>
+                                        <th>S.No</th>
+                                        <th>Expense/Income</th>
                                         <th>Date</th>
-                                        <th>Payment Status</th>
-                                        <th>Payment</th>
-                                        <th>Details</th>
+                                        <th>Debit</th>
+                                        <th>Credit</th>
+                                        <th>Balance</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody id="orderTableBody">
-                                    @foreach ($orders as $order)
-                                    <tr>
-                                        <td>{{ $order->id }}</td>
-                                        <td>{{ $order->customer }}</td>
-                                        <td>${{ number_format($order->total, 2) }}</td>
-                                        <td>{{ $order->created_at->format('d-m-Y') }}</td>
-                                        <td>{{ $order->payment_status }}</td>
-                                        <td><a href="{{ url('order/payment/show', ['id' => $order->id]) }}" class='btn btn-secondary'><b>Pay</b></a></td>
-                                   
-                                        <td><a href="{{ url('order/itemsDetails', ['id' => $order->id]) }}" class='btn btn-sm btn-secondary'><b>Detail</b></a>
-                                        
-                                            <div class="text-right mt-3 px-3 pb-5">
-                                                <a href="{{ url('order/recipte',['id'=>$order->id]) }}" class="btn btn-sm btn-secondary">Generate Receipt</a>
-                                             
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                    @php
+                                        $count=0;
+                                    @endphp
+                                   @foreach ($expenses as $expense )
+                                   <td>{{ ++$count }}</td>
+                                   <td>{{ Category }}</td>
+                                       
+                                   @endforeach
                                 </tbody>
                             </table>
-                            @if($orders->isEmpty())
-                                <p class="text-muted text-center">No orders found for the selected filters.</p>
-                            @endif
+                         
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
-            <a href="{{asset('pharmacy/index.html')}}" class="logo">
+            <a href="{{asset('/redirect')}}" class="logo">
 
 
                 <h2 class="text-section">Pharmacy</h2>
@@ -28,7 +28,7 @@
               <li class="nav-item active">
                 <a
 
-                  href="{{ url('/') }}"
+                  href="{{ url('/redirect') }}"
 
                 >
                   <i class="fas fa-home"></i>
@@ -39,7 +39,7 @@
               </li>
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#order">
-                  <i class="fas fa-users"></i>
+                  <i class="fas fa-shopping-cart"></i>
                   <p>Order</p>
                   <span class="caret"></span>
                 </a>
@@ -53,6 +53,38 @@
                     <li>
                       <a href="{{url('order/showOrders')}}">
                         <span class="sub-item">Orders details</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{url('order/refund')}}">
+                        <span class="sub-item">Refund Requst</span>
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+              </li> 
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#expence">
+                  <i class="fas fa-dollar-sign"></i>
+                  <p>Expenses</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="expence">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="{{url('expenses/show')}}">
+                        <span class="sub-item">Expenses List</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{url('expenses/category')}}">
+                        <span class="sub-item">Add Categories</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{url('order/refund')}}">
+                        <span class="sub-item">Refund Requst</span>
                       </a>
                     </li>
 
@@ -81,6 +113,24 @@
                   </ul>
                 </div>
               </li>
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#sheet">
+                  <i class="fas fa-balance-scale"></i>
+                  <p>Balance Sheet</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="sheet">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="{{url('balanceSheet')}}">
+                        <span class="sub-item">View Sheet</span>
+                      </a>
+                    </li>
+                  
+
+                  </ul>
+                </div>
+              </li> 
                <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#medicine">
                   <i class="fas fa-pills"></i>

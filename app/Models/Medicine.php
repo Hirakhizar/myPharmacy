@@ -37,4 +37,8 @@ class Medicine extends Model
     {
         return $this->hasMany(Cart::class, 'item_id');
     }
+    public function salesOrderItems()
+    {
+        return $this->hasMany(SalesOrderItem::class, 'item_id');
+    }
 }

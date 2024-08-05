@@ -46,13 +46,19 @@
                 </div>
                 <div class="card-body">
                   <h5>Add Member for Salary</h5>
-                  <form action="{{ url('member/attendece/add') }}" method="post" id="attendenceForm">
+                  <form action="{{ url('member/salary/add') }}" method="post" id="attendenceForm">
                     @csrf
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Member Name</label>
-                          <input type="text" class="form-control" name="name">
+                          <select name="member_id" id="" class="form-control">
+                            <option value=""></option>
+                            @foreach ($members as  $member)
+                            <option value="{{$member->id }}">{{ $member->first_name.' '.$member->last_name  }}</option>
+                         
+                            @endforeach
+                            </select>
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -127,17 +133,21 @@
                        @foreach($salaries as $salary)
                             <tr>
                        
-  
-           
-  <td>{{ $salary->name }}</td>
+                              <td>{{ $salary->member->first_name.' '.$salary->member->last_name }}</td>
+                              <td>{{ $salary->date }}</td>
+                              <td>{{ $salary->totalSalary }}</td>
+                              <td>{{ $salary->workingDays}}</td>
+                              <td>{{ $salary->GenratedBy}}</td>
+                              <td>{{ $salary->satus}}</td>
+ 
                          
   <div class="dropdown">
-    <i class="fas fa-ellipsis-h dropdown-toggle" id="dropdownMenuButton{{ $attendence->id }}" onclick="toggleDropdown({{ $attendence->id }})"></i>
-    <div class="dropdown-menu" id="dropdownMenu{{ $attendence->id }}" style="display: none;">
-      <a class="dropdown-item text-success" href="{{ url('member/attendece/edit', ['id' => $attendence->id]) }}">
+    <i class="fas fa-ellipsis-h dropdown-toggle" id="dropdownMenuButton{{ $salary->id }}" onclick="toggleDropdown({{ $salary->id }})"></i>
+    <div class="dropdown-menu" id="dropdownMenu{{ $salary->id }}" style="display: none;">
+      <a class="dropdown-item text-success" href="{{ url('member/attendece/edit', ['id' => $salary->id]) }}">
         <i class="fas fa-edit"></i> Edit
       </a>
-      <a class="dropdown-item text-danger" href="{{ url('member/attendece/delete', ['id' => $attendence->id]) }}" onclick="confirmDeletion({{ $attendence->id }}); return false;">
+      <a class="dropdown-item text-danger" href="{{ url('member/attendece/delete', ['id' => $salary->id]) }}" onclick="confirmDeletion({{ $salary->id }}); return false;">
         <i class="fas fa-trash"></i> Delete
       </a>
     </div>
@@ -169,6 +179,8 @@
     </div>
     <!--   Core JS Files   -->
     @include('admin.scripts')
+        <!-- SweetAlert Notification -->
+      
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     function toggleDropdown(id) {
@@ -209,7 +221,7 @@
     // Send the form data using AJAX
     var formData = new FormData(this);
 
-    fetch('{{ url('member/attendece/add') }}', {
+    fetch('{{ url('member/salary/add') }}', {
         method: 'POST',
         body: formData,
         headers: {

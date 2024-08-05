@@ -82,9 +82,9 @@
                                         <th>Customer</th>
                                         <th>Total Amount</th>
                                         <th>Date</th>
-                                        <th>Payment Status</th>
-                                        <th>Payment</th>
-                                        <th>Details</th>
+                                        <th>Refund Status</th>
+                                        <th>Put Request</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody id="orderTableBody">
@@ -94,14 +94,15 @@
                                         <td>{{ $order->customer }}</td>
                                         <td>${{ number_format($order->total, 2) }}</td>
                                         <td>{{ $order->created_at->format('d-m-Y') }}</td>
-                                        <td>{{ $order->payment_status }}</td>
-                                        <td><a href="{{ url('order/payment/show', ['id' => $order->id]) }}" class='btn btn-secondary'><b>Pay</b></a></td>
-                                   
-                                        <td><a href="{{ url('order/itemsDetails', ['id' => $order->id]) }}" class='btn btn-sm btn-secondary'><b>Detail</b></a>
-                                        
-                                            <div class="text-right mt-3 px-3 pb-5">
-                                                <a href="{{ url('order/recipte',['id'=>$order->id]) }}" class="btn btn-sm btn-secondary">Generate Receipt</a>
-                                             
+                                        <td>{{ $order->refund_status }}</td>
+
+                                        <td>
+                                            @if($order->refund_status=='noRequest'||$order->refund_status=='Partial')
+                                            <a href="{{ url('order/refund/showform', ['id' => $order->id]) }}" class='btn btn-secondary'><b>Refund</b></a></td>
+                                            @else
+                                            refunded
+                                            @endif
+                                       
                                             </div>
                                         </td>
                                     </tr>

@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class SalesOrderItem extends Model
 {
     use HasFactory;
-    public function medicine(){
-        return $this->belongsTo(Medicine::class,'cart_id');
+    public function medicineItems(){
+        return $this->belongsTo(Medicine::class,'item_id');
+    }
+    public function order()
+    {
+        return $this->belongsTo(SalesOrder::class,'order_id');
     }
 }

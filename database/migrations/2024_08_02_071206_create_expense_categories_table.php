@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sales_orders', function (Blueprint $table) {
-            
+        Schema::create('expense_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('customer');
-            $table->string('phone');
-            $table->string('order_status')->default('pending');
-            $table->enum('refund_status', ['Pending', 'Approved', 'Rejected', 'Completed','noRequest'])->default('noRequest');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }
@@ -27,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sales_orders');
+        Schema::dropIfExists('expense_categories');
     }
 };
-
-
