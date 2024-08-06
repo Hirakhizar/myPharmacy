@@ -30,7 +30,7 @@
                         @else
                             <h4><b style="color:#7172b9;">Remaining Amount : {{$order->remaining }}$</b></h4>
                         @endif
-                        <form action="{{ url('order/payment/add', ['id' => $order->id]) }}" method="POST">
+                        <form action="{{ url('sales/payment/add', ['id' => $order->id]) }}" method="POST">
                             @csrf
                             <div class="row mt-3">
                                 <div class="col-md-4 form-group">

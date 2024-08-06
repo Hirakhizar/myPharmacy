@@ -14,13 +14,13 @@ class ExpenseController extends Controller
         $user=Auth::user();
         $categories=ExpenseCategory::get();
         $subcategories=ExpenseSubCategory::with('category')->get();
-        if($user->usertype=='admin'){
+        if($user){
             return view('admin.expnsesCategory',compact('user','categories','subcategories'));
         }
     }
     public function addcategory(Request $request){
         $user=Auth::user();
-        if($user->usertype=='admin'){
+        if($user){
             $category=new ExpenseCategory();
             $category->name=$request->name;
             $category->save();
@@ -31,7 +31,7 @@ class ExpenseController extends Controller
     
     public function addsubcategory(Request $request){
         $user=Auth::user();
-        if($user->usertype=='admin'){
+        if($user){
             $category=new ExpenseSubCategory();
             $category->name=$request->name;
             $category->category_id=$request->category_id;
@@ -41,7 +41,7 @@ class ExpenseController extends Controller
     }
     public function removesubcategory($id){
         $user=Auth::user();
-        if($user->usertype=='admin'){
+        if($user){
            $id=ExpenseSubCategory::find($id);
            $id->save();
            return redirect()->back();
@@ -51,7 +51,7 @@ class ExpenseController extends Controller
     public function showExpenses(Request $request)
     {
         $user = Auth::user();
-        if ($user->usertype == 'admin') {
+        if($user) {
             $query = Expense::with('category', 'subcategory');
     
             if ($request->has('category_id') && !empty($request->category_id)) {
@@ -77,7 +77,7 @@ class ExpenseController extends Controller
 
    public function showExpencesForm(){
         $user=Auth::user();
-        if($user->usertype=='admin'){
+        if($user){
             $categories=ExpenseCategory::get();
             $subcategories=ExpenseSubCategory::get();
             return view('admin.addExpenses',compact('user','subcategories','categories'));
@@ -85,7 +85,7 @@ class ExpenseController extends Controller
     }
     public function addExpences(Request $request){
         $user=Auth::user();
-        if($user->usertype=='admin'){
+        if($user){
             $expense=new Expense();
             $expense->amount=$request->amount;
             $expense->category_id=$request->category;
@@ -106,7 +106,7 @@ class ExpenseController extends Controller
         }
         public function editExpences($id){
             $user=Auth::user();
-            if($user->usertype=='admin'){
+            if($user){
                 $expense=Expense::with('category','subcategory')->find($id);
                 
                 $categories=ExpenseCategory::get();
@@ -117,7 +117,7 @@ class ExpenseController extends Controller
         }
         public function updateExpences(Request $request, $id){
             $user=Auth::user();
-            if($user->usertype=='admin'){
+            if($user){
                 $expense=Expense::find($id);
                 $expense->amount=$request->amount;
                 $expense->category_id=$request->category;

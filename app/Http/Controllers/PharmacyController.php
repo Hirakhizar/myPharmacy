@@ -9,9 +9,11 @@ class PharmacyController extends Controller
 {
     public function redirect(){
         $user=Auth::user();
-        if($user->usertype=='admin'){
+        if ( $user->usertype == 'admin') {
             return view('admin.dashboard',compact('user'));
 
+        }elseif( $user->usertype =='salesman'){
+            return view('admin.placeOrder', compact('user','medicines'));
         }
     }
 }

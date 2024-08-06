@@ -51,9 +51,9 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Member Name</label>
+                          <label class="bmd-label-floating">Member</label>
                           <select name="member_id" id="" class="form-control">
-                            <option value=""></option>
+                            <option value=""disable selected>Select Member</option>
                             @foreach ($members as  $member)
                             <option value="{{$member->id }}">{{ $member->first_name.' '.$member->last_name  }}</option>
                          
@@ -64,7 +64,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Date</label>
-                          <input type="date" class="form-control" name="date">
+                          <input type="date" class="form-control" id='dateInput' name="date">
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -97,20 +97,7 @@
                   <h4 class="card-title">Salary List</h4>
                 </div>
                 <div class="card-body">
-                  <div class="row mb-3">
-                    <div class="col-md-4">
-                      <label for="filter-start-date" class="bmd-label-floating">Start Date</label>
-                      <input type="date" id="filter-start-date" class="form-control">
-                    </div> <!-- .col-md-6 -->
-                    <div class="col-md-4">
-                      <label for="filter-end-date" class="bmd-label-floating">End Date</label>
-                      <input type="date" id="filter-end-date" class="form-control">
-
-                    </div>
-                     <div class="col-md-4  mt-3">
-                
- <button type="submit" class="btn btn-primary">Filter</button>
-                    </div> 
+                 
                  
                   </div> 
                   <div class="col-12">
@@ -139,15 +126,15 @@
                               <td>{{ $salary->workingDays}}</td>
                               <td>{{ $salary->GenratedBy}}</td>
                               <td>{{ $salary->satus}}</td>
- 
+ <td>
                          
   <div class="dropdown">
     <i class="fas fa-ellipsis-h dropdown-toggle" id="dropdownMenuButton{{ $salary->id }}" onclick="toggleDropdown({{ $salary->id }})"></i>
     <div class="dropdown-menu" id="dropdownMenu{{ $salary->id }}" style="display: none;">
-      <a class="dropdown-item text-success" href="{{ url('member/attendece/edit', ['id' => $salary->id]) }}">
+      <a class="dropdown-item text-success" href="{{ url('member/salary/edit', ['id' => $salary->id]) }}">
         <i class="fas fa-edit"></i> Edit
       </a>
-      <a class="dropdown-item text-danger" href="{{ url('member/attendece/delete', ['id' => $salary->id]) }}" onclick="confirmDeletion({{ $salary->id }}); return false;">
+      <a class="dropdown-item text-danger" href="{{ url('member/salary/delete', ['id' => $salary->id]) }}" onclick="confirmDeletion({{ $salary->id }}); return false;">
         <i class="fas fa-trash"></i> Delete
       </a>
     </div>
@@ -211,7 +198,7 @@
   }).then((result) => {
     if (result.isConfirmed) {
       // Redirect to the delete URL
-      window.location.href = '{{ url('member/attendece/delete') }}/' + attendenceId;
+      window.location.href = '{{ url('member/salary/delete') }}/' + attendenceId;
     }
   });
 }
@@ -269,6 +256,10 @@
         });
     });
 });
+  // JavaScript to set the default date
+  const dateInput = document.getElementById('dateInput');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
   </script>
   </body>
 </html>

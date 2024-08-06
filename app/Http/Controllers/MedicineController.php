@@ -13,7 +13,7 @@ class MedicineController extends Controller
     public function addformmedicine()
     {
         $user = Auth::user();
-        if ($user->usertype == 'admin') {
+        if ($user) {
             $categorys = Category::get();
             $manufactures = Manufacturer::get();
             return view('admin.medicine', compact('user','categorys','manufactures'));
@@ -48,7 +48,7 @@ class MedicineController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->usertype == 'admin') {
+        if ($user) {
             $medicines = Medicine::all();
             $total =Medicine::count();
            return view('admin.medicine_list', compact('medicines','user','total'));
@@ -58,7 +58,7 @@ class MedicineController extends Controller
     }
     public function edit($id){
         $user = Auth::user();
-        if ($user->usertype == 'admin') {
+        if ($user) {
             $medicine = Medicine::find($id);
             $categorys = Category::get();
             $manufactures = Manufacturer::get();
@@ -68,7 +68,7 @@ class MedicineController extends Controller
     public function update(Request $request, $id)
 {
     $user = Auth::user();
-    if ($user->usertype == 'admin') {
+    if ($user){
         $medicine = Medicine::find($id);
         if (!$medicine) {
             return response()->json(['success' => false, 'message' => 'Medicine not found'], 404);
@@ -93,7 +93,7 @@ class MedicineController extends Controller
 }
     public function delete($id){
         $user = Auth::user();
-        if ($user->usertype == 'admin') {
+        if ($user){
             $medicine= Medicine::find($id);
             $medicine->delete();
             return redirect('/medicine/list');

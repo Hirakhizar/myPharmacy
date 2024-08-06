@@ -160,7 +160,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-3 mb-5 form-group">
-                                <a href="{{ url('/cart/view') }}" class="btn btn-block" style="background-color: #7172b9; color: white">View Cart</a>
+                                <a href="{{ url('/cart/view2') }}" class="btn btn-block" style="background-color: #7172b9; color: white">View Cart</a>
                             </div>
                         </div>
                     </div>

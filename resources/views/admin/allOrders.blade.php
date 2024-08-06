@@ -95,9 +95,9 @@
                                         <td>${{ number_format($order->total, 2) }}</td>
                                         <td>{{ $order->created_at->format('d-m-Y') }}</td>
                                         <td>{{ $order->payment_status }}</td>
-                                        <td><a href="{{ url('order/payment/show', ['id' => $order->id]) }}" class='btn btn-secondary'><b>Pay</b></a></td>
+                                        <td><a href="{{ url('sales/payment/show', ['id' => $order->id]) }}" class='btn btn-secondary'><b>Pay</b></a></td>
                                    
-                                        <td><a href="{{ url('order/itemsDetails', ['id' => $order->id]) }}" class='btn btn-sm btn-secondary'><b>Detail</b></a>
+                                        <td><a href="{{ url('sales/itemsDetails', ['id' => $order->id]) }}" class='btn btn-sm btn-secondary'><b>Detail</b></a>
                                         
                                             <div class="text-right mt-3 px-3 pb-5">
                                                 <a href="{{ url('order/recipte',['id'=>$order->id]) }}" class="btn btn-sm btn-secondary">Generate Receipt</a>

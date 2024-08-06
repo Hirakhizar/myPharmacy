@@ -25,6 +25,7 @@
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
+              @if ($user->usertype=='admin')
               <li class="nav-item active">
                 <a
 
@@ -37,6 +38,8 @@
                 </a>
 
               </li>
+              @endif
+             
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#order">
                   <i class="fas fa-shopping-cart"></i>
@@ -64,6 +67,7 @@
                   </ul>
                 </div>
               </li> 
+              @if ($user->usertype=='admin')
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#expence">
                   <i class="fas fa-dollar-sign"></i>
@@ -91,7 +95,9 @@
                   </ul>
                 </div>
               </li> 
-              <li class="nav-item">
+              @endif
+              
+              {{-- <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#customer">
                   <i class="fas fa-users"></i>
                   <p>Customer</p>
@@ -112,7 +118,8 @@
 
                   </ul>
                 </div>
-              </li>
+              </li> --}}
+              @if ($user->usertype=='admin')
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#sheet">
                   <i class="fas fa-balance-scale"></i>
@@ -131,7 +138,8 @@
                   </ul>
                 </div>
               </li> 
-               <li class="nav-item">
+             @endif
+              <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#medicine">
                   <i class="fas fa-pills"></i>
                   <p>Medicine</p>
@@ -149,15 +157,13 @@
                         <span class="sub-item">Medicine List</span>
                       </a>
                     </li>
-                    <li>
-                      <a href="{{asset('pharmacy/components/buttons.html')}}">
-                        <span class="sub-item">Medicine Details</span>
-                      </a>
-                    </li>
+                   
 
                   </ul>
                 </div>
               </li>
+              @if ($user->usertype=='admin')
+              
                 <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#manufacturer">
                   <i class="fas fa-industry"></i>
@@ -184,6 +190,7 @@
                   </ul>
                 </div>
               </li>
+             
                 <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#human">
                   <i class="fas fa-user"></i>
@@ -254,7 +261,7 @@
                 <div class="collapse" id="report">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="{{asset('pharmacy/components/avatars.html')}}">
+                      <a href="{{url('reports/sales')}}">
                         <span class="sub-item">Sales Report</span>
                       </a>
                     </li>
@@ -292,7 +299,7 @@
                     <span class="caret"></span>
                 </a>
               </li>
-
+              @endif
             </ul>
           </div>
         </div>

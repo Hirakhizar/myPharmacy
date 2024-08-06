@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function index($id){
         $user =Auth::user();
-        if($user->usertype == 'admin'){
+        if($user){
             $order = Order::find($id);
             return view('admin.order_payment' ,compact('user','order'));
         }
@@ -25,7 +25,7 @@ class OrderController extends Controller
         ]);
 
         $user = Auth::user();
-        if ($user->usertype == 'admin') {
+          if($user) {
             // Fetch the relevant order
             $order = Order::find($order_id);
 
@@ -72,14 +72,14 @@ class OrderController extends Controller
 
     public function show(){
     $user = Auth::user();
-    if ($user->usertype == 'admin') {
+    if($user) {
         $payments = PaymentInfo::get();
         return view('admin.order_payment_list',compact('payments','user'));
     }
     }
     public function edit($order_id){
         $user = Auth::user();
-        if($user->usertype == "admin"){
+        if($user){
             $payment = PaymentInfo::find($order_id);
             return view('admin.edit_payment',compact('user','payment'));
         }
@@ -87,7 +87,7 @@ class OrderController extends Controller
     public function update(Request $request, $order_id)
     {
         $user = Auth::user();
-        if ($user->usertype == "admin") {
+        if($user) {
             $order = Order::find($order_id);
 
             if ($order) {

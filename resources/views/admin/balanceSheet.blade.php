@@ -79,24 +79,43 @@
                                 <thead>
                                     <tr>
                                         <th>S.No</th>
-                                        <th>Expense/Income</th>
                                         <th>Date</th>
+                                        <th>Description</th>                                     
                                         <th>Debit</th>
                                         <th>Credit</th>
                                         <th>Balance</th>
                                        
                                     </tr>
                                 </thead>
-                                <tbody id="orderTableBody">
-                                    @php
-                                        $count=0;
-                                    @endphp
-                                   @foreach ($expenses as $expense )
-                                   <td>{{ ++$count }}</td>
-                                   <td>{{ Category }}</td>
-                                       
-                                   @endforeach
-                                </tbody>
+                                @php
+                                $currentBalance = 0;
+                                $count=0;
+                            @endphp
+                            @foreach($ledger as $entry)
+                                <tr>
+                                    <td>{{ ++$count }}</td>
+                                    <td>{{ $entry['date'] }}</td>
+                                    <td>{{ $entry['description'] }}</td>
+                                    <td>{{ $entry['debit'] ? number_format($entry['debit'], 2) : '-' }}</td>
+                                    <td>{{ $entry['credit'] ? number_format($entry['credit'], 2) : '-' }}</td>
+                                    <td>
+                                        @php
+                                            $currentBalance = $entry['balance'];
+                                        @endphp
+                                        {{ number_format($currentBalance, 2) }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="3">Totals</th>
+                                <th>${{ number_format($ledger->sum('debit'), 2) }}</th>
+                                <th>${{ number_format($ledger->sum('credit'), 2) }}</th>
+                                <th>${{ number_format($currentBalance, 2) }}</th>
+                            </tr>
+                        </tfoot>
+                        
                             </table>
                          
                         </div>

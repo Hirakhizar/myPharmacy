@@ -16,7 +16,7 @@ class SalesOrderController extends Controller
 {
     public function showMedicine(){
         $user=Auth::user();
-        if($user->usertype=="admin"){
+        if($user){
             $medicines=Medicine::get();
             return view('admin.placeOrder', compact('user','medicines'));
         }
@@ -24,7 +24,7 @@ class SalesOrderController extends Controller
 
     public function addToCart(Request $request,$id){
         $user=Auth::user();
-        if($user->usertype=="admin"){
+        if($user){
             $medicines=Medicine::get();
             $medicenPrice=Medicine::find($id);
             $cart=new Cart();
@@ -38,14 +38,14 @@ class SalesOrderController extends Controller
 
     public function viewCart(){
         $user=Auth::user();
-        if($user->usertype=="admin"){
+         if($user){
             $carts=Cart::with('medicine')->get();
             return view('admin.cartView', compact('user','carts'));
         }
     }
     public function deleteCart($id){
         $user=Auth::user();
-        if($user->usertype=="admin"){
+        if($user){
             $cart=Cart::find($id);
             $cart->delete();
             return redirect()->back();
@@ -55,13 +55,14 @@ class SalesOrderController extends Controller
     public function ConfirmOrder(Request $request)
     {
         $user = Auth::user();
-        if ($user->usertype == "admin") {
+        if($user) {
             $order = new SalesOrder();
            
             
             $cartItems = Cart::get(); // Retrieve cart items
             $order->customer = $request->input('customer');
             $order->phone = $request->input('phone');
+            $order->date=
            
            
     
@@ -73,12 +74,14 @@ class SalesOrderController extends Controller
             $order->remaining = $order->total;
             // $order->paid = 0;
             if($order->total<$request->amount){
-                session()->flash('error', 'You are trying to exceed the total amount.');
-                return redirect()->back();
+              
+                return redirect()->back()->with('error', 'You are trying to exceed the total amount.');;
             }
             $order->paid = $order->paid + $request->amount;
             $order->remaining = $order->remaining - $request->amount;
-        
+            $order->date=$request->date;
+            $order->description=$request->method;
+         
                    if($order->remaining==0){
                     $order->payment_status = 'completed'; 
                    } else{
@@ -103,6 +106,7 @@ class SalesOrderController extends Controller
             $info->amount = $request->amount;
             $info->payment_method = $request->method;
             $info->date = $request->date;
+            
             if ($order->remaining==0) {
                 $info->payment_status = "completed";
                 session()->flash('message', 'Payment added successfully!');
@@ -119,7 +123,7 @@ class SalesOrderController extends Controller
     
     public function showOrders(Request $request){
         $user = Auth::user();
-        if($user->usertype == 'admin'){
+        if($user){
           
             $customer = $request->input('customer');
             $orderDate = $request->input('order_date');
@@ -154,7 +158,7 @@ class SalesOrderController extends Controller
         
     public function itemsDetails($id){
         $user=Auth::user();
-        if($user->usertype=='admin'){
+        if($user){
            $order=SalesOrder::find($id);
            $info=SalesPayment_info::where('order_id',$id)->get();
             $orderitems=SalesOrderItem::where('order_id',$id)->with('medicineItems')->get();
@@ -168,7 +172,7 @@ class SalesOrderController extends Controller
 public function showpayment($id){
 
         $user=Auth::user();
-        if($user->usertype=='admin'){
+        if($user){
            $order=SalesOrder::find($id);
             return view('admin.paymentForm',compact('user','order'));
         }  
@@ -179,10 +183,10 @@ public function showpayment($id){
 public function addpayment(Request $request, $id) {
     $order = SalesOrder::find($id);
     if ( $request->amount> $order->remaining) {
-        session()->flash('error', 'You are trying to exceed the total amount.');
-        return redirect()->back();
+       
+        return redirect()->back()->with('error', 'You are trying to exceed the total amount.');
     } 
-    $order->paid = $order->total - $request->amount;
+    $order->paid = $order->paid + $request->amount;
     $order->remaining = $order->total - $order->paid;
     
     if ($order->remaining==0 ) {
@@ -210,7 +214,7 @@ public function addpayment(Request $request, $id) {
 
 public function editPayment($id){
     $user=Auth::user();
-    if($user->usertype=='admin'){
+    if($user){
     
        $info=SalesPayment_info::where('id',$id)->first();
     
@@ -229,8 +233,8 @@ public function updatePayment(Request $request,$id)
 
     }else{
         if ( $request->amount> $order->total) {
-            session()->flash('error', 'You are trying to exceed the total amount.');
-            return redirect()->back();
+          
+            return redirect()->back()->with('error', 'You are trying to exceed the total amount.');;
         } 
       $order->paid=($order->paid-$payment->amount)+$request->amount;
       $order->remaining=$order->total-$order->paid;
@@ -248,7 +252,7 @@ public function updatePayment(Request $request,$id)
 public function recipte($id){
 
 $user=Auth::user();
-if($user->usertype=='admin'){
+if($user){
    $order=SalesOrder::find($id);
    $info=SalesPayment_info::where('order_id',$id)->get();
     $orderitems=SalesOrderItem::where('order_id',$id)->with('medicineItems')->get();
@@ -260,7 +264,7 @@ if($user->usertype=='admin'){
 ///////Refund
 public function showRefund(){
     $user=Auth::user();
-    if($user->usertype=='admin'){
+    if($user){
         $orders=SalesOrder::get();
          return view('admin.refundView',compact('user','orders'));
      }  
@@ -269,7 +273,7 @@ public function showRefund(){
 
 public function refundForm($id){
     $user=Auth::user();
-    if($user->usertype=='admin'){
+    if($user){
         $order=SalesOrder::find($id);
        
         $orderItems=SalesOrderItem::where('order_id',$id)->with('medicineItems')->get();
@@ -280,24 +284,24 @@ public function refundForm($id){
 public function refundItem($id)
 {
     $user = Auth::user();
-    if ($user->usertype == 'admin') {
+    if($user) {
         $item = SalesOrderItem::find($id);
 
         if (!$item) {
-            session()->flash('error', 'Item not found.');
-            return redirect()->back();
+          
+            return redirect()->back() ->with('error', 'Item not found.');;
         }
 
         $order = SalesOrder::where('id', $item->order_id)->first();
 
         if (!$order) {
-            session()->flash('error', 'Order not found.');
-            return redirect()->back();
+       
+            return redirect()->back()->with('error', 'Order not found.');;
         }
 
         if ($item->total > $order->paid) {
-            session()->flash('error', 'You are trying to exceed the total amount.');
-            return redirect()->back();
+          
+            return redirect()->back() ->with('error', 'You are trying to exceed the total amount.');;
         }
 
         $order->total -= $item->total;
@@ -327,12 +331,11 @@ public function refundItem($id)
         $order->refund_status = $allRefunded ? 'Approved' : 'Partial';
         $order->save();
 
-        session()->flash('success', 'Refunded.');
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Refunded.');;
     }
 
-    session()->flash('error', 'Unauthorized action.');
-    return redirect()->back();
+   
+    return redirect()->back() ->with('error', 'Unauthorized action.');
 }
 
 

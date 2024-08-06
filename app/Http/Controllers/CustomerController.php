@@ -13,7 +13,7 @@ class CustomerController extends Controller
     public function addformCustomer()
     {
         $user = Auth::user();
-        if ($user->usertype == 'admin') {
+        if ($user) {
             return view('admin.customerAdd', compact('user'));
         }
 

@@ -14,7 +14,9 @@
 @include('admin.main_header')
        {{-- end main-header --}}
         <div class="container">
+        
 @include('admin.inner_page')
+
         </div>
 
        {{-- footer --}}

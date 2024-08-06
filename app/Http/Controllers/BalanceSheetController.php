@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Expense;
 use App\Models\Ledger;
 use App\Models\SalesOrder;
+use App\Models\SalesPayment_info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,9 +16,9 @@ class BalanceSheetController extends Controller
     {
         $user = Auth::user();
         
-        if ($user && $user->usertype == 'admin') {
+        if ( $user->usertype == 'admin'|| $user->usertype =='salesman') {
             // Fetch all sales and expenses
-            $sales = SalesOrder::with('salesInfo')->orderBy('date')->get();
+            $sales = SalesPayment_info::orderBy('date')->get();
             $expenses = Expense::with('subcategory')->orderBy('date')->get();
     
             // Initialize a collection for the ledger
@@ -29,9 +30,9 @@ class BalanceSheetController extends Controller
                 $balance += $sale->amount;
                 $ledger->push([
                     'date' => $sale->date,
-                    'description' => $sale->description,
+                    'description' => $sale->payment_method,
                     'debit' => null,
-                    'credit' => $sale->total,
+                    'credit' => $sale->amount,
                     'balance' => $balance
                 ]);
             }
