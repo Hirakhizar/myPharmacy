@@ -13,4 +13,10 @@ class Member extends Model
     public function attendence(){
         return $this->hasMany(Attendence::class,'member_id');
     }
+    public function salaries()
+    {
+        return $this->hasMany(MemberSalary::class,'member_id');
+    }
 }
+
+

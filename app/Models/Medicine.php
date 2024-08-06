@@ -38,4 +38,8 @@ class Medicine extends Model
     {
         return $this->belongsTo(Manufacturer::class);
     }
+    public function salesOrderItems()
+    {
+        return $this->hasMany(SalesOrderItem::class, 'item_id');
+    }
 }

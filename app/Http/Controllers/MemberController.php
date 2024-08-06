@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendence;
+use App\Models\MemberSalary;
 use App\Models\Salary;
 use Carbon\Carbon;
 use PhpParser\Node\Stmt\If_;
@@ -223,10 +224,26 @@ public function salaryMember(){
     $user=Auth::user();
 
     if($user->usertype=='admin'){
-        $salaries=Salary::get();
+       $members=Member::get();
+        $salaries=MemberSalary::with('member')->get();
      
-        return view('admin.salary',compact('user','salaries'));
+        return view('admin.salary',compact('user','salaries','members'));
     }
 
+}
+public function addSalary(Request $request){
+    $user=Auth::user();
+    if($user->usertype=='admin'){
+
+        $salary=new MemberSalary();
+        $salary->member_id=$request->member_id;
+        $salary->date=$request->date;
+        $salary->totalSalary=$request->totalSalary;
+        $salary->workingDays=$request->workingDays;
+        $salary->GenratedBy=$user->usertype;
+        $salary->satus='Unpaid';
+        $salary->save();     
+        return response()->json(['success' => true, 'message' => 'Salary added successfully']);
+    }   
 }
 }

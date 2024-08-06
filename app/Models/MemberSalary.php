@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderItem extends Model
+class MemberSalary extends Model
 {
     use HasFactory;
-    public function medicine()
+    public function member()
     {
-        return $this->belongsTo(Medicine::class);
+        return $this->belongsTo(Member::class,'member_id');
     }
 }

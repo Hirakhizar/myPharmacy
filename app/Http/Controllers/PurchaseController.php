@@ -24,7 +24,7 @@ class PurchaseController extends Controller
         if ($user->usertype == 'admin') {
 
             $medicines = Medicine::all();
-            
+
             return view('admin.purchase', compact('user', 'medicines'));
         }
     }
@@ -105,19 +105,32 @@ public function confirm()
             $orderItem->status = "processed";
             $orderItem->save();
 
+            // Update stock and status in the medicine table
+            $medicine = $item->medicine;
+            $medicine->stock -= $item->quantity;
+
+            if ($medicine->stock <= 0 ) {
+                $medicine->status = 'out of stock';
+            } elseif ($medicine->stock < 10) {
+                $medicine->status = 'low';
+            } else {
+                $medicine->status = 'avaliable'; // Corrected spelling to match ENUM definition
+            }
+            $medicine->save();
+
             // Add item details to the orderItems array
             $orderItems[] = [
-                'name' => $item->medicine->name,
+                'name' => $medicine->name,
                 'quantity' => $item->quantity,
-                'price' => $item->medicine->price,
-                'total_price' => $item->quantity * $item->medicine->price,
+                'price' => $medicine->price,
+                'total_price' => $item->quantity * $medicine->price,
             ];
 
             // Update total amount
-            $totalAmount += $item->quantity * $item->medicine->price;
+            $totalAmount += $item->quantity * $medicine->price;
 
             // Optionally, set the manufacturer if required (for example, set from a specific item or average value)
-            $order->manufacturer = $item->medicine->manufacturer->company_name; // Ensure this logic is valid for your application
+            $order->manufacturer = $medicine->manufacturer->company_name; // Ensure this logic is valid for your application
 
             // Delete item from cart
             $item->delete();
@@ -141,6 +154,9 @@ public function confirm()
         return view('admin.receipt', compact('orderDetails', 'user'));
     }
 }
+
+
+
 public function list(){
     $user = Auth::user();
     if ($user->usertype == 'admin') {

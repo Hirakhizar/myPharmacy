@@ -116,7 +116,7 @@
                             <h4>Search Medicines</h4>
                             <input type="text" class="form-control" id="searchMedicineInput" placeholder="Search by name">
                         </div>
-                       
+
                     </div>
                 </div>
                 <div class="card my-5 w-100">
@@ -138,7 +138,7 @@
                                         <td>{{ $medicine->name }}</td>
                                         <td>{{ $medicine->category->name }}</td>
                                         <td>{{ $medicine->price }}</td>
-                                        
+
                                         <td>
                                             <div class="counter">
                                                 <button type="button" onclick="decreaseValue({{ $medicine->id }})">-</button>
@@ -160,7 +160,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-3 mb-5 form-group">
-                                <a href="{{ url('/cart/view') }}" class="btn btn-block" style="background-color: #7172b9; color: white">View Cart</a>
+                                <a href="{{ url('/cart/view2') }}" class="btn btn-block" style="background-color: #7172b9; color: white">View Cart</a>
                             </div>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
             });
         });
 
-        
+
         </script>
 
 </body>
