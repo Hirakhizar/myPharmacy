@@ -49,23 +49,29 @@ class SalesOrderController extends Controller
             $cart=Cart::find($id);
             $cart->delete();
             return redirect()->back();
-         
-        } 
+
+        }
     }
     public function ConfirmOrder(Request $request)
     {
         $user = Auth::user();
         if($user) {
             $order = new SalesOrder();
-           
-            
+
+
             $cartItems = Cart::get(); // Retrieve cart items
             $order->customer = $request->input('customer');
             $order->phone = $request->input('phone');
             $order->date=
+<<<<<<< HEAD
            
            
     
+=======
+
+
+
+>>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
             $total = 0;
             foreach ($cartItems as $item) {
                 $total += $item->total; // Accumulate total
@@ -81,17 +87,21 @@ class SalesOrderController extends Controller
             $order->remaining = $order->remaining - $request->amount;
             $order->date=$request->date;
             $order->description=$request->method;
+<<<<<<< HEAD
          
+=======
+
+>>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
                    if($order->remaining==0){
-                    $order->payment_status = 'completed'; 
+                    $order->payment_status = 'completed';
                    } else{
-                    $order->payment_status = 'incomplete'; 
-                   }    
+                    $order->payment_status = 'incomplete';
+                   }
             $order->save();
-    
+
             // Get the created order ID
             $orderId = $order->id;
-    
+
             foreach ($cartItems as $item) {
                 $orderItem = new SalesOrderItem();
                 $orderItem->order_id = $orderId;
@@ -106,7 +116,11 @@ class SalesOrderController extends Controller
             $info->amount = $request->amount;
             $info->payment_method = $request->method;
             $info->date = $request->date;
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
             if ($order->remaining==0) {
                 $info->payment_status = "completed";
                 session()->flash('message', 'Payment added successfully!');
@@ -120,17 +134,22 @@ class SalesOrderController extends Controller
             return redirect()->back()->with('error', 'Unauthorized action.');
         }
     }
-    
+
     public function showOrders(Request $request){
         $user = Auth::user();
+<<<<<<< HEAD
         if($user){
           
+=======
+        if($user->usertype == 'admin'){
+
+>>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
             $customer = $request->input('customer');
             $orderDate = $request->input('order_date');
 
             $ordersQuery = SalesOrder::query();
             $orderItemsQuery = SalesOrderItem::query();
-    
+
             // Apply filters if provided
             if($customer){
                 $ordersQuery->where('customer', 'like', '%'.$customer.'%');
@@ -138,34 +157,34 @@ class SalesOrderController extends Controller
                     $query->where('customer', 'like', '%'.$customer.'%');
                 });
             }
-    
+
             if($orderDate){
                 $ordersQuery->whereDate('created_at', $orderDate);
                 $orderItemsQuery->whereHas('order', function($query) use ($orderDate) {
                     $query->whereDate('created_at', $orderDate);
                 });
             }
-    
-       
+
+
             $orders = $ordersQuery->get();
             $orderitems = $orderItemsQuery->get();
-    
+
             return view('admin.allOrders', compact('user', 'orders'));
         }
-    
-        return redirect()->back(); 
+
+        return redirect()->back();
     }
-        
+
     public function itemsDetails($id){
         $user=Auth::user();
         if($user){
            $order=SalesOrder::find($id);
            $info=SalesPayment_info::where('order_id',$id)->get();
             $orderitems=SalesOrderItem::where('order_id',$id)->with('medicineItems')->get();
-            
+
             return view('admin.itemsDetails',compact('user','order','orderitems','info'));
-        }  
-   
+        }
+
 }
 
 
@@ -175,7 +194,7 @@ public function showpayment($id){
         if($user){
            $order=SalesOrder::find($id);
             return view('admin.paymentForm',compact('user','order'));
-        }  
+        }
 }
 
 
@@ -183,19 +202,25 @@ public function showpayment($id){
 public function addpayment(Request $request, $id) {
     $order = SalesOrder::find($id);
     if ( $request->amount> $order->remaining) {
+<<<<<<< HEAD
        
         return redirect()->back()->with('error', 'You are trying to exceed the total amount.');
     } 
+=======
+
+        return redirect()->back()->with('error', 'You are trying to exceed the total amount.');
+    }
+>>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
     $order->paid = $order->paid + $request->amount;
     $order->remaining = $order->total - $order->paid;
-    
+
     if ($order->remaining==0 ) {
         $order->payment_status = 'completed';
     } else {
         $order->payment_status = 'incomplete';
     }
     $order->save();
-   
+
     $payment = new SalesPayment_info();
     $payment->order_id = $id;
     $payment->amount = $request->amount;
@@ -214,12 +239,17 @@ public function addpayment(Request $request, $id) {
 
 public function editPayment($id){
     $user=Auth::user();
+<<<<<<< HEAD
     if($user){
     
+=======
+    if($user->usertype=='admin'){
+
+>>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
        $info=SalesPayment_info::where('id',$id)->first();
-    
+
         return view('admin.paymentEdit',compact('user','info'));
-    } 
+    }
 
 }
 public function updatePayment(Request $request,$id)
@@ -233,9 +263,15 @@ public function updatePayment(Request $request,$id)
 
     }else{
         if ( $request->amount> $order->total) {
+<<<<<<< HEAD
           
             return redirect()->back()->with('error', 'You are trying to exceed the total amount.');;
         } 
+=======
+            session()->flash('error', 'You are trying to exceed the total amount.');
+            return redirect()->back();
+        }
+>>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
       $order->paid=($order->paid-$payment->amount)+$request->amount;
       $order->remaining=$order->total-$order->paid;
       $payment->amount=$request->amount;
@@ -245,9 +281,9 @@ public function updatePayment(Request $request,$id)
       $payment->save();
       return redirect()->back()->with('message', 'Payment Updated successfully!');
 
-    }  
+    }
 
-    
+
 }
 public function recipte($id){
 
@@ -256,9 +292,9 @@ if($user){
    $order=SalesOrder::find($id);
    $info=SalesPayment_info::where('order_id',$id)->get();
     $orderitems=SalesOrderItem::where('order_id',$id)->with('medicineItems')->get();
-    
+
     return view('admin.orderRecipte',compact('user','order','orderitems','info'));
-} 
+}
 }
 
 ///////Refund
@@ -267,7 +303,7 @@ public function showRefund(){
     if($user){
         $orders=SalesOrder::get();
          return view('admin.refundView',compact('user','orders'));
-     }  
+     }
 }
 
 
@@ -275,7 +311,7 @@ public function refundForm($id){
     $user=Auth::user();
     if($user){
         $order=SalesOrder::find($id);
-       
+
         $orderItems=SalesOrderItem::where('order_id',$id)->with('medicineItems')->get();
          return view('admin.refundRequest',compact('user','order','orderItems'));
      }

@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\BalanceSheetController;
-use App\Models\Medicine;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LedgerController;
@@ -30,6 +29,47 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('order/show',[SalesOrderController::class,'showMedicine']);
+
+Route::post('cart/add/{id}',[SalesOrderController::class,'addToCart']);
+
+Route::get('/cart/view2',[SalesOrderController::class,'viewCart']);
+
+Route::get('cart/remove/{id}',[SalesOrderController::class,'deleteCart']);
+
+Route::post('order/confirm', [SalesOrderController::class, 'ConfirmOrder']);
+Route::get('order/itemsDetails/{id}',[SalesOrderController::class,'itemsDetails']);
+Route::get('order/recipte/{id}',[SalesOrderController::class,'recipte']);
+Route::get('order/showOrders',[SalesOrderController::class,'showOrders']);
+
+Route::get('order/payment/show/{id}', [SalesOrderController::class, 'showpayment']);
+Route::post('order/payment/add/{id}', [SalesOrderController::class, 'addpayment']);
+Route::get('order/payment/edit/{id}',[SalesOrderController::class,'editPayment']);
+Route::post('order/payment/update/{id}',[SalesOrderController::class,'updatePayment']);
+////Refund
+Route::get('order/refund',[SalesOrderController::class,'showRefund']);
+Route::get('order/refund/showform/{id}',[SalesOrderController::class,'refundForm']);
+Route::get('order/refund/item/{id}',[SalesOrderController::class,'refundItem']);
+Route::get('order/refund/confirm/{id}',[SalesOrderController::class,'refundConfirm']);
+/////////Expenses Categories////////
+
+Route::get('expenses/category',[ExpenseController::class,'showcategory']);
+Route::post('expenses/category/add',[ExpenseController::class,'addcategory']);
+Route::post('expenses/subCategory/add',[ExpenseController::class,'addsubcategory']);
+Route::get('expenses/subCategory/remove/{id}',[ExpenseController::class,'removesubcategory']);
+Route::get('expenses/show',[ExpenseController::class,'showExpenses']);
+
+Route::get('expenses/add',[ExpenseController::class,'showExpencesForm']);
+Route::post('expenses/add',[ExpenseController::class,'addExpences']);
+Route::get('expenses/delete/{id}',[ExpenseController::class,'deleteExpences']);
+Route::get('expenses/edit/{id}',[ExpenseController::class,'editExpences']);
+Route::post('expenses/update/{id}',[ExpenseController::class,'updateExpences']);
+
+RoutE::get('balanceSheet',[BalanceSheetController::class,'balanceSheet']);
+
+
+
 
 
 

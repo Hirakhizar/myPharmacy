@@ -64,7 +64,7 @@
                 </div>
                 <div class="search-container">
                     <form method="GET" action="{{ url('expenses') }}" class="row">
-                      
+
                         <div class="col-md-3 mb-3">
                             <h4 class='text-secondary'>Search Date</h4>
                             <input type="date" name="order_date" class="form-control" value="{{ request('order_date') }}">
@@ -95,6 +95,11 @@
                 <div class="card my-5 w-100">
                     <div class="card-body">
                         <div class="table-container">
+                            <span class="d-flex justify-content-end">
+                                <a href="{{ url('expenses/add') }}" class='btn btn-secondary mb-5'>
+                                  <i class="fas fa-plus mx-3"></i> Add Expenses
+                                </a>
+                            </span>
                             @if($expenses->isEmpty())
                                 <div class="no-results">
                                     <h4>No matching expenses found</h4>
@@ -103,11 +108,7 @@
                             @else
                                 <table class="table table-bordered table-striped">
                                     <span class="text-secondary"><h2>Expenses List</h2></span>
-                                    <span class="d-flex justify-content-end">
-                                        <a href="{{ url('expenses/add') }}" class='btn btn-secondary mb-5'>
-                                          <i class="fas fa-plus mx-3"></i> Add Expenses
-                                        </a>
-                                    </span>
+
                                     <thead>
                                         <tr>
                                             <th>No.</th>
@@ -166,7 +167,7 @@
             cancelButtonText: 'No, cancel!',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = `/expenses/delete/${expenseId}`;
+                window.location.href = /expenses/delete/${expenseId};
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(
                     'Cancelled',

@@ -28,7 +28,7 @@ class ExpenseController extends Controller
         }
 
     }
-    
+
     public function addsubcategory(Request $request){
         $user=Auth::user();
         if($user){
@@ -37,7 +37,7 @@ class ExpenseController extends Controller
             $category->category_id=$request->category_id;
             $category->save();
             return redirect()->back();
-        } 
+        }
     }
     public function removesubcategory($id){
         $user=Auth::user();
@@ -46,34 +46,34 @@ class ExpenseController extends Controller
            $id->save();
            return redirect()->back();
         }
-    }  
-   
+    }
+
     public function showExpenses(Request $request)
     {
         $user = Auth::user();
         if($user) {
             $query = Expense::with('category', 'subcategory');
-    
+
             if ($request->has('category_id') && !empty($request->category_id)) {
                 $query->where('category_id', $request->category_id);
             }
-    
+
             if ($request->has('subcategory_id') && !empty($request->subcategory_id)) {
                 $query->where('subcategory_id', $request->subcategory_id);
             }
-    
+
             if ($request->has('order_date') && !empty($request->order_date)) {
                 $query->whereDate('date', $request->order_date);
             }
-    
+
             $expenses = $query->get();
             $categories = ExpenseCategory::all();
             $subcategories = ExpenseSubCategory::all();
-    
+
             return view('admin.expenses', compact('user', 'expenses', 'categories', 'subcategories'));
         }
     }
-    
+
 
    public function showExpencesForm(){
         $user=Auth::user();
@@ -93,22 +93,22 @@ class ExpenseController extends Controller
             $expense->date=$request->date;
             $expense->description=$request->head;
             $expense->save();
-            
+
             return redirect()->back()->with('message','Expense added successfully!');;
         }
     }
     public function deleteExpences($id){
-        
+
         $id=Expense::find($id);
         $id->delete();
-      
+
             return redirect()->back()->with('message', 'Expense deleted successfully!');
         }
         public function editExpences($id){
             $user=Auth::user();
             if($user){
                 $expense=Expense::with('category','subcategory')->find($id);
-                
+
                 $categories=ExpenseCategory::get();
                 $subcategories=ExpenseSubCategory::get();
                 return view('admin.editExpenses',compact('user','subcategories','categories','expense'));
@@ -125,10 +125,9 @@ class ExpenseController extends Controller
                 $expense->date=$request->date;
                 $expense->description=$request->head;
                 $expense->save();
-                
+
                 return redirect()->back()->with('message','Expense Updated successfully!');;
             }
 
         }
     }
-   

@@ -116,7 +116,7 @@
                             <h4>Search Medicines</h4>
                             <input type="text" class="form-control" id="searchMedicineInput" placeholder="Search by name">
                         </div>
-                       
+
                     </div>
                 </div>
                 <div class="card my-5 w-100">
@@ -138,7 +138,7 @@
                                         <td>{{ $medicine->name }}</td>
                                         <td>{{ $medicine->category->name }}</td>
                                         <td>{{ $medicine->price }}</td>
-                                        
+
                                         <td>
                                             <div class="counter">
                                                 <button type="button" onclick="decreaseValue({{ $medicine->id }})">-</button>
@@ -212,7 +212,7 @@
             });
         });
 
-        
+
         </script>
 
 </body>

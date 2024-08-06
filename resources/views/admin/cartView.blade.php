@@ -8,7 +8,7 @@
     <div class="main-panel">
         @include('admin.main_header')
 
-        <div class="container form-container "> 
+        <div class="container form-container ">
             <div class="row mt-5 w-100 d-flex justify-content-center px-5">
                 <div class="card my-5 w-100">
                     <h3 style="color: #7172b9; text-align: center; margin: 20px">Your Cart</h3>
@@ -24,6 +24,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             @php
                                 $total = 0;
                             @endphp
