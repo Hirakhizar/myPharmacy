@@ -2,7 +2,7 @@
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
-            <a href="{{asset('pharmacy/index.html')}}" class="logo">
+            <a href="{{url('/redirect')}}" class="logo">
 
 
                 <h2 class="text-section">Pharmacy</h2>
@@ -28,7 +28,7 @@
               <li class="nav-item active">
                 <a
 
-                  href="{{ url('/') }}"
+                  href="{{ url('/redirect') }}"
 
                 >
                   <i class="fas fa-home"></i>
@@ -58,7 +58,7 @@
 
                   </ul>
                 </div>
-              </li> 
+              </li>
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#customer">
                   <i class="fas fa-users"></i>

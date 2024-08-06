@@ -28,7 +28,7 @@ Route::middleware([
 
 Route::get('order/show',[SalesOrderController::class,'showMedicine']);
 Route::post('cart/add/{id}',[SalesOrderController::class,'addToCart']);
-Route::get('/cart/view',[SalesOrderController::class,'viewCart']);
+Route::get('/cart/view2',[SalesOrderController::class,'viewCart']);
 Route::post('order/confirm', [SalesOrderController::class, 'ConfirmOrder']);
 
 Route::get('order/itemsDetails/{id}',[SalesOrderController::class,'itemsDetails']);

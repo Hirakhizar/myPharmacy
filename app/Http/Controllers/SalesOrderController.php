@@ -39,6 +39,7 @@ class SalesOrderController extends Controller
         $user=Auth::user();
         if($user->usertype=="admin"){
             $carts=Cart::with('medicine')->get();
+
             return view('admin.cartView', compact('user','carts'));
         }
     }
@@ -54,52 +55,52 @@ class SalesOrderController extends Controller
             $total=0;
             foreach($cart as $cart){
                 $order->total=$cart->total;
-               
+
             }
             $order->save();
-    
+
             // Get the created order ID
             $orderId = $order->id;
-    
+
             $cart = Cart::get();
             foreach ($cart as $item) {
-               
-               
+
+
                     $orderItem = new SalesOrderItem();
                     $orderItem->order_id = $orderId;
                     $orderItem->item_id = $item->item_id;
                     $orderItem->save();
-                    $item->delete(); 
-                                  
+                    $item->delete();
+
             }
-            
-            
+
+
             return redirect()->back()->with('success', 'Order confirmed successfully.');
         } else {
             return redirect()->back()->with('error', 'Unauthorized action.');
         }
     }
 public function showOrders(){
-   
+
         $user=Auth::user();
         if($user->usertype=='admin'){
             $orders=SalesOrder::get();
             $orderitems=SalesOrderItem::get();
-            
+
             return view('admin.allOrders',compact('user','orders','orderitems'));
         }
-    
-        
-    
-   
+
+
+
+
 }
 
 public function itemsDetails($id){
     $user=Auth::user();
     if($user->usertype=='admin'){
-       
+
         $orderitems=SalesOrderItem::where('order_id','id')->get();
-        
+
         return view('admin.itemsDetails',compact('user','orderitems'));
     }
 }
