@@ -179,6 +179,7 @@ Route::post('/manufacture/ledger/{id}',[LedgerController::class,'store'])->name(
 
 //////////////////////Salesman Routes////////////////////
     Route::middleware([EnsureUserIsSalesman::class])->group(function () {
+    });
         
         Route::get('order/show',[SalesOrderController::class,'showMedicine']);
         ///cart
@@ -215,5 +216,5 @@ Route::get('/manufacturers/list', [ManufacturerController::class, 'index'])->nam
 Route::get('manufacturer/edit/{id}',[ManufacturerController::class,'edit']);
 Route::post('manufacturer/update/{id}',[ManufacturerController::class,'update']);
 Route::get('/manufacturer/delete/{id}',[ManufacturerController::class,'delete']);
-    });
+   
 

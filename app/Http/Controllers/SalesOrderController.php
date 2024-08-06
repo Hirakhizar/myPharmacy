@@ -63,15 +63,9 @@ class SalesOrderController extends Controller
             $order->customer = $request->input('customer');
             $order->phone = $request->input('phone');
             $order->date=
-<<<<<<< HEAD
            
            
     
-=======
-
-
-
->>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
             $total = 0;
             foreach ($cartItems as $item) {
                 $total += $item->total; // Accumulate total
@@ -87,11 +81,7 @@ class SalesOrderController extends Controller
             $order->remaining = $order->remaining - $request->amount;
             $order->date=$request->date;
             $order->description=$request->method;
-<<<<<<< HEAD
          
-=======
-
->>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
                    if($order->remaining==0){
                     $order->payment_status = 'completed';
                    } else{
@@ -116,11 +106,7 @@ class SalesOrderController extends Controller
             $info->amount = $request->amount;
             $info->payment_method = $request->method;
             $info->date = $request->date;
-<<<<<<< HEAD
             
-=======
-
->>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
             if ($order->remaining==0) {
                 $info->payment_status = "completed";
                 session()->flash('message', 'Payment added successfully!');
@@ -137,13 +123,8 @@ class SalesOrderController extends Controller
 
     public function showOrders(Request $request){
         $user = Auth::user();
-<<<<<<< HEAD
         if($user){
           
-=======
-        if($user->usertype == 'admin'){
-
->>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
             $customer = $request->input('customer');
             $orderDate = $request->input('order_date');
 
@@ -202,15 +183,9 @@ public function showpayment($id){
 public function addpayment(Request $request, $id) {
     $order = SalesOrder::find($id);
     if ( $request->amount> $order->remaining) {
-<<<<<<< HEAD
        
         return redirect()->back()->with('error', 'You are trying to exceed the total amount.');
     } 
-=======
-
-        return redirect()->back()->with('error', 'You are trying to exceed the total amount.');
-    }
->>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
     $order->paid = $order->paid + $request->amount;
     $order->remaining = $order->total - $order->paid;
 
@@ -239,13 +214,8 @@ public function addpayment(Request $request, $id) {
 
 public function editPayment($id){
     $user=Auth::user();
-<<<<<<< HEAD
     if($user){
     
-=======
-    if($user->usertype=='admin'){
-
->>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
        $info=SalesPayment_info::where('id',$id)->first();
 
         return view('admin.paymentEdit',compact('user','info'));
@@ -263,15 +233,9 @@ public function updatePayment(Request $request,$id)
 
     }else{
         if ( $request->amount> $order->total) {
-<<<<<<< HEAD
           
             return redirect()->back()->with('error', 'You are trying to exceed the total amount.');;
         } 
-=======
-            session()->flash('error', 'You are trying to exceed the total amount.');
-            return redirect()->back();
-        }
->>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
       $order->paid=($order->paid-$payment->amount)+$request->amount;
       $order->remaining=$order->total-$order->paid;
       $payment->amount=$request->amount;
