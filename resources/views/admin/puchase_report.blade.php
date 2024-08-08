@@ -4,42 +4,82 @@
 @include('admin.head')
 
 <style>
-  .search-container {
-    background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  .search-container h4 {
-    margin-bottom: 15px;
-  }
-  .suggestions {
-    border: 1px solid #ddd;
-    border-top: none;
-    max-height: 150px;
-    overflow-y: auto;
-    position: absolute;
-    z-index: 1000;
-    background-color: white;
-    width: 100%;
-  }
-  .suggestion-item {
-    padding: 10px;
-    cursor: pointer;
-  }
-  .suggestion-item:hover {
-    background-color: #e9ecef;
-  }
+  body {
+        background-color: #f7f9fc;
+        font-family: Arial, sans-serif;
+    }
+    .wrapper {
+        background-color: #ffffff;
+    }
+    .main-panel {
+        background-color: #f7f9fc;
+    }
+    .search-container {
+        background-color: #f1f1f1;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px;
+        border: 1px solid #ccc;
+    }
+    .search-container h4 {
+        margin-bottom: 15px;
+    }
+    .table-container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    .table th, .table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+    .table th {
+        color: #7172b9;
+        border: 1px solid #dee2e6;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f8f9fa;
+    }
+    .text-primary {
+        color: #2A2F5B;
+    }
+    .text-muted {
+        color: #6c757d;
+    }
 
-  .btn-custom {
-    background-color: #6c757d;
-    color: white;
-  }
-  .btn-custom:hover {
-    background-color: #5a6268;
-    color: white;
-  }
+.icon-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #000;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.hidden-list {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px;
+  max-height: 200px; /* Set maximum height */
+  overflow-y: auto; /* Add scrollbar for long lists */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  z-index: 1000;
+  /* Match the width of the input field */
+  width: calc(100% - 20px); /* Adjust to account for padding */
+}
+
+.hidden-list li {
+  padding: 8px;
+  border-radius: 4px; /* Rounded corners for list items */
+  cursor: pointer; /* Change cursor on hover */
+}
+
+.hidden-list li:hover {
+  background-color: #f0f0f0; /* Subtle hover effect */
+}
 </style>
 
 {{-- end head --}}
@@ -56,48 +96,48 @@
       <div class="container mt-5">
         <div class="row">
           <div class="col-12">
-            <div class="p-4 text-center">
-              <h2 class="mt-3 text-secondary">Purchase Report</h2>
+            <div class="p-4 ">
+              <p style="color: #778edd"><b style="font-size: 30px;">Purchase</b> Report </p>
 
             </div>
           </div>
         </div>
         <div class="mt-3 d-flex justify-content-end">
-            <button id="download-pdf" class="btn btn-warning">Download PDF</button>
+            <button id="download-pdf" class="btn btn-info">Download PDF</button>
             <button id="export-excel" class="btn btn-success mx-4">Export to Excel</button>
         </div>
         <div class="search-container mx-4">
-          <div class="row">
+          <div class="row" style="color: #778edd">
             <div class="col-md-3 position-relative">
-              <h4 class="text-secondary">Search Invoice No</h4>
+              <h4 style="color: #778edd">Search Invoice No</h4>
               <input type="text" class="form-control" id="searchOrderIdInput" placeholder="Search by invoice no">
             </div>
             <div class="col-md-3 position-relative">
-              <h4 class="text-secondary">Manufacturers</h4>
+              <h4 style="color: #778edd">Manufacturers</h4>
               <input type="text" class="form-control" id="searchManufacturerInput" placeholder="Search by manufacturer">
               <div id="manufacturerSuggestions" class="suggestions"></div>
             </div>
             <div class="col-md-3">
-              <h4 class="text-secondary">Start Date</h4>
+              <h4 style="color: #778edd">Start Date</h4>
               <input type="date" class="form-control" id="startDateInput">
             </div>
             <div class="col-md-3">
-              <h4 class="text-secondary">End Date</h4>
+              <h4 style="color: #778edd">End Date</h4>
               <input type="date" class="form-control" id="endDateInput">
             </div>
           </div>
         </div>
         <div class="row mt-5 mx-2">
           <div class="col-12">
-            <div class="card">
+            <div class="card" style="background-color: #f1f1f1; border-radius: 8px;  border: 1px solid #ccc; ">
               <div class="card-body" id="pdf-content">
                 <table class="table table-striped table-hover" id="purchaseTable">
                   <thead>
                     <tr >
-                      <th class="text-secondary">#Invoice No</th>
-                      <th class="text-secondary">Total Amount</th>
-                      <th class="text-secondary">Manufacturer</th>
-                      <th class="text-secondary">Date/Time</th>
+                      <th style="color: #778edd">#Invoice No</th>
+                      <th style="color: #778edd">Total Amount</th>
+                      <th style="color: #778edd">Manufacturer</th>
+                      <th style="color: #778edd">Date/Time</th>
                     </tr>
                   </thead>
                   <tbody>

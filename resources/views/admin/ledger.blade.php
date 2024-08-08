@@ -74,7 +74,7 @@
                 <div class="container">
                     <div class="card my-5 w-100">
                         <div class="card-body" style="background-color: #f1f1f1; border-radius: 8px;  border: 1px solid #ccc; ">
-                            <div class="d-flex justify-content-end mb-3">
+                            <div class="d-flex justify-content-end mx-3 my-3">
                                 <form method="GET" action="{{ url()->current() }}">
                                     <select id="entriesPerPage" name="per_page" class="form-select" style="width: auto;" onchange="this.form.submit()">
                                         <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>

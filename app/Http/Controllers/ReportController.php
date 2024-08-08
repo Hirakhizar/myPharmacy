@@ -33,7 +33,7 @@ class ReportController extends Controller
             }
 
         }
-        $orders = $query->paginate(5);
+        $orders = $query->paginate(5);  
           return view('admin.SalesReport', compact('user', 'orders'));
     }
     public function purchaseReport(){

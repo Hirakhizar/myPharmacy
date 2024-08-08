@@ -30,7 +30,7 @@
   height: max-content;
   display: block;
   z-index: 1;
-  background: #ffffff;
+  background: #F4FAFF;
   transition: all .3s;
   z-index: 1003;
   box-shadow: -1px 1px 20px rgba(69, 65, 78, 0.15);
@@ -153,7 +153,7 @@
     color: #333439; }
 
 body[data-background-color="dark"] .demo-icon .icon-preview {
-  color: #969696; }
+  color: #F4FAFF; }
 
 .demo-icon .icon-class {
   font-weight: 300;
@@ -161,7 +161,8 @@ body[data-background-color="dark"] .demo-icon .icon-preview {
   color: #777; }
 
 body[data-background-color="dark"] .demo-icon .icon-class {
-  color: #a9a8a8; }
+  color: #a9a8a8;
+}
 
 .form-show-notify .form-control {
   margin-bottom: 15px; }
@@ -179,7 +180,7 @@ body[data-background-color="dark"] .demo-icon .icon-class {
   .row-demo-grid [class^="col"] {
     text-align: center; }
     .row-demo-grid [class^="col"] .card-body {
-      background: #ddd; }
+      background: #F4FAFF; }
 
 .btnSwitch button[data-color="white"] {
   background-color: #fff; }

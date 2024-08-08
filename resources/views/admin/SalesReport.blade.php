@@ -4,17 +4,48 @@
 @include('admin.head')
 
 <style>
-.search-container {
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 40px;
-  position: relative; /* To position the hidden list correctly */
-}
-
-.search-container h4 {
-  margin-bottom: 15px;
-}
+body {
+        background-color: #f7f9fc;
+        font-family: Arial, sans-serif;
+    }
+    .wrapper {
+        background-color: #ffffff;
+    }
+    .main-panel {
+        background-color: #f7f9fc;
+    }
+    .search-container {
+        background-color: #f1f1f1;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px;
+        border: 1px solid #ccc;
+    }
+    .search-container h4 {
+        margin-bottom: 15px;
+    }
+    .table-container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    .table th, .table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+    .table th {
+        color: #7172b9;
+        border: 1px solid #dee2e6;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f8f9fa;
+    }
+    .text-primary {
+        color: #2A2F5B;
+    }
+    .text-muted {
+        color: #6c757d;
+    }
 
 .icon-button {
   background: none;
@@ -55,35 +86,28 @@
 {{-- end head --}}
 <body>
   <div class="wrapper">
-    <!-- Sidebar -->
     @include('admin.sidebar')
-    <!-- End Sidebar -->
-
     <div class="main-panel">
-      {{-- main-header --}}
       @include('admin.main_header')
-      {{-- end main-header --}}
       <div class="container mt-5">
         <div class="row">
           <div class="col-11 container mt-3">
-            <div class="p-4">
-              <h2 class="mt-3" style="color:#7172b9">Sales Report</h2>
+            <div class="p-4 ">
+              <p style="color: #778edd"><b style="font-size: 30px;">Sales</b> Report </p>
             </div>
             <div class="d-flex justify-content-end">
-              <button id="download-pdf" class="icon-button">
-                <i class="fas fa-print text-warning display-5" title="Download PDF"></i>
-              </button>
-              <button id="export-excel" class="icon-button">
-                <i class="fas fa-file-excel text-success display-5" title="Export to Excel"></i>
-              </button>
+                <button id="download-pdf" class="btn btn-info">
+                   Download PDF </button>
+                <button id="export-excel" class="btn btn-success mx-2">
+               Exprt to Excel </button>
             </div>
           </div>
         </div>
         <form method="GET" action="{{ url('reports/salesreport') }}">
           <div class="search-container">
-            <div class="row" style="color: #7172b9">
+            <div class="row " style="color: #778edd">
               <div class="col-md-3">
-                <h4>Search OrderId</h4>
+                <p><b>Search OrderId</b></p>
                 <input type="text" class="form-control" id="searchOrderIdInput" name="orderId" placeholder="Search by id" value="{{ request('orderId') }}">
                 <ul id="searchOrderIdList" class="hidden-list w-25">
                   @foreach($orders as $order)
@@ -92,7 +116,7 @@
                 </ul>
               </div>
               <div class="col-md-3">
-                <h4>Customer</h4>
+                <p><b>Customer</b></p>
                 <input type="text" class="form-control" id="searchCustomerInput" name="customer" placeholder="Search by customer" value="{{ request('customer') }}">
                 <ul id="searchCustomerList" class="hidden-list  w-25">
                   @foreach($orders as $order)
@@ -101,34 +125,35 @@
                 </ul>
               </div>
               <div class="col-md-3">
-                <h4>Start Date</h4>
-                <input type="date" class="form-control" id="startDateInput" name="startDate" value="{{ request('startDate') }}">
+                <p><b>Start Date</b></p>
+                <input type="date" class="form-control" id="startDateInput" name="startDate" value="{{ request('startDate') }}" placeholder="Enter start date">
               </div>
               <div class="col-md-3">
-                <h4>End Date</h4>
-                <input type="date" class="form-control" id="endDateInput" name="endDate" value="{{ request('endDate') }}">
+                <p><b>End Date</b></p>
+                <input type="date" class="form-control" id="endDateInput" name="endDate" value="{{ request('endDate') }}" placeholder="Enter end date">
               </div>
+
+
             </div>
           </div>
         </form>
         <!-- Content to be exported starts here -->
-        
-        <div class="row">
-          <div class="col-11 container">
-            <div class="card container">
-              <div id="pdf-content">
-                <table class="table" id="purchaseTable">
-                  <thead>
+
+        <div class="container">
+            <div class="card my-5 w-100">
+                <div class="card-body" style="background-color: #f1f1f1; border-radius: 8px;  border: 1px solid #ccc; ">
+                    <div class="table-container" id="pdf-content">
+
+                 <table class="table table-striped table-hover mb-3" id="purchaseTable" style="background: #FAFDFD">
+                  <thead >
                     <tr>
-                      <th>Sr_No</th>
-                      <th>Invoice_No</th>
-                      <th>Order_id</th>
-                      <th>Date</th>
-                      <th>Customer</th>
-                      <th>Total Amount</th>
-                      <th>Paid</th>
-                      <th>Remaining</th>
-                      <th>Payment Status</th>
+                      <th style="color: #778edd">SrNo</th>
+                      <th style="color: #778edd">Invoice_No</th>
+                      <th style="color: #778edd">Order_id</th>
+                      <th style="color: #778edd">Date</th>
+                      <th style="color: #778edd">Customer</th>
+                      <th style="color: #778edd">Total Amount</th>
+                      <th style="color: #778edd">Payment Status</th>
                     </tr>
                   </thead>
                   @php
@@ -138,13 +163,12 @@
                     @foreach($orders as $order)
                     <tr>
                       <td>{{ ++$count }}</td>
-                      <td style="color: #7172b9">#{{ $order->invoice }}</td>
+                      <td >#{{ $order->invoice }}</td>
                       <td>{{ $order->id }}</td>
                       <td>{{ $order->date }}</td> <!-- Format date for consistency -->
                       <td>{{ $order->customer }}</td>
                       <td>${{ $order->total }}</td>
-                      <td>${{ $order->paid }}</td>
-                      <td>${{ $order->remaining }}</td>
+
                       <td>{{ $order->payment_status }}</td>
                     </tr>
                     @endforeach
@@ -183,12 +207,12 @@
       const searchOrderIdList = document.getElementById('searchOrderIdList');
       const searchCustomerInput = document.getElementById('searchCustomerInput');
       const searchCustomerList = document.getElementById('searchCustomerList');
-  
+
       function updateListVisibility(input, list) {
         const inputValue = input.value.toLowerCase();
         const listItems = list.children;
         let hasVisibleItem = false;
-        
+
         for (const item of listItems) {
           const text = item.textContent.toLowerCase();
           if (text.includes(inputValue)) {
@@ -200,7 +224,7 @@
         }
         list.style.display = hasVisibleItem ? 'block' : 'none';
       }
-  
+
       function handleListItemClick(input, list) {
         list.addEventListener('click', (e) => {
           if (e.target.tagName === 'LI') {
@@ -210,59 +234,59 @@
           }
         });
       }
-  
+
       searchOrderIdInput.addEventListener('input', () => updateListVisibility(searchOrderIdInput, searchOrderIdList));
       searchCustomerInput.addEventListener('input', () => updateListVisibility(searchCustomerInput, searchCustomerList));
-  
+
       handleListItemClick(searchOrderIdInput, searchOrderIdList);
       handleListItemClick(searchCustomerInput, searchCustomerList);
-  
+
       document.addEventListener('click', (e) => {
         if (e.target !== searchOrderIdInput && e.target !== searchCustomerInput) {
           searchOrderIdList.style.display = 'none';
           searchCustomerList.style.display = 'none';
         }
       });
-  
+
       function filterTable() {
         const orderIdFilter = document.getElementById('searchOrderIdInput').value.toLowerCase();
         const customerFilter = document.getElementById('searchCustomerInput').value.toLowerCase();
         const startDateInput = document.getElementById('startDateInput').value;
         const endDateInput = document.getElementById('endDateInput').value;
-  
+
         const startDateObj = startDateInput ? new Date(startDateInput) : null;
         const endDateObj = endDateInput ? new Date(endDateInput) : null;
-  
+
         if (startDateObj) startDateObj.setHours(0, 0, 0, 0);
         if (endDateObj) endDateObj.setHours(23, 59, 59, 999);
-  
+
         const rows = document.querySelectorAll('#purchaseTable tbody tr');
-  
+
         rows.forEach(row => {
           const orderId = row.cells[1].textContent.toLowerCase(); // Fixed to correct cell index
           const customer = row.cells[3].textContent.toLowerCase();
           const dateText = row.cells[2].textContent;
           const date = new Date(dateText);
-  
+
           if (isNaN(date.getTime())) {
             row.style.display = 'none';
             return;
           }
-  
+
           const showRow = (!orderIdFilter || orderId.includes(orderIdFilter))
                           && (!customerFilter || customer.includes(customerFilter))
                           && (!startDateObj || date >= startDateObj)
                           && (!endDateObj || date <= endDateObj);
-  
+
           row.style.display = showRow ? '' : 'none';
         });
       }
-  
+
       document.getElementById('searchOrderIdInput').addEventListener('input', filterTable);
       document.getElementById('searchCustomerInput').addEventListener('input', filterTable);
       document.getElementById('startDateInput').addEventListener('input', filterTable);
       document.getElementById('endDateInput').addEventListener('input', filterTable);
-  
+
       function downloadPDF() {
         const element = document.getElementById('pdf-content');
         const opt = {
@@ -274,18 +298,18 @@
         };
         html2pdf().from(element).set(opt).save();
       }
-  
+
       document.getElementById('download-pdf').addEventListener('click', downloadPDF);
-  
+
       function exportExcel() {
         const table = document.getElementById('purchaseTable');
         const workbook = XLSX.utils.table_to_book(table, { sheet: "Sheet JS" });
         XLSX.writeFile(workbook, 'Sales_report.xlsx');
       }
-  
+
       document.getElementById('export-excel').addEventListener('click', exportExcel);
     });
   </script>
-  
+
 </body>
 </html>
