@@ -12,8 +12,6 @@ class ReportController extends Controller
     {
         $user = Auth::user();
         $query = SalesOrder::query();
-
-
         if ($request->has('orderId')) {
             $query->where('id', 'like', '%' . $request->orderId . '%');
         }
@@ -30,7 +28,6 @@ class ReportController extends Controller
             }
 
         }
-
 
 
         $orders = $query->paginate(5);
