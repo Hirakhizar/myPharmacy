@@ -71,8 +71,8 @@
                                             <td>{{ $item->medicine->category->name ?? 'Unknown' }}</td>
                                             <td>{{ $item->medicine->manufacturer->company_name ?? 'Unknown' }}</td>
                                             <td>{{ $item->quantity }}</td>
-                                            <td>${{ number_format($item->medicine->price, 2) }}</td>
-                                            <td>${{ number_format($item->quantity * $item->medicine->price, 2) }}</td>
+                                            <td>{{$item->medicine->price}} Rs/-</td>
+                                            <td>{{ $item->quantity * $item->medicine->price}} Rs/-</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -106,7 +106,7 @@
 
                                             <td>{{ $payment->order_id }}</td>
                                             <td>{{ $payment->method }}</td>
-                                            <td>{{ $payment->amount }}</td>
+                                            <td>{{ $payment->amount }} Rs/-</td>
                                             <td>{{ $payment->date }}</td>
 
 

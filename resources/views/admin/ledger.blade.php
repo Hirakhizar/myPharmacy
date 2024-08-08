@@ -110,21 +110,21 @@
 
                                                 if ($transaction['type'] == 'debit') {
                                                     $balances[$manufacturerId] += $transaction['amount'];
-                                                    $debitAmount = number_format($transaction['amount'], 2);
+                                                    $debitAmount = $transaction['amount'].' Rs/-';
                                                     $creditAmount = '-';
                                                 } else {
                                                     $balances[$manufacturerId] -= $transaction['amount'];
                                                     $debitAmount = '-';
-                                                    $creditAmount = number_format($transaction['amount'], 2);
+                                                    $creditAmount = $transaction['amount'].' Rs/-';
                                                 }
                                             @endphp
                                             <tr>
                                                 <td>{{ $transaction['order_id'] }}</td>
                                                 <td>{{ $transaction['manufacturer'] }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($transaction['date'])->format('Y-m-d') }}</td>
-                                                <td>{{ $debitAmount }}</td>
-                                                <td>{{ $creditAmount }}</td>
-                                                <td>{{ number_format($balances[$manufacturerId], 2) }}</td>
+                                                <td>{{ $debitAmount }} </td>
+                                                <td>{{ $creditAmount }} </td>
+                                                <td>{{ $balances[$manufacturerId]}} Rs/-</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

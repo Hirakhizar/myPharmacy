@@ -101,4 +101,12 @@ class MedicineController extends Controller
 
     }
 
+    public function deleteMultiple(Request $request)
+{
+    $ids = $request->ids;
+    Medicine::whereIn('id', $ids)->delete();
+    return redirect()->back()->with('success', 'Selected medicines have been deleted successfully.');
+}
+
+
 }

@@ -79,7 +79,7 @@
                     <td>City: {{ $manufacturer->city }}<br>
                       State : {{ $manufacturer->state }}<br>
                     Country : {{$manufacturer->country}}</td>
-                    <td>{{ $manufacturer->balance }}</td>
+                    <td>{{ $manufacturer->balance }} Rs/-</td>
                     {{-- <td> <a href="{{route('manufacture.payment',$manufacturer->id)}}" class="btn btn-secondary">recieved</a></td> --}}
                     <td>{{ $manufacturer->status }}</td>
                     <td>

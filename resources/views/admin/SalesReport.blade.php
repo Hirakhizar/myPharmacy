@@ -120,10 +120,10 @@
                 <table class="table" id="purchaseTable">
                   <thead>
                     <tr>
-                      <th>Sr_No</th>
+                    
                       <th>Invoice_No</th>
-                      <th>Order_id</th>
                       <th>Date</th>
+                      <th>Order_id</th>                      
                       <th>Customer</th>
                       <th>Total Amount</th>
                       <th>Paid</th>
@@ -137,15 +137,19 @@
                   <tbody>
                     @foreach($orders as $order)
                     <tr>
-                      <td>{{ ++$count }}</td>
+                  
                       <td style="color: #7172b9">#{{ $order->invoice }}</td>
+                      <td>{{ $order->date }}</td>
                       <td>{{ $order->id }}</td>
-                      <td>{{ $order->date }}</td> <!-- Format date for consistency -->
                       <td>{{ $order->customer }}</td>
-                      <td>${{ $order->total }}</td>
-                      <td>${{ $order->paid }}</td>
-                      <td>${{ $order->remaining }}</td>
-                      <td>{{ $order->payment_status }}</td>
+                      <td>{{ $order->total }} Rs/-</td>
+                      <td>{{ $order->paid }} Rs/-</td>
+                      @if($order->remaining=='0')
+                      <td>-</td>
+                      @else
+                      <td>{{ $order->remaining }} Rs/-</td>
+                      @endif
+                      <td>{{ $order->payment_status }} </td>
                     </tr>
                     @endforeach
                   </tbody>

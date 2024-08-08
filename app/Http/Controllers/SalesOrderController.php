@@ -94,10 +94,17 @@ class SalesOrderController extends Controller
 
             foreach ($cartItems as $item) {
                 $orderItem = new SalesOrderItem();
+                $medicine = Medicine::where('id', $item->item_id)->first();
+                if ($medicine) {
+                    $medicine->stock -= $item->qty;
+                    $medicine->save();
+                }
                 $orderItem->order_id = $orderId;
                 $orderItem->item_id = $item->item_id;
+
                 $orderItem->qty=$item->qty;
                 $orderItem->total=$item->total;
+             
                 $orderItem->save();
                 $item->delete(); // Assuming $item has a delete method
             }
@@ -149,8 +156,14 @@ class SalesOrderController extends Controller
 
             $orders = $ordersQuery->paginate(5);
             $orderitems = $orderItemsQuery->get();
+           
 
-            return view('admin.allOrders', compact('user', 'orders'));
+            $orderitems=SalesOrderItem::with('medicineItems')->get();
+ 
+
+            $info=SalesPayment_info::get();
+           
+            return view('admin.allOrders', compact('user', 'orders','orderitems','info'));
         }
 
         return redirect()->back();

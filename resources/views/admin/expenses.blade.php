@@ -130,7 +130,7 @@
                                             <td>{{ $expense->date }}</td>
                                             <td>{{ $expense->category->name }}</td>
                                             <td>{{ $expense->subcategory->name }}</td>
-                                            <td>${{ number_format($expense->amount, 2) }}</td>
+                                            <td>{{ $expense->amount}} Rs/-</td>
                                             <td>{{ $expense->description }}</td>
                                             <td>
                                                 <a href="{{ url('expenses/edit', ['id' => $expense->id]) }}" class="btn btn-success mb-2">Edit</a>

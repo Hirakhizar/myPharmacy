@@ -109,6 +109,8 @@ Route::get('/medicine/list', [MedicineController::class, 'index'])->name('index'
 Route::get('medicine/edit/{id}',[MedicineController::class,'edit']);
 Route::post('medicine/update/{id}',[MedicineController::class,'update']);
 Route::get('/medicine/delete/{id}',[MedicineController::class,'delete']);
+Route::delete('/delete-multiple-medicines', [MedicineController::class, 'deleteMultiple']);
+
 // <.............. Manufacture Route................>
 Route::get('manufacture',[ManufacturerController::class,'addformmanufacture'])->name('manufacture-form');
 Route::post('/add/manufacture', [ManufacturerController::class, 'create'])->name('create');

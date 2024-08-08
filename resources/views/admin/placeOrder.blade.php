@@ -137,7 +137,7 @@
                                     <tr data-id="{{ $medicine->id}}">
                                         <td>{{ $medicine->name }}</td>
                                         <td>{{ $medicine->category->name }}</td>
-                                        <td>{{ $medicine->price }}</td>
+                                        <td>{{ $medicine->price }} Rs/-</td>
 
                                         <td>
                                             <div class="counter">
