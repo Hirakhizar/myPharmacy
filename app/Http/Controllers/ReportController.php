@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
-   
     public function purchaseReport(){
         $user=Auth::user();
         if ($user->usertype == 'admin') {
