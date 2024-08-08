@@ -78,7 +78,7 @@
                                         <th>Order ID</th>
                                         <th>Payment Method</th>
                                         <th>Recieved Amount</th>
-                                        <th>Remaining Amount</th>
+                                        {{-- <th>Remaining Amount</th> --}}
                                         <th>Date</th>
                                         {{-- <th>Status</th> --}}
                                         <th>Action</th>
@@ -92,7 +92,7 @@
                                         <td>{{$order->order_id}}</td>
                                         <td>{{$order->method}}</td>
                                         <td>${{ number_format($order->amount, 2) }}</td>
-                                        <td>${{$order->order->remaining_amount}}</td>
+                                        {{-- <td>${{$order->order->remaining_amount}}</td> --}}
                                         <td>{{$order->date}}</td>
                                         {{-- <td>{{$order->status}}</td> --}}
                                         <td><a href="{{url('payment/edit',$order->id)}}" class="btn btn-danger">Edit</a></td>

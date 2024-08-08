@@ -30,53 +30,12 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('order/show',[SalesOrderController::class,'showMedicine']);
-
-Route::post('cart/add/{id}',[SalesOrderController::class,'addToCart']);
-
-Route::get('/cart/view2',[SalesOrderController::class,'viewCart']);
-
-Route::get('cart/remove/{id}',[SalesOrderController::class,'deleteCart']);
-
-Route::post('order/confirm', [SalesOrderController::class, 'ConfirmOrder']);
-Route::get('order/itemsDetails/{id}',[SalesOrderController::class,'itemsDetails']);
-Route::get('order/recipte/{id}',[SalesOrderController::class,'recipte']);
-Route::get('order/showOrders',[SalesOrderController::class,'showOrders']);
-
-Route::get('order/payment/show/{id}', [SalesOrderController::class, 'showpayment']);
-Route::post('order/payment/add/{id}', [SalesOrderController::class, 'addpayment']);
-Route::get('order/payment/edit/{id}',[SalesOrderController::class,'editPayment']);
-Route::post('order/payment/update/{id}',[SalesOrderController::class,'updatePayment']);
-////Refund
-Route::get('order/refund',[SalesOrderController::class,'showRefund']);
-Route::get('order/refund/showform/{id}',[SalesOrderController::class,'refundForm']);
-Route::get('order/refund/item/{id}',[SalesOrderController::class,'refundItem']);
-Route::get('order/refund/confirm/{id}',[SalesOrderController::class,'refundConfirm']);
-/////////Expenses Categories////////
-
-Route::get('expenses/category',[ExpenseController::class,'showcategory']);
-Route::post('expenses/category/add',[ExpenseController::class,'addcategory']);
-Route::post('expenses/subCategory/add',[ExpenseController::class,'addsubcategory']);
-Route::get('expenses/subCategory/remove/{id}',[ExpenseController::class,'removesubcategory']);
-Route::get('expenses/show',[ExpenseController::class,'showExpenses']);
-
-Route::get('expenses/add',[ExpenseController::class,'showExpencesForm']);
-Route::post('expenses/add',[ExpenseController::class,'addExpences']);
-Route::get('expenses/delete/{id}',[ExpenseController::class,'deleteExpences']);
-Route::get('expenses/edit/{id}',[ExpenseController::class,'editExpences']);
-Route::post('expenses/update/{id}',[ExpenseController::class,'updateExpences']);
-
-RoutE::get('balanceSheet',[BalanceSheetController::class,'balanceSheet']);
-
-
-
-
 
 
 Route::get('/redirect',[PharmacyController::class,'redirect']);
 ////////////////Admin Routes///////////////
 Route::middleware([EnsureUserIsAdmin::class])->group(function () {
-   
+
         Route::get('order/show',[SalesOrderController::class,'showMedicine']);
         ///cart
         Route::post('cart/add/{id}',[SalesOrderController::class,'addToCart']);
@@ -97,7 +56,7 @@ Route::middleware([EnsureUserIsAdmin::class])->group(function () {
         Route::get('order/refund/item/{id}',[SalesOrderController::class,'refundItem']);
         Route::get('order/refund/confirm/{id}',[SalesOrderController::class,'refundConfirm']);
         /////////Expenses Categories////////
-        
+
         Route::get('expenses/category',[ExpenseController::class,'showcategory']);
         Route::post('expenses/category/add',[ExpenseController::class,'addcategory']);
         Route::post('expenses/subCategory/add',[ExpenseController::class,'addsubcategory']);
@@ -111,7 +70,7 @@ Route::middleware([EnsureUserIsAdmin::class])->group(function () {
         Route::get('expenses/edit/{id}',[ExpenseController::class,'editExpences']);
         Route::post('expenses/update/{id}',[ExpenseController::class,'updateExpences']);
         /////////Balance Sheet////////
-        RoutE::get('balanceSheet',[BalanceSheetController::class,'balanceSheet']);       
+        RoutE::get('balanceSheet',[BalanceSheetController::class,'balanceSheet']);
 Route::get('customer/add',[CustomerController::class,'addformCustomer']);
 Route::post('add/customer',[CustomerController::class,'addCustomer']);
 Route::get('customer/show',[CustomerController::class,'showCustomer']);
@@ -137,6 +96,9 @@ Route::get('member/salary/edit/{id}',[MemberController::class,'editSalary']);
 Route::post('member/salary/update/{id}',[MemberController::class,'updateSalary']);
 ///////////////Reports////////////////
 Route::get('reports/sales',[ReportController::class,'salesReport']);
+Route::get('report/purchase',[ReportController::class,'purchaseReport'])->name('report');
+Route::get('report/stock',[ReportController::class,'stockReport'])->name('stock');
+Route::get('report/purchaseBystock',[ReportController::class,'report']);
 
 // <.............. Medicine Route................>
 Route::get('medicine',[MedicineController::class,'addformmedicine'])->name('medicine-form');
@@ -172,7 +134,6 @@ Route::get('/manufacture/ledger',[LedgerController::class,'index'])->name('manuf
 Route::get('/manufacture/ledger/{id}',[LedgerController::class,'payment'])->name('manufacture.payment');
 Route::post('/manufacture/ledger/{id}',[LedgerController::class,'store'])->name('manufacturer.store');
 
-     
     });
 
 
@@ -180,7 +141,7 @@ Route::post('/manufacture/ledger/{id}',[LedgerController::class,'store'])->name(
 //////////////////////Salesman Routes////////////////////
     Route::middleware([EnsureUserIsSalesman::class])->group(function () {
     });
-        
+
         Route::get('order/show',[SalesOrderController::class,'showMedicine']);
         ///cart
         Route::post('cart/add/{id}',[SalesOrderController::class,'addToCart']);
@@ -200,8 +161,8 @@ Route::post('/manufacture/ledger/{id}',[LedgerController::class,'store'])->name(
         Route::get('order/refund/showform/{id}',[SalesOrderController::class,'refundForm']);
         Route::get('order/refund/item/{id}',[SalesOrderController::class,'refundItem']);
         Route::get('order/refund/confirm/{id}',[SalesOrderController::class,'refundConfirm']);
-    
-        
+
+
          // <.............. Medicine Route................>
 Route::get('medicine',[MedicineController::class,'addformmedicine'])->name('medicine-form');
 Route::post('add/medicine', [MedicineController::class, 'create'])->name('create');
@@ -216,5 +177,3 @@ Route::get('/manufacturers/list', [ManufacturerController::class, 'index'])->nam
 Route::get('manufacturer/edit/{id}',[ManufacturerController::class,'edit']);
 Route::post('manufacturer/update/{id}',[ManufacturerController::class,'update']);
 Route::get('/manufacturer/delete/{id}',[ManufacturerController::class,'delete']);
-   
-

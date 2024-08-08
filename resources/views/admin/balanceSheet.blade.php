@@ -80,11 +80,7 @@
                                     <tr>
                                         <th>S.No</th>
                                         <th>Date</th>
-<<<<<<< HEAD
-                                        <th>Description</th>                                     
-=======
                                         <th>Description</th>
->>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
                                         <th>Debit</th>
                                         <th>Credit</th>
                                         <th>Balance</th>
@@ -119,11 +115,7 @@
                                 <th>${{ number_format($currentBalance, 2) }}</th>
                             </tr>
                         </tfoot>
-<<<<<<< HEAD
-                        
-=======
 
->>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
                             </table>
 
                         </div>

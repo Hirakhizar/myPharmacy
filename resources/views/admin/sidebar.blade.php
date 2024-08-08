@@ -39,7 +39,7 @@
 
               </li>
               @endif
-             
+
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#order">
                   <i class="fas fa-shopping-cart"></i>
@@ -66,7 +66,7 @@
 
                   </ul>
                 </div>
-              </li> 
+              </li>
               @if ($user->usertype=='admin')
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#expence">
@@ -94,9 +94,9 @@
 
                   </ul>
                 </div>
-              </li> 
+              </li>
               @endif
-              
+
               {{-- <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#customer">
                   <i class="fas fa-users"></i>
@@ -137,7 +137,7 @@
 
                   </ul>
                 </div>
-              </li> 
+              </li>
              @endif
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#medicine">
@@ -157,13 +157,13 @@
                         <span class="sub-item">Medicine List</span>
                       </a>
                     </li>
-                   
+
 
                   </ul>
                 </div>
               </li>
               @if ($user->usertype=='admin')
-              
+
                 <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#manufacturer">
                   <i class="fas fa-industry"></i>
@@ -190,7 +190,7 @@
                   </ul>
                 </div>
               </li>
-             
+
                 <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#human">
                   <i class="fas fa-user"></i>
@@ -219,7 +219,7 @@
                   </ul>
                 </div>
               </li>
-               <li class="nav-item">
+               {{-- <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#return">
                   <i class="fas fa-undo"></i>
                   <p>Return</p>
@@ -250,7 +250,7 @@
 
                   </ul>
                 </div>
-              </li>
+              </li> --}}
 
                <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#report">
@@ -266,15 +266,20 @@
                       </a>
                     </li>
                     <li>
-                      <a href="{{asset('pharmacy/components/buttons.html')}}">
+                      <a href="{{url('report/purchase')}}">
                         <span class="sub-item">Purchaces Report</span>
                       </a>
                     </li>
                      <li>
-                      <a href="{{asset('pharmacy/components/avatars.html')}}">
+                      <a href="{{url('report/stock')}}">
                         <span class="sub-item">Stock Report</span>
                       </a>
                     </li>
+                    <li>
+                        <a href="{{url('report/purchaseBystock')}}">
+                          <span class="sub-item">Purchase By Stock Report</span>
+                        </a>
+                      </li>
 
 
                   </ul>
