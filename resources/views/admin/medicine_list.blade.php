@@ -39,16 +39,18 @@
       {{-- main-header --}}
       @include('admin.main_header')
       {{-- end main-header --}}
-      <div class="container mt-5 ">
+      <div class="container mt-5">
         <div class="row">
           <div class="col-11 container mt-3">
             <div class="p-4">
-              <h2 class="mt-3"> Medicines Lists</h2>
-              <p>You have total {{ $total}} Medicines in Pharmacy.
+              <h2 class="mt-3">Medicines Lists</h2>
+              <p>You have total {{ $total}}  Medicines in Pharmacy.
                 <span class="d-flex justify-content-end">
                   <a href="{{ route('medicine-form') }}" class='btn btn-success'>
                     <i class="fas fa-plus mx-3"></i> Add Medicine
                   </a>
+                  <button type="button" class="btn btn-danger mx-3 " onclick="confirmMultipleDeletion()">Delete Selected</button>
+             
                 </span>
               </p>
             </div>
@@ -57,48 +59,55 @@
         <div class="row">
           <div class="col-11 container">
             <div class='card container'>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Generic Name</th>
-                    <th>Weight</th>
-                    <th>Category</th>
-                    <th>price</th>
-                    <th>Stock</th>
-                    <th>Status</th>
-                    <th><i class='fas fa-ellipsis-h'></i></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($medicines as $med)
-                  <tr>
-                    <td>{{ $med->id }}</td>
-                    <td><h6>{{ $med->name }}</h6></td>
-                    <td>{{ $med->generic_name }}</td>
-                    <td> {{ $med->weight }}mg</td>
-                     <td> {{ $med->category->name }}</td>
-                    <td>{{$med->price}}USD</td>
-                    <td>{{ $med->stock }}</td>
-                    <td>{{ $med->status }}</td>
-                    <td>
-                      <div class="dropdown">
-                        <i  class=" dropdown-toggle" id="dropdownMenuButton{{ $med->id }}" onclick="toggleDropdown({{ $med->id }})"><b>...</b></i>
-                        <div class="dropdown-menu" id="dropdownMenu{{ $med->id }}" style="display: none;">
-                          <a class="dropdown-item text-success" href="{{ url('/medicine/edit',['id'=>$med->id]) }}">
-                            <i class="fas fa-edit"></i> Edit
-                          </a>
-                          <a class="dropdown-item text-danger" href="{{ url('/medicine/delete',['id'=>$med->id]) }}" onclick="confirmDeletion({{ $med->id }})">
-                            <i class="fas fa-trash"></i> Delete
-                          </a>
+              <form id="deleteForm" method="POST" action="{{ url('delete-multiple-medicines') }}">
+                @csrf
+                @method('DELETE')
+                <table class="table">
+                 
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" id="selectAll"></th>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Generic Name</th>
+                      <th>Weight</th>
+                      <th>Category</th>
+                      <th>Price</th>
+                      <th>Stock</th>
+                      <th>Status</th>
+                      <th><i class='fas fa-ellipsis-h'></i></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($medicines as $med)
+                    <tr>
+                      <td><input type="checkbox" name="ids[]" value="{{ $med->id }}"></td>
+                      <td>{{ $med->id }}</td>
+                      <td><h6>{{ $med->name }}</h6></td>
+                      <td>{{ $med->generic_name }}</td>
+                      <td>{{ $med->weight }}mg</td>
+                      <td>{{ $med->category->name }}</td>
+                      <td>{{ $med->price }} Rs/-</td>
+                      <td>{{ $med->stock }}</td>
+                      <td>{{ $med->status }}</td>
+                      <td>
+                        <div class="dropdown">
+                          <i class="dropdown-toggle" id="dropdownMenuButton{{ $med->id }}" onclick="toggleDropdown({{ $med->id }})"><b>...</b></i>
+                          <div class="dropdown-menu" id="dropdownMenu{{ $med->id }}" style="display: none;">
+                            <a class="dropdown-item text-success" href="{{ url('/medicine/edit',['id'=>$med->id]) }}">
+                              <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a class="dropdown-item text-danger" href="{{ url('/medicine/delete',['id'=>$med->id]) }}" onclick="confirmDeletion({{ $med->id }})">
+                              <i class="fas fa-trash"></i> Delete
+                            </a>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+               </form>
             </div>
           </div>
         </div>
@@ -132,9 +141,16 @@
       }
     }
 
-    function confirmDeletion(customerId) {
+    document.getElementById('selectAll').addEventListener('change', function() {
+      var checkboxes = document.querySelectorAll('input[name="ids[]"]');
+      for (var checkbox of checkboxes) {
+        checkbox.checked = this.checked;
+      }
+    });
+
+    function confirmDeletion(medId) {
       Swal.fire({
-        title: 'Are you sure To Delete Customer?',
+        title: 'Are you sure to delete this medicine?',
         text: 'You will not be able to revert this!',
         icon: 'warning',
         showCancelButton: true,
@@ -143,12 +159,26 @@
         confirmButtonText: 'Yes, delete it!',
       }).then((result) => {
         if (result.isConfirmed) {
-          deleteCustomer(customerId);
+          deleteMedicine(medId);
         }
       });
     }
 
-
+    function confirmMultipleDeletion() {
+      Swal.fire({
+        title: 'Are you sure to delete selected medicines?',
+        text: 'You will not be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete them!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById('deleteForm').submit();
+        }
+      });
+    }
   </script>
 </body>
 </html>

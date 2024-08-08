@@ -18,7 +18,7 @@
                         <p><strong>Order ID:</strong> {{ $orderDetails['id'] }}</p>
                         <p><strong>Name:</strong> {{ $orderDetails['purchaser_name'] }}</p>
                         <p><strong>Phone Number:</strong> {{ $orderDetails['purchaser_phone'] }}</p>
-                        <p><strong>Total Amount:</strong> ${{ number_format($orderDetails['total_amount'], 2) }}</p>
+                        <p><strong>Total Amount:</strong>{{ $orderDetails['total_amount']}} Rs/-</p>
 
                         <h3>Order Details</h3>
                         <table class="table table-bordered">
@@ -36,8 +36,8 @@
                                     <tr>
                                         <td>{{ $item['name'] }}</td>
                                         <td>{{ $item['quantity'] }}</td>
-                                        <td>${{ number_format($item['price'], 2) }}</td>
-                                        <td>${{ number_format($item['total_price'], 2) }}</td>
+                                        <td>{{$item['price']}} Rs/-</td>
+                                        <td>{{ $item['total_price']}} Rs/-</td>
                                     </tr>
                                     @endforeach
                                 @else

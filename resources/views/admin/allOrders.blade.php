@@ -78,30 +78,120 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>View Detail</th>
+                                        <th>Invoice_no</th>
                                         <th>Order ID</th>
                                         <th>Customer</th>
                                         <th>Total Amount</th>
                                         <th>Date</th>
                                         <th>Payment Status</th>
                                         <th>Payment</th>
-                                        <th>Details</th>
+                                        <th>Print</th>
                                     </tr>
                                 </thead>
                                 <tbody id="orderTableBody">
                                     @foreach ($orders as $order)
-                                    <tr>
+                                    <tr >
+                                        <td style="color: #7172b9" class="order-row" data-order-id="{{ $order->id }}"><i class="fas fa-chevron-down toggle-icon h-4" ></i></td>
+                                        <td style="color: #7172b9"> #{{ $order->invoice}}</td>
                                         <td>{{ $order->id }}</td>
                                         <td>{{ $order->customer }}</td>
-                                        <td>${{ number_format($order->total, 2) }}</td>
+                                        <td>{{ $order->total}} Rs/-</td>
                                         <td>{{ $order->created_at->format('d-m-Y') }}</td>
                                         <td>{{ $order->payment_status }}</td>
-                                        <td><a href="{{ url('sales/payment/show', ['id' => $order->id]) }}" class='btn btn-secondary'><b>Pay</b></a></td>
-                                   
-                                        <td><a href="{{ url('sales/itemsDetails', ['id' => $order->id]) }}" class='btn btn-sm btn-secondary'><b>Detail</b></a>
+                                        <td><a href="{{ url('sales/payment/show', ['id' => $order->id]) }}" class='btn btn-secondary '><b>Pay</b></a></td>
+                                        <td>
+                                           
                                         
-                                            <div class="text-right mt-3 px-3 pb-5">
-                                                <a href="{{ url('order/recipte',['id'=>$order->id]) }}" class="btn btn-sm btn-secondary">Generate Receipt</a>
-                                             
+                                                <a href="{{ url('order/recipte',['id'=>$order->id]) }}" class="btn btn-secondary ">Receipt</a>
+                                        
+                                        </td>
+                                    </tr>
+                                    <tr class="details-row" id="details-{{ $order->id }}" style="display: none;">
+                                        <td colspan="7">
+                                            <div class="p-3">
+                                                <!-- Include additional details here -->
+                                               
+                                                    <div class="card-body">
+                                                        <div class="col-md-4 text-secondary">
+                                                            
+                                                          </div>
+                                                        <div class="table-responsive ">
+                                                            <table class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Medicine Name</th>
+                                                                        <th>Quantity</th>
+                                                                        <th>Price</th>
+                                                                        <th>Subtotal</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($orderitems as $item)
+                                                                    @if($item->refund_status == 'noRequest')
+                                                                    @if ($item->order_id==$order->id)
+                                                                        
+                                                                   
+                                                                    <tr>
+                                                                        <td>{{ $item->medicineItems->name }}</td>
+                                                                        <td>{{ $item->qty }}</td>
+                                                                        <td>{{ $item->medicineItems->price }} Rs/-</td>
+                                                                        <td>{{$item->qty * $item->medicineItems->price}} Rs/-</td>
+                                                                    </tr>
+                                                                   
+                                                                    @endif
+                                                                    @endif
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                
+                                    
+                                                        <div class="row  px-5">
+                                                            <div class="col-md-12 mb-3 text-center px-5">
+                                                                <h2 class="text-secondary">Payment Details</h2>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                         
+                                                            <div class="table-container">
+                                                                <table class="table table-bordered table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Sr.No</th>
+                                                                            <th>Paid Installments</th>
+                                                                            <th>Payment Method</th>
+                                                                            <th>Status</th>
+                                                                            <th>Date</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="orderTableBody">
+                                                                        @php
+                                                                            $count=0;
+                                                                        @endphp
+                                                                        @foreach ($info as $payment)
+                                                                        @if ($payment->order_id==$order->id)
+                                                                        <tr>
+                                                                            <td>{{ ++$count }}</td>
+                                                                            <td>{{$payment->amount}} Rs/-</td>
+                                                                            <td>{{ $payment->payment_method }}</td>
+                                                                            <td>{{ $payment->payment_status }}</td>
+                                                                            <td>{{ $payment->date }}</td>
+                                                                            <td><a href="{{ url('order/payment/edit', ['id' => $payment->id]) }}" class="btn btn-secondary"><b>Edit</b></a></td>
+                                                                        </tr>
+                                                                        @endif
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                              
+                                                            </div>
+                                                        </div>
+                                           
+                                                
+                                                <!-- Add more details as needed -->
                                             </div>
                                         </td>
                                     </tr>
@@ -123,29 +213,43 @@
         @include('admin.custom')
     </div>
     @include('admin.scripts')
+
+    <script>
+        document.querySelectorAll('.order-row').forEach(row => {
+            row.addEventListener('click', function() {
+                const orderId = this.getAttribute('data-order-id');
+                const detailsRow = document.getElementById(`details-${orderId}`);
+
+                // Toggle visibility
+                if (detailsRow.style.display === 'none' || detailsRow.style.display === '') {
+                    detailsRow.style.display = 'table-row';
+                } else {
+                    detailsRow.style.display = 'none';
+                }
+            });
+        });
+
+        document.getElementById('searchDateInput').addEventListener('input', function() {
+            const filterDate = new Date(this.value);
+            const rows = document.querySelectorAll('#orderTableBody tr');
+
+            rows.forEach(row => {
+                const dateText = row.cells[3].textContent; // Adjust the index to match the date column
+                const rowDate = new Date(dateText);
+
+                row.style.display = (isNaN(filterDate.getTime()) || rowDate.toDateString() === filterDate.toDateString()) ? '' : 'none';
+            });
+        });
+
+        document.getElementById('searchManufacturerInput').addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#orderTableBody tr');
+
+            rows.forEach(row => {
+                const customerText = row.cells[1].textContent.toLowerCase();
+                row.style.display = customerText.includes(filter) ? '' : 'none';
+            });
+        });
+    </script>
 </body>
 </html>
-
-<script>
-    document.getElementById('searchDateInput').addEventListener('input', function() {
-        const filterDate = new Date(this.value);
-        const rows = document.querySelectorAll('#orderTableBody tr');
-
-        rows.forEach(row => {
-            const dateText = row.cells[3].textContent; // Adjust the index to match the date column
-            const rowDate = new Date(dateText);
-
-            row.style.display = (isNaN(filterDate.getTime()) || rowDate.toDateString() === filterDate.toDateString()) ? '' : 'none';
-        });
-    });
-
-    document.getElementById('searchManufacturerInput').addEventListener('input', function() {
-        const filter = this.value.toLowerCase();
-        const rows = document.querySelectorAll('#orderTableBody tr');
-
-        rows.forEach(row => {
-            const customerText = row.cells[1].textContent.toLowerCase();
-            row.style.display = customerText.includes(filter) ? '' : 'none';
-        });
-    });
-</script>

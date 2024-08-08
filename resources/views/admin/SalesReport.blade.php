@@ -149,7 +149,6 @@ body {
                     <tr>
                       <th style="color: #778edd">SrNo</th>
                       <th style="color: #778edd">Invoice_No</th>
-                      <th style="color: #778edd">Order_id</th>
                       <th style="color: #778edd">Date</th>
                       <th style="color: #778edd">Customer</th>
                       <th style="color: #778edd">Total Amount</th>
@@ -163,12 +162,10 @@ body {
                     @foreach($orders as $order)
                     <tr>
                       <td>{{ ++$count }}</td>
-                      <td >#{{ $order->invoice }}</td>
-                      <td>{{ $order->id }}</td>
-                      <td>{{ $order->date }}</td> <!-- Format date for consistency -->
+                      <td style="color: #778edd">#{{ $order->invoice }}</td>
+                      <td>{{ $order->date }}</td>
                       <td>{{ $order->customer }}</td>
-                      <td>${{ $order->total }}</td>
-
+                      <td>{{ $order->total }} Rs/-</td>
                       <td>{{ $order->payment_status }}</td>
                     </tr>
                     @endforeach

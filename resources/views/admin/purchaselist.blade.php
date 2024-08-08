@@ -38,17 +38,17 @@
                                     @endphp
                                     <td>{{ $med->name }}</td>
                                     <td>{{ $med->category->name }}</td>
-                                    <td>{{ $med->price }}$</td>
+                                    <td>{{ $med->price }} Rs/-</td>
                                     <td>{{ $use ? $use->name : 'N/A' }}</td>
                                     <td>{{ $pur->quantity }}</td>
-                                    <td>{{ $total }}$</td>
+                                    <td>{{ $total }} Rs/-</td>
                                     <td><button type="button" class="btn btn-danger "  ><a href="{{url('remove',$pur->id)}}" onclick="return confirm('Are you sure to remove this medicine ?')" style="color: white">Delete</a></button></td>
                                 </tr>
                             @endforeach
                         </tbody>
                         </table>
 
-                        <h4><b style="color: #7172b9">Total Price :</b>{{ $totalprice }}$</h3>
+                        <h4><b style="color: #7172b9">Total Price :</b>{{ $totalprice }} Rs/-</h3>
 
 
                     <div class="row mt-3">

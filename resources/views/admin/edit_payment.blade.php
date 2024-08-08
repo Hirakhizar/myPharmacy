@@ -24,8 +24,8 @@
                     <div class="card-body" style="background-color: #f1f1f1; border-radius: 8px; padding: 20px; border: 1px solid #ccc; margin: 20px">
                         <h3 style="color:#7172b9;">Order : {{$payment->order_id}}</h3>
                         <h4><b style="color:#7172b9;">User Name : {{$payment->order->user->name}}</b></h4>
-                        <h4><b style="color:#7172b9;">Total Amount : {{$payment->order->total_amount}}$</b></h4>
-                        <h4><b style="color:#7172b9;">Remaining Amount : {{$payment->order->remaining_amount}}$</b></h4>
+                        <h4><b style="color:#7172b9;">Total Amount : {{$payment->order->total_amount}} Rs/-</b></h4>
+                        <h4><b style="color:#7172b9;">Remaining Amount : {{$payment->order->remaining_amount}} Rs/-</b></h4>
                         <form id="paymentForm" action="{{ route('payment.update', $payment->order_id) }}" method="POST">
                             @csrf
                             <div class="row mt-3">

@@ -103,8 +103,8 @@
                 <div class="card my-5 w-100">
                     <div class="card-body" style="background-color: #f1f1f1; border-radius: 8px; padding: 20px; border: 1px solid #ccc; margin: 20px">
                        <h3 style="color:#7172b9;">Manufacturer ID : {{$manufactures->id}}</h3>
-                       <h4><b style="color:#7172b9;">Remaining Bil : {{$total + $manufactures->remaining_amount}}</b></h3>
-                            <h4><b style="color:#7172b9;">Total Bil : {{$total}}</b></h3>
+                       <h4><b style="color:#7172b9;">Remaining Bil : {{$total + $manufactures->remaining_amount}} Rs/-</b></h3>
+                            <h4><b style="color:#7172b9;">Total Bil : {{$total}} Rs/-</b></h3>
                             <form id="paymentForm" action="{{ route('manufacturer.store', $manufactures->id) }}" method="POST" data-remaining-amount="">
                                 @csrf
                                 <div class="row mt-3">

@@ -144,7 +144,7 @@
                     @foreach($purchase as $manufacturer)
                     <tr>
                       <td>#{{ $manufacturer->id }}</td>
-                      <td>{{ $manufacturer->total_amount }}</td>
+                      <td>{{ $manufacturer->total_amount }} Rs/-</td>
                       <td>{{ $manufacturer->manufacturer }}</td>
                       <td>{{ $manufacturer->created_at }}</td>
                     </tr>

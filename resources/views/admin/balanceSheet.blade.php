@@ -93,13 +93,13 @@
                                             <td>{{ ++$count }}</td>
                                             <td>{{ $entry['date'] }}</td>
                                             <td>{{ $entry['description'] }}</td>
-                                            <td>{{ $entry['debit'] ? number_format($entry['debit'], 2) : '-' }}</td>
-                                            <td>{{ $entry['credit'] ? number_format($entry['credit'], 2) : '-' }}</td>
+                                            <td>{{ $entry['debit'] ? $entry['debit'].' Rs/-': '-' }} </td>
+                                            <td>{{ $entry['credit'] ? $entry['credit'].' Rs/-' : '-' }} </td>
                                             <td>
                                                 @php
                                                     $currentBalance = $entry['balance'];
                                                 @endphp
-                                                {{ number_format($currentBalance, 2) }}
+                                                {{$currentBalance}} Rs/-
                                             </td>
                                         </tr>
                                     @endforeach
@@ -107,9 +107,9 @@
                                 <tfoot>
                                     <tr>
                                         <th colspan="3">Totals</th>
-                                        <th>${{ number_format($ledger->sum('debit'), 2) }}</th>
-                                        <th>${{ number_format($ledger->sum('credit'), 2) }}</th>
-                                        <th>${{ number_format($currentBalance, 2) }}</th>
+                                        <th>{{$ledger->sum('debit') }} Rs/-</th>
+                                        <th>{{$ledger->sum('credit')}} Rs/-</th>
+                                        <th>{{$currentBalance }} Rs/-</th>
                                     </tr>
                                 </tfoot>
                             </table>
