@@ -54,7 +54,7 @@
                             <h4><b style="color: #7172b9">Total Price: {{ $total . ' $' }}</b></h4>
                             <div class="form-group">
                                 <label style="color: #7172b9">Customer Name</label>
-                                <input type="text" class="form-control" id="customerName" name="customer" value="{{ old('customer') }}" required>
+                                <input type="text" class="form-control" id="customerName" name="customer" value='Anonymous Customer' required>
                             </div>
                             <div class="form-group">
                                 <label style="color: #7172b9">Phone Number</label>
