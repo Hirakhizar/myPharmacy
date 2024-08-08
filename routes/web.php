@@ -89,7 +89,9 @@ Route::get('/member/attendece/delete/{id}',[MemberController::class,'deleteAtten
 Route::get('member/attendece/edit/{id}',[MemberController::class,'editAttendece']);
 
 Route::post('member/attendece/update/{id}',[MemberController::class,'updateAttendence']);
-/////
+/////Salary//////
+
+Route::post('member/salary/add',[MemberController::class,'addSalary']);
 Route::get('member/salary',[MemberController::class,'salaryMember']);
 Route::get('/member/salary/delete/{id}',[MemberController::class,'deleteSalary']);
 Route::get('member/salary/edit/{id}',[MemberController::class,'editSalary']);

@@ -140,8 +140,13 @@
                                         </tr>
                                         @endforeach
                                     </tbody>
+                                 
                                 </table>
+                                <div class="pagination mt-3 d-flex justify-content-center">
+                                    {{ $expenses->links('pagination::bootstrap-5') }}
+                                </div>
                             @endif
+                          
                         </div>
                     </div>
                 </div>

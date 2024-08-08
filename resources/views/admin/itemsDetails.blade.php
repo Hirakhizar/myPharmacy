@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     @include('admin.head')
     <!-- Add jsPDF, html2canvas, and html2pdf libraries -->
@@ -10,6 +9,9 @@
     <style>
         .hidden {
             display: none;
+        }
+        .search-container {
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -27,26 +29,25 @@
 
             <div class="container mt-5 p-5">
                 <div class="d-flex mt-5 justify-content-end">
-                    <a href="http://127.0.0.1:8000/order/showOrders"class="btn btn-secondary mt-5 mx-5 ">Back</a>
-               
+                    <a href="{{ url('order/showOrders') }}" class="btn btn-secondary mt-5 mx-5">Back</a>
                 </div>
-               <!-- Receipt Section -->
+               
+                <!-- Receipt Section -->
                 <div class="card mt-5 mx-5" id="receipt">
                     <div class="row mt-3">
                         <div class="col-md-12 mb-3 text-center">
                             <h2 class="text-secondary">Order Details</h2>
-                            <p class="text-muted">Customer's Items List .</p>
+                            <p class="text-muted">Customer's Items List.</p>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="col-md- text-secondary">
-                           
                             <h5>Order #: <strong>{{ $order->id }}</strong></h5>
                             <h5>Customer Name: <strong>{{ $order->customer }}</strong></h5>
                             <h5>Phone Number: <strong>{{ $order->phone }}</strong></h5>
-                            <h5>Total Amount: <strong>{{ $order->total }}$</strong></h5>
-                            <h5>Paid Amount: <strong>{{ $order->paid }}$</strong></h5>
-                            <h5>Remaining Amount: <strong>{{ $order->remaining}}$</strong></h5>
+                            <h5>Total Amount: <strong>${{ number_format($order->total, 2) }}</strong></h5>
+                            <h5>Paid Amount: <strong>${{ number_format($order->paid, 2) }}</strong></h5>
+                            <h5>Remaining Amount: <strong>${{ number_format($order->remaining, 2) }}</strong></h5>
                         </div>
                         <div class="table-responsive p-3">
                             <table class="table table-bordered table-striped">
@@ -59,9 +60,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     @foreach ($orderitems as $item)
-                                    @if($item->refund_status=='noRequest')
+                                    @if($item->refund_status == 'noRequest')
                                     <tr>
                                         <td>{{ $item->medicineItems->name }}</td>
                                         <td>{{ $item->qty }}</td>
@@ -73,22 +73,20 @@
                                 </tbody>
                             </table>
                         </div>
-                   
                     </div>
                 </div>
 
                 <!-- Payment Details Section -->
                 <div class="px-5">
-                
-                    
                     <div class="card my-5 w-100 px-5">
                         <div class="row mt-3 px-5">
                             <div class="col-md-12 mb-3 text-center px-5">
                                 <h2 class="text-secondary">Payment Details</h2>
-                                <p class="text-muted">Customer Payments List .</p>
+                                <p class="text-muted">Customer Payments List.</p>
                             </div>
                         </div>
                         <div class="card-body">
+                         
                             <div class="table-container">
                                 <table class="table table-bordered table-striped">
                                     <thead>
@@ -102,19 +100,21 @@
                                         </tr>
                                     </thead>
                                     <tbody id="orderTableBody">
-
-                                        @foreach ($info as $info)
+                                        @foreach ($info as $payment)
                                         <tr>
-                                            <td>{{ $info->id }}</td>
-                                            <td>{{ $info->amount }}$</td>
-                                            <td>{{ $info->payment_method }}</td>
-                                            <td>{{ $info->payment_status }}</td>
-                                            <td>{{ $info->date}}</td>
-                                            <td><a href="{{ url('order/payment/edit',['id'=>$info->id]) }}" class='btn btn-secondary'><b>Edit</b></a></td>
+                                            <td>{{ $payment->id }}</td>
+                                            <td>${{ number_format($payment->amount, 2) }}</td>
+                                            <td>{{ $payment->payment_method }}</td>
+                                            <td>{{ $payment->payment_status }}</td>
+                                            <td>{{ $payment->date }}</td>
+                                            <td><a href="{{ url('order/payment/edit', ['id' => $payment->id]) }}" class="btn btn-secondary"><b>Edit</b></a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="pagination mt-3 d-flex justify-content-center">
+                                    {{ $info->links('pagination::bootstrap-5') }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -136,8 +136,11 @@
 
     <!-- JavaScript for PDF generation -->
     <script>
-        
-  
+        function formatDateString(dateString) {
+            const date = new Date(dateString);
+            return isNaN(date.getTime()) ? '' : date.toISOString().split('T')[0]; // Convert date to YYYY-MM-DD format
+        }
+
         document.getElementById('searchDateInput').addEventListener('input', function() {
             const filterDate = new Date(this.value);
             const rows = document.querySelectorAll('#orderTableBody tr');
@@ -161,5 +164,4 @@
         });
     </script>
 </body>
-
 </html>

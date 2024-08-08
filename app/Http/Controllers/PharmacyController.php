@@ -24,6 +24,7 @@ class PharmacyController extends Controller
         $medicine = Medicine::get();
         return view('admin.dashboard',compact('user','order','purchase','sale','expense','customer','payment','medicine'));
         }elseif( $user->usertype =='salesman'){
+            $medicines = Medicine::get();
             return view('admin.placeOrder', compact('user','medicines'));
         }
     }

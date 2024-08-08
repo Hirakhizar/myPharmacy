@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <h2 class="d-flex justify-content-center">Order Receipt</h2>
                       
-                        <p class="small"><strong>Order ID:</strong> {{ $order->id }}</p>
+                        <p class="small"><strong>Invoice #</strong> {{ $order->invoice }}</p>
                         <p class="small"><strong>Name:</strong> {{ $order->customer }}</p>
                         <p class="small"><strong>Contact:</strong> {{ $order->phone }}</p>
 

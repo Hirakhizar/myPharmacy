@@ -109,6 +109,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="pagination mt-3 d-flex justify-content-center">
+                                {{ $orders->links('pagination::bootstrap-5') }}
+                            </div>
                             @if($orders->isEmpty())
                                 <p class="text-muted text-center">No orders found for the selected filters.</p>
                             @endif

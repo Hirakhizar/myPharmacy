@@ -66,7 +66,7 @@ class ExpenseController extends Controller
                 $query->whereDate('date', $request->order_date);
             }
 
-            $expenses = $query->get();
+            $expenses = $query->paginate(4);
             $categories = ExpenseCategory::all();
             $subcategories = ExpenseSubCategory::all();
 
