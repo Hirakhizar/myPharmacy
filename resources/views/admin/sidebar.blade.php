@@ -86,11 +86,7 @@
                         <span class="sub-item">Add Categories</span>
                       </a>
                     </li>
-                    <li>
-                      <a href="{{url('order/refund')}}">
-                        <span class="sub-item">Refund Requst</span>
-                      </a>
-                    </li>
+                   
 
                   </ul>
                 </div>
@@ -219,7 +215,7 @@
                   </ul>
                 </div>
               </li>
-               <li class="nav-item">
+               {{-- <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#return">
                   <i class="fas fa-undo"></i>
                   <p>Return</p>
@@ -250,7 +246,7 @@
 
                   </ul>
                 </div>
-              </li>
+              </li> --}}
 
                <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#report">

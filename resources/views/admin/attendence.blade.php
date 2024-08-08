@@ -114,7 +114,8 @@
                             $stayMinutes = $record->stay_time ? floor(($record->stay_time % 3600) / 60) : 0;
                             @endphp
                             <td>{{ $record->members->first_name }}</td>
-                            <td>{{ \Carbon\Carbon::parse($record->date)->format('d/m/Y') }}</td>
+                            <td>{{ $record->date }}</td>
+                            {{-- <td>{{ \Carbon\Carbon::parse($record->date)->format('d/m/Y') }}</td> --}}
                             <td>{{ \Carbon\Carbon::parse($record->sign_in)->format('h:i A') }}</td>
                             <td>{{ \Carbon\Carbon::parse($record->sign_out)->format('h:i A') }}</td>
                             <td>{{ $stayHours }} hr {{ $stayMinutes }} min</td>
@@ -135,6 +136,9 @@
                           @endforeach
                         </tbody>
                       </table>
+                      <div class="pagination mt-3 d-flex justify-content-center">
+                        {{ $attendence->links('pagination::bootstrap-5') }}
+                    </div>
                     </div>
                   </div>
                 </div>

@@ -94,6 +94,9 @@
                   @endforeach
                 </tbody>
               </table>
+              <div class="pagination mt-3 d-flex justify-content-center">
+                {{ $users->links('pagination::bootstrap-5') }}
+            </div>
             </div>
           </div>
         </div>

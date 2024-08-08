@@ -18,7 +18,7 @@ class MemberController extends Controller
         $user=Auth::user();
 
         if($user->usertype=='admin'){
-            $users=Member::get();
+            $users=Member::paginate(2);
             $totalmember=member::count();
             return view('admin.member',compact('user','users','totalmember'));
         }
@@ -139,7 +139,7 @@ public function attendenceMember(Request $request)
         if ($startDate && $endDate) {
             $query->whereBetween('date', [$startDate, $endDate]);
         }
-        $attendence = $query->get();
+        $attendence = $query->paginate(3);
         
         return view('admin.attendence', compact('attendence', 'user', 'members'));
     }
@@ -232,7 +232,7 @@ public function salaryMember(){
 
     if($user->usertype=='admin'){
        $members=Member::get();
-        $salaries=MemberSalary::with('member')->get();
+        $salaries=MemberSalary::with('member')->paginate(2);
      
         return view('admin.salary',compact('user','salaries','members'));
     }

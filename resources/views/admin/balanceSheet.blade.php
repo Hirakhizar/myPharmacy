@@ -53,22 +53,19 @@
             <div class="container table-container">
                 <div class="row mt-3">
                     <div class="col-md-12 mb-3 text-center">
-                        <h2 class="text-secondary">Balance Sheet</h2></h2>
+                        <h2 class="text-secondary">Balance Sheet</h2>
                         <p class="text-muted"></p>
                     </div>
                 </div>
                 <div class="search-container">
-                    <form method="GET" action="{{ url('order/showOrders') }}" class="row">
+                    <form method="GET" action="{{ url('balanceSheet') }}" class="row">
                         <div class="col-md-6 mb-3">
-                            <h4 class='text-secondary'>Search Customer</h4>
-                            <input type="text" name="customer" class="form-control" placeholder="Search by Customer" value="{{ request('customer') }}">
+                            <h4 class='text-secondary'>Start Date</h4>
+                            <input type="date" id="startDateInput" class="form-control" value="{{ request('start_date') }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <h4 class='text-secondary'>Search Date</h4>
-                            <input type="date" name="order_date" class="form-control" value="{{ request('order_date') }}">
-                        </div>
-                        <div class="col-md-12 text-right">
-                            <button type="submit" class="btn btn-secondary">Filter</button>
+                            <h4 class='text-secondary'>End Date</h4>
+                            <input type="date" id="endDateInput" class="form-control" value="{{ request('end_date') }}">
                         </div>
                     </form>
                 </div>
@@ -80,52 +77,42 @@
                                     <tr>
                                         <th>S.No</th>
                                         <th>Date</th>
-<<<<<<< HEAD
                                         <th>Description</th>                                     
-=======
-                                        <th>Description</th>
->>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
                                         <th>Debit</th>
                                         <th>Credit</th>
                                         <th>Balance</th>
-
                                     </tr>
                                 </thead>
                                 @php
                                 $currentBalance = 0;
-                                $count=0;
-                            @endphp
-                            @foreach($ledger as $entry)
-                                <tr>
-                                    <td>{{ ++$count }}</td>
-                                    <td>{{ $entry['date'] }}</td>
-                                    <td>{{ $entry['description'] }}</td>
-                                    <td>{{ $entry['debit'] ? number_format($entry['debit'], 2) : '-' }}</td>
-                                    <td>{{ $entry['credit'] ? number_format($entry['credit'], 2) : '-' }}</td>
-                                    <td>
-                                        @php
-                                            $currentBalance = $entry['balance'];
-                                        @endphp
-                                        {{ number_format($currentBalance, 2) }}
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th colspan="3">Totals</th>
-                                <th>${{ number_format($ledger->sum('debit'), 2) }}</th>
-                                <th>${{ number_format($ledger->sum('credit'), 2) }}</th>
-                                <th>${{ number_format($currentBalance, 2) }}</th>
-                            </tr>
-                        </tfoot>
-<<<<<<< HEAD
-                        
-=======
-
->>>>>>> d8999ee582583dbd706b34cb6ac2e32ff111562b
+                                $count = 0;
+                                @endphp
+                                <tbody id="ledgerTableBody">
+                                    @foreach($ledger as $entry)
+                                        <tr>
+                                            <td>{{ ++$count }}</td>
+                                            <td>{{ $entry['date'] }}</td>
+                                            <td>{{ $entry['description'] }}</td>
+                                            <td>{{ $entry['debit'] ? number_format($entry['debit'], 2) : '-' }}</td>
+                                            <td>{{ $entry['credit'] ? number_format($entry['credit'], 2) : '-' }}</td>
+                                            <td>
+                                                @php
+                                                    $currentBalance = $entry['balance'];
+                                                @endphp
+                                                {{ number_format($currentBalance, 2) }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="3">Totals</th>
+                                        <th>${{ number_format($ledger->sum('debit'), 2) }}</th>
+                                        <th>${{ number_format($ledger->sum('credit'), 2) }}</th>
+                                        <th>${{ number_format($currentBalance, 2) }}</th>
+                                    </tr>
+                                </tfoot>
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -139,25 +126,30 @@
 </html>
 
 <script>
-    document.getElementById('searchDateInput').addEventListener('input', function() {
-        const filterDate = new Date(this.value);
-        const rows = document.querySelectorAll('#orderTableBody tr');
+    function filterTable() {
+        const startDate = new Date(document.getElementById('startDateInput').value);
+        const endDate = new Date(document.getElementById('endDateInput').value);
+        const rows = document.querySelectorAll('#ledgerTableBody tr');
 
         rows.forEach(row => {
-            const dateText = row.cells[3].textContent; // Adjust the index to match the date column
-            const rowDate = new Date(dateText);
+            const rowDateText = row.cells[1].textContent; // Adjust the index to match the date column
+            const rowDate = new Date(rowDateText);
 
-            row.style.display = (isNaN(filterDate.getTime()) || rowDate.toDateString() === filterDate.toDateString()) ? '' : 'none';
+            // Check if the row date is within the range or if no date is selected
+            if (
+                (isNaN(startDate.getTime()) || rowDate >= startDate) &&
+                (isNaN(endDate.getTime()) || rowDate <= endDate)
+            ) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
         });
-    });
+    }
 
-    document.getElementById('searchManufacturerInput').addEventListener('input', function() {
-        const filter = this.value.toLowerCase();
-        const rows = document.querySelectorAll('#orderTableBody tr');
+    document.getElementById('startDateInput').addEventListener('change', filterTable);
+    document.getElementById('endDateInput').addEventListener('change', filterTable);
 
-        rows.forEach(row => {
-            const customerText = row.cells[1].textContent.toLowerCase();
-            row.style.display = customerText.includes(filter) ? '' : 'none';
-        });
-    });
+    // Initial filter on page load in case of pre-set dates
+    document.addEventListener('DOMContentLoaded', filterTable);
 </script>

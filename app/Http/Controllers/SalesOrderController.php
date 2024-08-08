@@ -109,13 +109,13 @@ class SalesOrderController extends Controller
             
             if ($order->remaining==0) {
                 $info->payment_status = "completed";
-                session()->flash('message', 'Payment added successfully!');
+               
             } else {
                 $info->payment_status = "incomplete";
             }
             $info->save();
     $orderitems=SalesOrderItem::where('order_id',$orderId)->get();
-            return view('admin.orderRecipte',compact('user','order','orderitems'));
+            return view('admin.orderRecipte',compact('user','order','orderitems'))->with('message', 'Payment added successfully!');
         } else {
             return redirect()->back()->with('error', 'Unauthorized action.');
         }
@@ -147,7 +147,7 @@ class SalesOrderController extends Controller
             }
 
 
-            $orders = $ordersQuery->get();
+            $orders = $ordersQuery->paginate(5);
             $orderitems = $orderItemsQuery->get();
 
             return view('admin.allOrders', compact('user', 'orders'));
@@ -160,7 +160,7 @@ class SalesOrderController extends Controller
         $user=Auth::user();
         if($user){
            $order=SalesOrder::find($id);
-           $info=SalesPayment_info::where('order_id',$id)->get();
+           $info=SalesPayment_info::where('order_id',$id)->paginate(3);
             $orderitems=SalesOrderItem::where('order_id',$id)->with('medicineItems')->get();
 
             return view('admin.itemsDetails',compact('user','order','orderitems','info'));
@@ -204,7 +204,6 @@ public function addpayment(Request $request, $id) {
 
     if ($order->remaining==0) {
         $payment->payment_status = "completed";
-        session()->flash('message', 'Payment added successfully!');
     } else {
         $payment->payment_status = "incomplete";
     }
@@ -265,7 +264,7 @@ if($user){
 public function showRefund(){
     $user=Auth::user();
     if($user){
-        $orders=SalesOrder::get();
+        $orders=SalesOrder::paginate(4);
          return view('admin.refundView',compact('user','orders'));
      }
 }

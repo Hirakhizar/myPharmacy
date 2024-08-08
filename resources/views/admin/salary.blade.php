@@ -146,6 +146,9 @@
                             
                           </tbody>
                         </table>
+                        <div class="pagination mt-3 d-flex justify-content-center">
+                          {{ $salaries->links('pagination::bootstrap-5') }}
+                      </div>
                       </div>
                     </div>
                   </div> <!-- .col-12 -->
