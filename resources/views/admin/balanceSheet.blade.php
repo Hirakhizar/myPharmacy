@@ -75,7 +75,7 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>S.No</th>
+                                        <th>No.</th>
                                         <th>Date</th>
                                         <th>Description</th>
                                         <th>Debit</th>

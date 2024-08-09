@@ -64,14 +64,13 @@
                 </div>
                 <div class="search-container">
                     <form method="GET" action="{{ url('expenses') }}" class="row">
-
                         <div class="col-md-3 mb-3">
                             <h4 class='text-secondary'>Search Date</h4>
                             <input type="date" name="order_date" class="form-control" value="{{ request('order_date') }}">
                         </div>
                         <div class="col-md-3 mb-3">
                             <h4 class='text-secondary'>Category</h4>
-                            <select name="category_id" class="form-control">
+                            <select id="category" name="category_id" class="form-control">
                                 <option value="">Select Category</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -80,10 +79,10 @@
                         </div>
                         <div class="col-md-3 mb-3">
                             <h4 class='text-secondary'>SubCategory</h4>
-                            <select name="subcategory_id" class="form-control">
-                                <option value="">Select SubCategory</option>
+                            <select id="subcategory" name="subcategory_id" class="form-control">
+                            
                                 @foreach($subcategories as $subcategory)
-                                    <option value="{{ $subcategory->id }}" {{ request('subcategory_id') == $subcategory->id ? 'selected' : '' }}>{{ $subcategory->name }}</option>
+                                    <option value="{{ $subcategory->id }}" data-category-id="{{ $subcategory->category_id }}" {{ request('subcategory_id') == $subcategory->id ? 'selected' : '' }}>{{ $subcategory->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -130,7 +129,7 @@
                                             <td>{{ $expense->date }}</td>
                                             <td>{{ $expense->category->name }}</td>
                                             <td>{{ $expense->subcategory->name }}</td>
-                                            <td>{{ $expense->amount}} Rs/-</td>
+                                            <td>{{ $expense->amount }} Rs/-</td>
                                             <td>{{ $expense->description }}</td>
                                             <td>
                                                 <a href="{{ url('expenses/edit', ['id' => $expense->id]) }}" class="btn btn-success mb-2">Edit</a>
@@ -172,7 +171,7 @@
             cancelButtonText: 'No, cancel!',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = /expenses/delete/${expenseId};
+                window.location.href = `/expenses/delete/${expenseId}`;
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(
                     'Cancelled',
@@ -184,6 +183,30 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
+        const categorySelect = document.getElementById('category');
+        const subcategorySelect = document.getElementById('subcategory');
+        const subcategoryOptions = Array.from(subcategorySelect.options);
+
+        function filterSubcategories() {
+            const selectedCategory = categorySelect.value;
+
+            // Reset subcategory dropdown
+            subcategorySelect.innerHTML = '<option value="">Select SubCategory</option>';
+
+            // Filter and show relevant subcategories
+            subcategoryOptions.forEach(option => {
+                if (option.getAttribute('data-category-id') === selectedCategory || option.value === '') {
+                    subcategorySelect.appendChild(option);
+                }
+            });
+        }
+
+        // Filter subcategories when category is changed
+        categorySelect.addEventListener('change', filterSubcategories);
+
+        // Initial filter to set subcategories based on initial category value
+        filterSubcategories();
+
         @if(session('message'))
             Swal.fire({
                 title: 'Success!',

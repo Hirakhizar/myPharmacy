@@ -147,7 +147,7 @@ body {
                  <table class="table table-striped table-hover mb-3" id="purchaseTable" style="background: #FAFDFD">
                   <thead >
                     <tr>
-                      <th style="color: #778edd">SrNo</th>
+                      <th style="color: #778edd">No.</th>
                       <th style="color: #778edd">Invoice_No</th>
                       <th style="color: #778edd">Date</th>
                       <th style="color: #778edd">Customer</th>
