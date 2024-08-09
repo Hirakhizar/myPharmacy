@@ -43,11 +43,11 @@
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label for="amount"><b style="color:#7172b9;">Amount</b></label>
-                                    <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount" value="{{$payment->amount}}" required>
+                                    <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount" value={{$payment->amount}} required>
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label for="date"><b style="color:#7172b9;">Date</b></label>
-                                    <input type="date" class="form-control" id="date" name="date" placeholder="Enter date" value="{{$payment->date}}" required>
+                                    <input type="date" class="form-control" id="date" name="date" placeholder="Enter date" value={{$payment->date}} required>
                                 </div>
                             </div>
                             <div class="row mt-3">

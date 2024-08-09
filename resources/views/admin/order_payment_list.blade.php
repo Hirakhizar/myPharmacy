@@ -90,7 +90,7 @@
                                     <tr>
                                         <td>{{ $order->id }}</td>
                                         <td>{{$order->order_id}}</td>
-                                        <td>{{$order->method}} Rs/-</td>
+                                        <td>{{$order->method}} </td>
                                         <td>{{$order->amount}} Rs/-</td>
                                  
                                         <td>{{$order->date}}</td>
