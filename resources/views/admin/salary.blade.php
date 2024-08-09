@@ -56,7 +56,7 @@
                             <option value=""disable selected>Select Member</option>
                             @foreach ($members as  $member)
                             <option value="{{$member->id }}">{{ $member->first_name.' '.$member->last_name  }}</option>
-                         
+
                             @endforeach
                             </select>
                         </div>
@@ -97,16 +97,16 @@
                   <h4 class="card-title">Salary List</h4>
                 </div>
                 <div class="card-body">
-                 
-                 
-                  </div> 
+
+
+                  </div>
                   <div class="col-12">
                     <div class="card">
                       <div class="card-body">
                         <table class="table table-striped">
                           <thead>
                             <tr>
-                          
+
                               <th>Member</th>
                               <th>Date</th>
                               <th>Total Salary</th>
@@ -119,7 +119,7 @@
                           <tbody>
                        @foreach($salaries as $salary)
                             <tr>
-                       
+
                               <td>{{ $salary->member->first_name.' '.$salary->member->last_name }}</td>
                               <td>{{ $salary->date }}</td>
                               <td>{{ $salary->totalSalary }} Rs/-</td>
@@ -127,12 +127,12 @@
                               <td>{{ $salary->GenratedBy}}</td>
                               <td>{{ $salary->satus}}</td>
  <td>
-                         
+
   <div class="dropdown">
     <i class="fas fa-ellipsis-h dropdown-toggle" id="dropdownMenuButton{{ $salary->id }}" onclick="toggleDropdown({{ $salary->id }})"></i>
     <div class="dropdown-menu" id="dropdownMenu{{ $salary->id }}" style="display: none;">
-      <a class="dropdown-item text-success" href="{{ url('member/salary/edit', ['id' => $salary->id]) }}">
-        <i class="fas fa-edit"></i> Edit
+      <a class="dropdown-item text-warning" href="{{ url('member/salary/edit', ['id' => $salary->id]) }}">
+        <i class="fas fa-edit text-warning"></i> Edit
       </a>
       <a class="dropdown-item text-danger" href="{{ url('member/salary/delete', ['id' => $salary->id]) }}" onclick="confirmDeletion({{ $salary->id }}); return false;">
         <i class="fas fa-trash"></i> Delete
@@ -141,9 +141,9 @@
   </div>
 </td>
 
-                            </tr> 
+                            </tr>
                             @endforeach
-                            
+
                           </tbody>
                         </table>
                         <div class="pagination mt-3 d-flex justify-content-center">
@@ -170,7 +170,7 @@
     <!--   Core JS Files   -->
     @include('admin.scripts')
         <!-- SweetAlert Notification -->
-      
+
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     function toggleDropdown(id) {

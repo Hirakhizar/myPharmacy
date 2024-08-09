@@ -81,8 +81,8 @@
                       <div class="dropdown">
                         <i class="fas fa-ellipsis-h dropdown-toggle" id="dropdownMenuButton{{ $member->id }}" onclick="toggleDropdown({{ $member->id }})"></i>
                         <div class="dropdown-menu" id="dropdownMenu{{ $member->id }}" style="display: none;">
-                          <a class="dropdown-item text-success" href="{{ url('/member/edit',['id'=>$member->id]) }}">
-                            <i class="fas fa-edit"></i> Edit
+                          <a class="dropdown-item text-warning" href="{{ url('/member/edit',['id'=>$member->id]) }}">
+                            <i class="fas fa-edit text-warning"></i> Edit
                           </a>
                           <a class="dropdown-item text-danger" href="{{ url('/member/delete',['id'=>$member->id]) }}" onclick="confirmDeletion({{ $member->id }})">
                             <i class="fas fa-trash"></i> Delete

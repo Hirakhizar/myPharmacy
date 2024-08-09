@@ -65,7 +65,7 @@
                     <th>Phone</th>
                     <th>Address</th>
                     <th>Balance</th>
-                   
+
                     <th>Status</th>
                     <th><i class='fas fa-ellipsis-h'></i></th>
                   </tr>
@@ -86,8 +86,8 @@
                       <div class="dropdown">
                         <i  class=" dropdown-toggle" id="dropdownMenuButton{{ $manufacturer->id }}" onclick="toggleDropdown({{ $manufacturer->id }})"><b>...</b></i>
                         <div class="dropdown-menu" id="dropdownMenu{{ $manufacturer->id }}" style="display: none;">
-                          <a class="dropdown-item text-success" href="{{ url('/manufacturer/edit',['id'=>$manufacturer->id]) }}">
-                            <i class="fas fa-edit"></i> Edit
+                          <a class="dropdown-item text-warning" href="{{ url('/manufacturer/edit',['id'=>$manufacturer->id]) }}">
+                            <i class="fas fa-edit text-warning"></i> Edit
                           </a>
                           <a class="dropdown-item text-danger" href="{{ url('/manufacturer/delete',['id'=>$manufacturer->id]) }}" onclick="confirmDeletion({{ $manufacturer->id }})">
                             <i class="fas fa-trash"></i> Delete

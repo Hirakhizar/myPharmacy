@@ -50,7 +50,7 @@
                     <i class="fas fa-plus mx-3"></i> Add Medicine
                   </a>
                   <button type="button" class="btn btn-danger mx-3 " onclick="confirmMultipleDeletion()">Delete Selected</button>
-             
+
                 </span>
               </p>
             </div>
@@ -63,14 +63,14 @@
                 @csrf
                 @method('DELETE')
                 <table class="table">
-                 
+
                   <thead>
                     <tr>
                       <th><input type="checkbox" id="selectAll"></th>
                       <th>ID</th>
                       <th>Name</th>
                       <th>Generic Name</th>
-                      <th>Weight</th>
+
                       <th>Category</th>
                       <th>Price</th>
                       <th>Stock</th>
@@ -85,7 +85,7 @@
                       <td>{{ $med->id }}</td>
                       <td><h6>{{ $med->name }}</h6></td>
                       <td>{{ $med->generic_name }}</td>
-                      <td>{{ $med->weight }}mg</td>
+                      {{-- <td>{{ $med->weight }}mg</td> --}}
                       <td>{{ $med->category->name }}</td>
                       <td>{{ $med->price }} Rs/-</td>
                       <td>{{ $med->stock }}</td>
@@ -94,8 +94,8 @@
                         <div class="dropdown">
                           <i class="dropdown-toggle" id="dropdownMenuButton{{ $med->id }}" onclick="toggleDropdown({{ $med->id }})"><b>...</b></i>
                           <div class="dropdown-menu" id="dropdownMenu{{ $med->id }}" style="display: none;">
-                            <a class="dropdown-item text-success" href="{{ url('/medicine/edit',['id'=>$med->id]) }}">
-                              <i class="fas fa-edit"></i> Edit
+                            <a class="dropdown-item text-warning" href="{{ url('/medicine/edit',['id'=>$med->id]) }}">
+                              <i class="fas fa-edit text-warning"></i> Edit
                             </a>
                             <a class="dropdown-item text-danger" href="{{ url('/medicine/delete',['id'=>$med->id]) }}" onclick="confirmDeletion({{ $med->id }})">
                               <i class="fas fa-trash"></i> Delete

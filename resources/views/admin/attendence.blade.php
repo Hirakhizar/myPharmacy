@@ -123,8 +123,8 @@
                               <div class="dropdown">
                                 <i class="fas fa-ellipsis-h dropdown-toggle" id="dropdownMenuButton{{ $record->id }}" onclick="toggleDropdown({{ $record->id }})"></i>
                                 <div class="dropdown-menu" id="dropdownMenu{{ $record->id }}" style="display: none;">
-                                  <a class="dropdown-item text-success" href="{{ url('member/attendece/edit', ['id' => $record->id]) }}">
-                                    <i class="fas fa-edit"></i> Edit
+                                  <a class="dropdown-item text-warning" href="{{ url('member/attendece/edit', ['id' => $record->id]) }}">
+                                    <i class="fas fa-edit text-warning"></i> Edit
                                   </a>
                                   <a class="dropdown-item text-danger" href="{{ url('member/attendece/delete', ['id' => $record->id]) }}" onclick="confirmDeletion({{ $record->id }}); return false;">
                                     <i class="fas fa-trash"></i> Delete

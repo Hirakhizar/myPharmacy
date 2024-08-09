@@ -80,7 +80,7 @@ class OrderController extends Controller
     public function edit($order_id){
         $user = Auth::user();
         if($user){
-            $payment = PaymentInfo::find($order_id);
+            $payment = PaymentInfo::with('order.user')->find($order_id);
             return view('admin.edit_payment',compact('user','payment'));
         }
     }

@@ -80,7 +80,7 @@
                         <div class="col-md-3 mb-3">
                             <h4 class='text-secondary'>SubCategory</h4>
                             <select id="subcategory" name="subcategory_id" class="form-control">
-                            
+
                                 @foreach($subcategories as $subcategory)
                                     <option value="{{ $subcategory->id }}" data-category-id="{{ $subcategory->category_id }}" {{ request('subcategory_id') == $subcategory->id ? 'selected' : '' }}>{{ $subcategory->name }}</option>
                                 @endforeach
@@ -132,20 +132,20 @@
                                             <td>{{ $expense->amount }} Rs/-</td>
                                             <td>{{ $expense->description }}</td>
                                             <td>
-                                                <a href="{{ url('expenses/edit', ['id' => $expense->id]) }}" class="btn btn-success mb-2">Edit</a>
+                                                <a href="{{ url('expenses/edit', ['id' => $expense->id]) }}" ><i class="fas fa-edit text-warning"> Edit</i></a>
                                                 <br>
-                                                <button onclick="confirmDeletion({{ $expense->id }})" class='btn btn-danger'><b>Delete</b></button>
+                                                <a onclick="confirmDeletion({{ $expense->id }})"><i class="fas fa-trash text-danger "> Delete</i></button>
                                             </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
-                                 
+
                                 </table>
                                 <div class="pagination mt-3 d-flex justify-content-center">
                                     {{ $expenses->links('pagination::bootstrap-5') }}
                                 </div>
                             @endif
-                          
+
                         </div>
                     </div>
                 </div>

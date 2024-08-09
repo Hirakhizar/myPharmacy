@@ -74,13 +74,13 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Payment ID</th>
-                                        <th>Order ID</th>
+
+                                        <th>Invoice</th>
                                         <th>Payment Method</th>
                                         <th>Recieved Amount</th>
-                                        
+
                                         <th>Date</th>
-             
+
                                         <th>Action</th>
 
                                     </tr>
@@ -88,14 +88,14 @@
                                 <tbody id="medicineTableBody">
                                     @foreach ($payments as $order)
                                     <tr>
-                                        <td>{{ $order->id }}</td>
-                                        <td>{{$order->order_id}}</td>
+
+                                        <td>{{$order->invoice}}</td>
                                         <td>{{$order->method}} </td>
                                         <td>{{$order->amount}} Rs/-</td>
-                                 
+
                                         <td>{{$order->date}}</td>
-                                   
-                                        <td><a href="{{url('payment/edit',$order->id)}}" class="btn btn-danger">Edit</a></td>
+
+                                        <td><a href="{{url('payment/edit',$order->id)}}"><i class="fas fa-edit text-warning"></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>

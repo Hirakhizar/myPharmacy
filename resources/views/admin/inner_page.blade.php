@@ -128,9 +128,9 @@
                                 <th scope="row">
 
                                   </button>
-                                 #{{$pay->order_id}}
+                                 {{$pay->order_id}}
                                 </th>
-                                <td class="text-end">{{$pay->created_at}}</td>
+                                <td class="text-end">{{$pay->date}}</td>
                                 <td class="text-end">{{$pay->amount}}Rs/-</td>
 
 
@@ -157,10 +157,10 @@
                     <div class="table-responsive">
                       <!-- Projects table -->
                       <table class="table align-items-center mb-0">
-                        <thead class="thead-light">
+                        <thead class="thead-light text-center">
                           <tr>
-                            <th scope="col">Product Name</th>
-                            <th scope="col" class="text-end">Expire Date</th>
+                            <th scope="col"> Name</th>
+                            <th scope="col" class="text-end">Expiry</th>
                             <th scope="col" class="text-end">stock</th>
                             <th scope="col" class="text-end">Status</th>
                           </tr>
