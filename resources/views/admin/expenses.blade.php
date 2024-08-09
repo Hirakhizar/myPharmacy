@@ -48,6 +48,11 @@
         padding: 20px;
         color: #7172b9;
     }
+    .icon-btn {
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
 </style>
 
 <body>
@@ -132,9 +137,12 @@
                                             <td>{{ $expense->amount }} Rs/-</td>
                                             <td>{{ $expense->description }}</td>
                                             <td>
-                                                <a href="{{ url('expenses/edit', ['id' => $expense->id]) }}" ><i class="fas fa-edit text-warning"> Edit</i></a>
-                                                <br>
-                                                <a onclick="confirmDeletion({{ $expense->id }})"><i class="fas fa-trash text-danger "> Delete</i></button>
+                                                <a href="{{ url('expenses/edit', ['id' => $expense->id]) }}" class="icon-btn" data-toggle="tooltip" data-placement="top" title="Edit me" >
+                                                    <i class="fas fa-edit text-warning"></i>
+                                                </a>
+                                                <button onclick="confirmDeletion({{ $expense->id }})" class="icon-btn" data-toggle="tooltip" data-placement="top" title="Delete me">
+                                                    <i class="fas fa-trash text-danger"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -224,5 +232,10 @@
                 confirmButtonText: 'OK'
             });
         @endif
+
+        // Initialize Bootstrap tooltips
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     });
 </script>
