@@ -69,6 +69,7 @@
                         <div class="numbers">
                           <p class="card-category">Sales</p>
                           <h4 class="card-title">{{$sale}}Rs/-</h4>
+
                         </div>
                       </div>
                     </div>
@@ -89,7 +90,7 @@
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">Expense</p>
-                          <h4 class="card-title">{{$expense}}</h4>
+                          <h4 class="card-title">{{$expense}} </h4>
                         </div>
                       </div>
                     </div>
@@ -105,7 +106,7 @@
                         <div class="card-head-row card-tools-still-right">
                           <div class="card-title">Transaction History</div>
                           <div class="card-tools">
-                            
+
                           </div>
                         </div>
                       </div>
@@ -131,6 +132,7 @@
                                 </th>
                                 <td class="text-end">{{$pay->created_at}}</td>
                                 <td class="text-end">{{$pay->amount}}Rs/-</td>
+
 
                               </tr>
                               @endforeach
