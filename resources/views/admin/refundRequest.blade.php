@@ -38,7 +38,7 @@
                                     <tr>
                                         <td>{{ $item->medicineItems->name }}</td>
                                         <td>{{ $item->medicineItems->category->name }}</td>
-                                        <td>{{ $item->medicineItems->price }} Rs/-</td>
+                                        <td>{{number_format( $item->medicineItems->price) }} Rs/-</td>
                                         <td>{{ $item->qty }}</td>
                                         <td>{{ $item->total }}</td>
                                         <td>

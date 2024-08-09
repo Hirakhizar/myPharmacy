@@ -165,7 +165,7 @@ body {
                       <td style="color: #778edd">#{{ $order->invoice }}</td>
                       <td>{{ $order->date }}</td>
                       <td>{{ $order->customer }}</td>
-                      <td>{{ $order->total }} Rs/-</td>
+                      <td>{{ number_format($order->total) }} Rs/-</td>
                       <td>{{ $order->payment_status }}</td>
                     </tr>
                     @endforeach

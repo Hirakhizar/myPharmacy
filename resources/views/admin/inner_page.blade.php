@@ -68,7 +68,7 @@
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">Sales</p>
-                          <h4 class="card-title">{{$sale}} Rs/-</h4>
+                          <h4 class="card-title">{{number_format($sale)}} Rs/-</h4>
 
                         </div>
                       </div>
@@ -90,7 +90,7 @@
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">Expense</p>
-                          <h4 class="card-title">{{$expense}} Rs/-</h4>
+                          <h4 class="card-title">{{number_format($expense)}} Rs/-</h4>
                         </div>
                       </div>
                     </div>
@@ -128,10 +128,10 @@
                                 <th scope="row">
 
                                   </button>
-                                 #{{$pay->order_id}}
+                                 #{{$pay->invoice}}
                                 </th>
                                 <td class="text-end">{{$pay->created_at}}</td>
-                                <td class="text-end">{{$pay->amount}}Rs/-</td>
+                                <td class="text-end">{{number_format($pay->amount)}}Rs/-</td>
 
 
                               </tr>

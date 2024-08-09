@@ -36,8 +36,8 @@
                                     <tr>
                                         <td>{{ $item['name'] }}</td>
                                         <td>{{ $item['quantity'] }}</td>
-                                        <td>{{$item['price']}} Rs/-</td>
-                                        <td>{{ $item['total_price']}} Rs/-</td>
+                                        <td>{{number_format($item['price'])}} Rs/-</td>
+                                        <td>{{ number_format($item['total_price'])}} Rs/-</td>
                                     </tr>
                                     @endforeach
                                 @else

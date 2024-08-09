@@ -194,6 +194,7 @@ public function showpayment($id){
 
 
 public function addpayment(Request $request, $id) {
+    $user=Auth::user();
     $order = SalesOrder::find($id);
     if ( $request->amount> $order->remaining) {
        
@@ -209,19 +210,20 @@ public function addpayment(Request $request, $id) {
     }
     $order->save();
 
-    $payment = new SalesPayment_info();
-    $payment->order_id = $id;
-    $payment->amount = $request->amount;
-    $payment->payment_method = $request->method;
-    $payment->date = $request->date;
+    $info = new SalesPayment_info();
+    $info->order_id = $id;
+    $info->amount = $request->amount;
+    $info->payment_method = $request->method;
+    $info->date = $request->date;
 
     if ($order->remaining==0) {
-        $payment->payment_status = "completed";
+        $info->payment_status = "completed";
     } else {
-        $payment->payment_status = "incomplete";
+        $info->payment_status = "incomplete";
     }
-    $payment->save();
-    return redirect()->back()->with('message', 'Payment added successfully!');
+    $info->save();
+    $payment=SalesPayment_info::where('invoice',  $info->invoice )->get();
+    return view('admin.salesPaymentRecipte',compact('user','order','payment'));
 }
 
 public function editPayment($id){

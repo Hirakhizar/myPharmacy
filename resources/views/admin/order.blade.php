@@ -93,7 +93,7 @@
                                     <tr>
                                         <td>{{ $order->id }}</td>
                                         <td>{{$order->manufacturer}}</td>
-                                        <td>{{$order->total_amount}} Rs/-</td>
+                                        <td>{{number_format($order->total_amount)}} Rs/-</td>
 
                                         <td>{{$order->created_at}}</td>
                                         <td>{{$order->status}}</td>
