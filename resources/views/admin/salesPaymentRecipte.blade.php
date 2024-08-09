@@ -88,7 +88,7 @@
                       
                     
                         <tr>
-                        <td>#{{ $payment->order_id }}</td>
+                        <td>{{ $payment->order_id }}</td>
                           <td>{{number_format( $payment->amount )}} Rs/-</td>
                           <td>{{ $payment->date }}</td>
                           <td>{{ $payment->payment_method }}</td>

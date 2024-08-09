@@ -222,7 +222,7 @@ public function addpayment(Request $request, $id) {
         $info->payment_status = "incomplete";
     }
     $info->save();
-    $payment=SalesPayment_info::where('invoice',  $info->invoice )->get();
+    $payment=SalesPayment_info::where('invoice',  $info->invoice )->first();
     return view('admin.salesPaymentRecipte',compact('user','order','payment'));
 }
 
