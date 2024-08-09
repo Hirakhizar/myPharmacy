@@ -92,7 +92,7 @@
                                     <tr>
                                         <td>{{ $order->id }}</td>
                                         <td>{{ $order->customer }}</td>
-                                        <td>{{$order->total}} Rs/-</td>
+                                        <td>{{number_format($order->total)}} Rs/-</td>
                                         <td>{{ $order->created_at->format('d-m-Y') }}</td>
                                         <td>{{ $order->refund_status }}</td>
                                         <td>

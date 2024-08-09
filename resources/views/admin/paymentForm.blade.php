@@ -24,11 +24,11 @@
                     <div class="card-body" style="background-color: #f1f1f1; border-radius: 8px; padding: 20px; border: 1px solid #ccc; margin: 20px">
                         <h3 style="color:#7172b9;">Order : {{$order->id}}</h3>
                         <h4><b style="color:#7172b9;">User Name : {{$order->customer}}</b></h4>
-                        <h4><b style="color:#7172b9;">Total Amount : {{$order->total }}$</b></h4>
+                        <h4><b style="color:#7172b9;">Total Amount : {{number_format($order->total) }} Rs/-</b></h4>
                         @if ($order->remaining == '')
-                            <h4><b style="color:#7172b9;">Remaining Amount : 00.00$</b></h4>
+                            <h4><b style="color:#7172b9;">Remaining Amount : -</b></h4>
                         @else
-                            <h4><b style="color:#7172b9;">Remaining Amount : {{$order->remaining }}$</b></h4>
+                            <h4><b style="color:#7172b9;">Remaining Amount : {{number_format($order->remaining) }} Rs/-</b></h4>
                         @endif
                         <form action="{{ url('sales/payment/add', ['id' => $order->id]) }}" method="POST">
                             @csrf

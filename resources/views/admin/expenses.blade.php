@@ -65,7 +65,11 @@
                     <div class="col-md-12 mb-3 text-center">
                         <h2 class="text-secondary">Your Expenses</h2>
                         <p class="text-muted">List of all your Expenses.</p>
+                        <div class="mb-3  mx-5 d-flex justify-content-end ">
+                            <button id="exportButton" class="btn btn-success">Export to Excel</button>
+                        </div>
                     </div>
+                    
                 </div>
                 <div class="search-container">
                     <form method="GET" action="{{ url('expenses') }}" class="row">
@@ -96,6 +100,7 @@
                         </div>
                     </form>
                 </div>
+             
                 <div class="card my-5 w-100">
                     <div class="card-body">
                         <div class="table-container">
@@ -134,7 +139,7 @@
                                             <td>{{ $expense->date }}</td>
                                             <td>{{ $expense->category->name }}</td>
                                             <td>{{ $expense->subcategory->name }}</td>
-                                            <td>{{ $expense->amount }} Rs/-</td>
+                                            <td>{{number_format( $expense->amount)}} Rs/-</td>
                                             <td>{{ $expense->description }}</td>
                                             <td>
                                                 <a href="{{ url('expenses/edit', ['id' => $expense->id]) }}" class="icon-btn" data-toggle="tooltip" data-placement="top" title="Edit me" >
@@ -166,6 +171,7 @@
 </body>
 </html>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 <script>
     function confirmDeletion(expenseId) {
         Swal.fire({
@@ -237,5 +243,19 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
+    });
+
+    document.getElementById('exportButton').addEventListener('click', function() {
+        // Get table data
+        let table = document.querySelector('.table');
+        let wb = XLSX.utils.table_to_book(table, { sheet: "Expenses" });
+        let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+
+        // Create a blob and download
+        let blob = new Blob([wbout], { type: "application/octet-stream" });
+        let link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'expenses_list.xlsx';
+        link.click();
     });
 </script>

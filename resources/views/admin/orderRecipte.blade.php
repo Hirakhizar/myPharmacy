@@ -34,16 +34,16 @@
                                     <tr>
                                         <td>{{ $item->medicineItems->name }}</td>
                                         <td>{{ $item->qty }}</td>
-                                        <td>{{$item->medicineItems->price }} Rs/-</td>
-                                        <td>{{ $item->qty * $item->medicineItems->price}} Rs/-</td>
+                                        <td>{{number_format($item->medicineItems->price) }} Rs/-</td>
+                                        <td>{{number_format( $item->qty * $item->medicineItems->price)}} Rs/-</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         
-                        <p class="small"><strong>Total:</strong> {{$order->total}} Rs/-</p>
-                        <p class="small"><strong>Paid:</strong> {{$order->paid}} Rs/-</p>
-                        <p class="small"><strong>Remaining:</strong> {{$order->remaining }} Rs/-</p>
+                        <p class="small"><strong>Total:</strong> {{number_format($order->total)}} Rs/-</p>
+                        <p class="small"><strong>Paid:</strong> {{number_format($order->paid)}} Rs/-</p>
+                        <p class="small"><strong>Remaining:</strong> {{number_format($order->remaining) }} Rs/-</p>
                     </div>
                 </div>
                 <div class="my-3 d-flex justify-content-center">

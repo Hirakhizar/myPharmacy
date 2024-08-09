@@ -91,7 +91,7 @@
 
                                         <td>{{$order->invoice}}</td>
                                         <td>{{$order->method}} </td>
-                                        <td>{{$order->amount}} Rs/-</td>
+                                        <td>{{number_format($order->amount)}} Rs/-</td>
 
                                         <td>{{$order->date}}</td>
 

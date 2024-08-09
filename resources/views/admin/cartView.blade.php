@@ -32,9 +32,9 @@
                                 <tr>
                                     <td>{{ $cart->medicine->name }}</td>
                                     <td>{{ $cart->medicine->category->name }}</td>
-                                    <td>{{ $cart->medicine->price }} Rs/-</td>
+                                    <td>{{ number_format($cart->medicine->price )}} Rs/-</td>
                                     <td>{{ $cart->qty }}</td>
-                                    <td>{{ $cart->total }} Rs/-</td>
+                                    <td>{{ number_format($cart->total) }} Rs/-</td>
                                     <td>
                                         <button class='btn btn-danger delete-order' data-id="{{ $cart->id }}"><b>Remove</b></button>
         
@@ -51,7 +51,7 @@
                     <div class="card-body w-50">
                         <form action="{{ url('order/confirm') }}" method="POST">
                             @csrf
-                            <h4><b style="color: #7172b9">Total Price: {{ $total . ' Rs/-' }}</b></h4>
+                            <h4><b style="color: #7172b9">Total Price: {{ number_format($total ). ' Rs/-' }}</b></h4>
                             <div class="form-group">
                                 <label style="color: #7172b9">Customer Name</label>
                                 <input type="text" class="form-control" id="customerName" name="customer" value='Anonymous Customer' required>

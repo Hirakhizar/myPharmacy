@@ -106,7 +106,7 @@
 
                                             <td>{{ $payment->order_id }}</td>
                                             <td>{{ $payment->method }}</td>
-                                            <td>{{ $payment->amount }} Rs/-</td>
+                                            <td>{{ number_format($payment->amount) }} Rs/-</td>
                                             <td>{{ $payment->date }}</td>
 
 

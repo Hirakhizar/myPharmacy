@@ -96,7 +96,7 @@
                                         <td style="color: #7172b9"> #{{ $order->invoice}}</td>
                                         <td>{{ $order->id }}</td>
                                         <td>{{ $order->customer }}</td>
-                                        <td>{{ $order->total}} Rs/-</td>
+                                        <td>{{number_format($order->total) }} Rs/-</td>
                                         <td>{{ $order->created_at->format('d-m-Y') }}</td>
                                         <td>{{ $order->payment_status }}</td>
                                         <td><a href="{{ url('sales/payment/show', ['id' => $order->id]) }}" class='btn btn-secondary '><b>Pay</b></a></td>

@@ -114,12 +114,12 @@
 
                                                 if ($transaction['type'] == 'debit') {
                                                     $balances[$manufacturerId] += $transaction['amount'];
-                                                    $debitAmount = $transaction['amount'].' Rs/-';
+                                                    $debitAmount = number_format($transaction['amount']).' Rs/-';
                                                     $creditAmount = '-';
                                                 } else {
                                                     $balances[$manufacturerId] -= $transaction['amount'];
                                                     $debitAmount = '-';
-                                                    $creditAmount = $transaction['amount'].' Rs/-';
+                                                    $creditAmount =number_format( $transaction['amount']).' Rs/-';
                                                 }
                                             @endphp
                                             <tr>
@@ -128,7 +128,7 @@
                                                 <td>{{ \Carbon\Carbon::parse($transaction['date'])->format('Y-m-d') }}</td>
                                                 <td>{{ $debitAmount }} </td>
                                                 <td>{{ $creditAmount }} </td>
-                                                <td>{{ $balances[$manufacturerId]}} Rs/-</td>
+                                                <td>{{number_format( $balances[$manufacturerId])}} Rs/-</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

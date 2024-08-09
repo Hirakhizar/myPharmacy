@@ -122,7 +122,7 @@
 
                               <td>{{ $salary->member->first_name.' '.$salary->member->last_name }}</td>
                               <td>{{ $salary->date }}</td>
-                              <td>{{ $salary->totalSalary }} Rs/-</td>
+                              <td>{{ number_format($salary->totalSalary) }} Rs/-</td>
                               <td>{{ $salary->workingDays}}</td>
                               <td>{{ $salary->GenratedBy}}</td>
                               <td>{{ $salary->satus}}</td>

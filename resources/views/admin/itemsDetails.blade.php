@@ -45,9 +45,9 @@
                             <h5>Order #: <strong>{{ $order->id }}</strong></h5>
                             <h5>Customer Name: <strong>{{ $order->customer }}</strong></h5>
                             <h5>Phone Number: <strong>{{ $order->phone }}</strong></h5>
-                            <h5>Total Amount: <strong>{{$order->total }} Rs/-</strong></h5>
-                            <h5>Paid Amount: <strong>{{$order->paid}} Rs/-</strong></h5>
-                            <h5>Remaining Amount: <strong>{{$order->remaining}} Rs/-</strong></h5>
+                            <h5>Total Amount: <strong>{{number_format($order->total )}} Rs/-</strong></h5>
+                            <h5>Paid Amount: <strong>{{number_format($order->paid)}} Rs/-</strong></h5>
+                            <h5>Remaining Amount: <strong>{{number_format($order->remaining)}} Rs/-</strong></h5>
                         </div>
                         <div class="table-responsive p-3">
                             <table class="table table-bordered table-striped">
@@ -103,7 +103,7 @@
                                         @foreach ($info as $payment)
                                         <tr>
                                             <td>{{ $payment->id }}</td>
-                                            <td>{{$payment->amount}} Rs/-</td>
+                                            <td>{{number_format($payment->amount)}} Rs/-</td>
                                             <td>{{ $payment->payment_method }}</td>
                                             <td>{{ $payment->payment_status }}</td>
                                             <td>{{ $payment->date }}</td>

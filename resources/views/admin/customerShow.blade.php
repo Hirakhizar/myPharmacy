@@ -77,7 +77,7 @@
                     <td>{{ $customer->phone }}</td>
                     <td>Items: {{ $customer->medicine->name }}<br>
                       Quantity: {{ $customer->purchaced_qty }}</td>
-                    <td>{{ $customer->amount }}</td>
+                    <td>{{ number_format($customer->amount) }} Rs/-</td>
                     <td>{{ $customer->status }}</td>
                     <td>
                       <div class="dropdown">
