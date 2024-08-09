@@ -104,7 +104,7 @@
                     <div class="card-body" style="background-color: #f1f1f1; border-radius: 8px; padding: 20px; border: 1px solid #ccc; margin: 20px">
                        <h3 style="color:#7172b9;">Order : {{$order->id}}</h3>
                         <h4><b style="color:#7172b9;">User Name : {{$order->user->name}}</b></h3>
-                            <h4><b style="color:#7172b9;">Total Amount : {{number_format($order->total_amoun)t}} Rs/-</b></h3>
+                            <h4><b style="color:#7172b9;">Total Amount : {{number_format($order->total_amoun)}} Rs/-</b></h3>
                                 <h4><b style="color:#7172b9;">Remaining Amount : {{number_format($order->remaining_amount)}} Rs/-</b></h3>
                             <form id="paymentForm" action="{{ route('payment.store', $order->id) }}" method="POST" data-remaining-amount="{{$order->remaining_amount}}">
                                 @csrf
