@@ -33,7 +33,7 @@
         text-align: center;
     }
     .table th {
-        color: #7172b9;
+        color:  #778edd;
         border: 1px solid #dee2e6;
     }
     .table-striped tbody tr:nth-of-type(odd) {
@@ -54,13 +54,17 @@
             @include('admin.main_header')
             <div class="container table-container">
                 <div class="row mt-3">
-                    <div class="col-md-12 mb-3" style="text-align: center">
-                        <h2 class="text" style="color:#7172b9;">Manufacturer Ledger</h2>
+                    <div class="col-md-12 mb-3 mx-4" >
+                        <h2 class="text" style="color: #778edd">Manufacturer Ledger</h2>
                         <p class="text-muted">List of all your payments.</p>
                     </div>
                 </div>
+                <div class="d-flex justify-content-end mx-4 ">
+                    <button id="download-pdf" class="btn btn-info">Download PDF</button>
+                    <button id="export-excel" class="btn btn-success mx-2">Export to Excel</button>
+                </div>
                 <div class="search-container">
-                    <div class="row" style="color: #7172b9">
+                    <div class="row" style="color: #778edd">
                         <div class="col-md-6">
                             <h4>Search order</h4>
                             <input type="date" class="form-control" id="searchDateInput" placeholder="Search by Date and Time">
@@ -135,15 +139,14 @@
 
                             </div>
 
-                            <button id="download-pdf" class="btn btn-warning">Download PDF</button>
-                            <button id="export-excel" class="btn btn-success">Export to Excel</button>
+
                             <div class="d-flex justify-content-center" style="height: 50px">
                                 {!! $transactions->appends(['per_page' => $perPage])->links() !!}
                             </div>
                         </div>
                     </div>
             </div>
-            @include('admin.footer')
+           
         </div>
         @include('admin.custom')
     </div>

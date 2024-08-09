@@ -8,7 +8,7 @@
               </div>
               <div class="ms-md-auto py-2 py-md-0">
                 <a href="{{url('balanceSheet')}}" class="btn btn-label-info btn-round me-2">Balance Sheet</a>
-                <a href="{{url('/manufacture/ledger')}}" class="btn btn-primary btn-round">Manufacturer Ledger</a>
+                <a href="{{url('/manufacture/ledger')}}" class="btn btn-primary btn-round"> Ledger</a>
               </div>
             </div>
             <div class="row">
@@ -68,7 +68,7 @@
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">Sales</p>
-                          <h4 class="card-title">$ {{$sale}}</h4>
+                          <h4 class="card-title">{{$sale}}Rs/-</h4>
                         </div>
                       </div>
                     </div>
@@ -105,28 +105,7 @@
                         <div class="card-head-row card-tools-still-right">
                           <div class="card-title">Transaction History</div>
                           <div class="card-tools">
-                            <div class="dropdown">
-                              <button
-                                class="btn btn-icon btn-clean me-0"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
-                                <i class="fas fa-ellipsis-h"></i>
-                              </button>
-                              <div
-                                class="dropdown-menu"
-                                aria-labelledby="dropdownMenuButton"
-                              >
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#"
-                                  >Something else here</a
-                                >
-                              </div>
-                            </div>
+                            
                           </div>
                         </div>
                       </div>
@@ -136,8 +115,8 @@
                           <table class="table align-items-center mb-0">
                             <thead class="thead-light">
                               <tr>
-                                <th scope="col">Invoice Number</th>
-                                <th scope="col" class="text-end">Date & Time</th>
+                                <th scope="col">Invoice</th>
+                                <th scope="col" class="text-end">Date </th>
                                 <th scope="col" class="text-end">Amount</th>
 
                               </tr>
@@ -146,15 +125,12 @@
                                 @foreach ($payment as $pay)
                               <tr>
                                 <th scope="row">
-                                  {{-- <button
-                                    class="btn btn-icon btn-round btn-success btn-sm me-2"
-                                  >
-                                    <i class="fa fa-check"></i> --}}
+
                                   </button>
-                                  Payment from #{{$pay->order_id}}
+                                 #{{$pay->order_id}}
                                 </th>
                                 <td class="text-end">{{$pay->created_at}}</td>
-                                <td class="text-end">${{$pay->amount}}</td>
+                                <td class="text-end">{{$pay->amount}}Rs/-</td>
 
                               </tr>
                               @endforeach
@@ -172,28 +148,6 @@
                     <div class="card-head-row card-tools-still-right">
                       <div class="card-title">Product Detail</div>
                       <div class="card-tools">
-                        <div class="dropdown">
-                          <button
-                            class="btn btn-icon btn-clean me-0"
-                            type="button"
-                            id="dropdownMenuButton"
-                            data-bs-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
-                            <i class="fas fa-ellipsis-h"></i>
-                          </button>
-                          <div
-                            class="dropdown-menu"
-                            aria-labelledby="dropdownMenuButton"
-                          >
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#"
-                              >Something else here</a
-                            >
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -236,7 +190,7 @@
                                     </td>
                                     @else
                                     <td class="text-end">
-                                        <span class="badge badge-success">{{ $med->status }}</span>
+                                        <span class="badge badge-secondary">Expire Soon</span>
                                     </td>
                                 @endif
                             </tr>
