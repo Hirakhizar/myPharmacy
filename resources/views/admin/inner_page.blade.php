@@ -68,7 +68,7 @@
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">Sales</p>
-                          <h4 class="card-title">{{$sale}}Rs/-</h4>
+                          <h4 class="card-title">{{$sale}} Rs/-</h4>
 
                         </div>
                       </div>
@@ -90,7 +90,7 @@
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">Expense</p>
-                          <h4 class="card-title">{{$expense}} </h4>
+                          <h4 class="card-title">{{$expense}} Rs/-</h4>
                         </div>
                       </div>
                     </div>
